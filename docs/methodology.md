@@ -133,6 +133,12 @@ intervention
 → benchmark
 ```
 
+## Repository location during Linux-side testing
+
+When running the CLI from Ubuntu, prefer cloning the repository into the Linux filesystem (for example, under `$HOME`) instead of running it from `/mnt/c`. Microsoft recommends this layout for better filesystem performance when using Linux command-line tools.
+
+Reference: https://learn.microsoft.com/windows/wsl/filesystems#file-storage-and-performance-across-file-systems
+
 ## Read-only first
 
 The public diagnostic workflow should begin read-only.
