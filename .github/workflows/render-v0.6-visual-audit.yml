@@ -1,0 +1,69 @@
+name: Render v0.6 visual audit
+
+on:
+  push:
+    branches:
+      - audit/v0.6-visual
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    if: ${{ !contains(github.event.head_commit.message, '[skip visual-audit]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Locate Chromium
+        id: chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          BIN="$(command -v google-chrome || command -v chromium-browser || command -v chromium || true)"
+          test -n "$BIN"
+          echo "bin=$BIN" >> "$GITHUB_OUTPUT"
+          "$BIN" --version
+      - name: Render animation checkpoints
+        shell: bash
+        env:
+          CHROME: ${{ steps.chrome.outputs.bin }}
+        run: |
+          set -euo pipefail
+          mkdir -p audit/v0.6-visual-frames
+          SRC="file://$GITHUB_WORKSPACE/docs/assets/three-model-timing-comparison.svg"
+          render() {
+            name="$1"
+            budget="$2"
+            "$CHROME" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+              --window-size=1000,846 \
+              --virtual-time-budget="$budget" \
+              --run-all-compositor-stages-before-draw \
+              --screenshot="$GITHUB_WORKSPACE/audit/v0.6-visual-frames/$name.png" \
+              "$SRC"
+          }
+          render t00_2 200
+          render t03_2 3200
+          render t06_2 6200
+          render t09_2 9200
+          render t12_3 12300
+          render t13_2 13200
+          render t15_0 15000
+
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --force-prefers-reduced-motion=reduce \
+            --window-size=1000,846 \
+            --virtual-time-budget=500 \
+            --run-all-compositor-stages-before-draw \
+            --screenshot="$GITHUB_WORKSPACE/audit/v0.6-visual-frames/reduced-motion.png" \
+            "$SRC"
+
+          file audit/v0.6-visual-frames/*.png
+      - name: Commit rendered audit frames
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit/v0.6-visual-frames
+          git commit -m "Render v0.6 visual audit frames [skip visual-audit]" || exit 0
+          git push
