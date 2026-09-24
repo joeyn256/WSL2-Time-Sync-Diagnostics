@@ -1,7 +1,7 @@
 {
-  "release": "0.3.0",
-  "status": "feature-branch-presentation-refresh",
-  "branch": "feature/v0.3.0-presentation",
+  "release": "0.3.1",
+  "status": "feature-branch-presentation-viewer-refinement",
+  "branch": "feature/v0.3.1-presentation",
   "base_release": "v0.1.1",
   "base_commit": "830a142d57e8f785016ef07952a5340b4eb94ab3",
   "builds_on": {
@@ -20,7 +20,7 @@
     "v0.3.0: README opening rewritten around problem, difficulty, tool, and evidence, with explicit evidence tiers and an install/quickstart block.",
     "v0.3.0: Animated D4R2 hero (docs/assets/d4r2-settling-animated.svg) built only from published D4R2 values, CSS keyframes, no scripts, reduced-motion aware, complete static fallback.",
     "v0.3.0: Merged host -> WSL2 kernel -> guest architecture diagram (docs/assets/architecture-host-vm-guest.svg) replacing two near-duplicate architecture assets.",
-    "v0.3.0: Timeline corrections (2.1.1 marked prerelease, maintainer closure wording, year ticks, D4R2 marker inside 2026, Canonical page dated as its own April-2026 fact); superseded assets removed; broken README anchor in docs/findings-ubuntu-26.04.md fixed; validation wording rescoped by commit."
+    "v0.3.0: Timeline corrections (2.1.1 marked prerelease, maintainer closure wording, year ticks, D4R2 marker inside 2026, Canonical page dated as its own April-2026 fact); superseded assets removed; broken README anchor in docs/findings-ubuntu-26.04.md fixed; validation wording rescoped by commit.",\n    "v0.3.1: D4R2 animated viewer starts the stop transition almost immediately, shortens playback to 21 seconds, and adds a clearly labelled architecture inset showing systemd-timesyncd STOPPED while Hyper-V remains and kernel discipline state is not automatically proven settled. The inset is explanatory only and does not claim timesyncd was disabled, the sole writer, or the root cause."
   ],
   "validation": {
     "durable_github_ci": {

@@ -1,5 +1,5 @@
 {
-  "version": "public-v0.3.0",
+  "version": "public-v0.3.1",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
