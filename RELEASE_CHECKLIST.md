@@ -1,15 +1,25 @@
 # Release Checklist
 
-Before publishing this repository:
+Before publishing a stable release:
 
+- [ ] Confirm `pyproject.toml`, `src/wsl_time_sync/__init__.py`, `MANIFEST.json`, and `RELEASE_MANIFEST.json` agree on the intended release version.
+- [ ] Confirm the README title, CI badge, repository links, issue links, and clone/path examples use the current repository identity.
 - [ ] Read the public README and all docs once in rendered Markdown.
-- [ ] Confirm no private paths, usernames, boot IDs, tokens, or unrelated project data remain.
-- [ ] Run `pytest`.
-- [ ] Run `wsl-time-sync --help`.
+- [ ] Render each public SVG at normal size and verify the reduced-motion/static state is coherent.
+- [ ] Confirm no private paths, usernames, boot IDs, tokens, credentials, or unrelated project data remain.
+- [ ] Run the complete test suite.
+- [ ] Install the candidate in a clean virtual environment and run `wsl-time-sync --help`.
+- [ ] Run the semantic CLI smoke used by CI.
 - [ ] Run `wsl-time-sync diagnose` inside WSL2 and inspect the output before sharing it.
 - [ ] Confirm example JSON remains synthetic.
 - [ ] Confirm no mutating command was added to a default CLI path.
+- [ ] Confirm current GitHub Actions is green on both supported Python matrix entries at the exact release-candidate commit.
+- [ ] Confirm schema/method version labels are not being confused with the package release number.
 - [ ] Enable GitHub secret scanning / push protection where available.
 - [ ] Enable Dependabot alerts.
 - [ ] Enable private vulnerability reporting if desired.
-- [ ] Create the first release only after CI is green.
+- [ ] Create the release tag only after the exact candidate passes CI.
+- [ ] Close the implementation issue only after the stable content is merged.
+
+For v1.0.0 specifically, pre-1.0 branch labels (`0.2.0`, `0.3.0`, and
+`0.3.1`) are development lineage, not public release tags.

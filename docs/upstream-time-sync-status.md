@@ -118,7 +118,7 @@ apt-mark auto systemd-timesyncd
 apt install chrony
 ```
 
-These are administrative package changes, not actions performed by this guide's
+These are administrative package changes, not actions performed by this project's
 diagnostic CLI. A 24.04-to-26.04 upgrade alone does not establish a daemon
 migration, remove retained configuration, or prove that a clock conflict ended.
 

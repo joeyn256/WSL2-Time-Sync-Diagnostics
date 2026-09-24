@@ -86,4 +86,4 @@ For a timing-sensitive workload, one clean 300-second run should be treated as a
 
 Treat the reported 26.04 result as a **promising guest-side screen**. Test your own dependencies and timing requirements before committing to a long workload.
 
-See the [read-only diagnostic core and clock caveats](../README.md#the-v02-read-only-diagnostic-core).
+See the [read-only diagnostic core and clock caveats](../README.md#the-read-only-diagnostic-core).

@@ -24,7 +24,7 @@ The historical 24.04/26.04 work did not perform a comprehensive ecosystem-wide p
 
 ## Compatibility of this CLI
 
-The v0.2 guest core uses only the Python standard library at runtime. Its CI matrix runs the complete test suite on Python 3.12 and Python 3.14, including bracketed sampling, exact interval boundaries, synthetic failure shapes, legacy v0.1 analysis, kernel-state error handling, finite settling observations, and method-aware comparison. `pytest` is a development dependency, not a runtime requirement.
+The stable diagnostic core uses only the Python standard library at runtime. Its CI matrix runs the complete test suite on Python 3.12 and Python 3.14, including bracketed sampling, exact interval boundaries, synthetic failure shapes, legacy v0.1 analysis, kernel-state error handling, finite settling observations, and method-aware comparison. `pytest` is a development dependency, not a runtime requirement.
 
 Interpreter compatibility is separate from operating-system and ABI support. Offline analysis and synthetic fixtures can run without Linux timing interfaces. Live RAW/BOOTTIME acquisition records unavailable clocks explicitly. The read-only `adjtimex` reader is restricted to the validated Linux x86-64 LP64 layout and reports unsupported environments as unavailable. Passing mocked layout/error tests on another platform does not qualify that platform's live kernel interface.
 

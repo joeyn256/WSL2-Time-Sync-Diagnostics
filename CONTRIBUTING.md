@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve this WSL2 timing and environment-selection guide.
+Thanks for helping improve WSL2 Time Sync Diagnostics.
 
 ## Good contributions
 
@@ -69,7 +69,7 @@ For code changes:
 2. preserve read-only defaults;
 3. avoid hidden retries;
 4. document any new collected field;
-5. update the relevant guide page if interpretation changes.
+5. update the relevant documentation page if interpretation changes.
 
 For documentation changes, link each material claim to the evidence category it
 depends on.

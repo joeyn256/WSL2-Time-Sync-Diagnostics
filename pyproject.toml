@@ -3,21 +3,27 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "wsl-time-sync-guide"
-version = "0.3.1"
-description = "Read-only WSL2 timing diagnostics and an evidence-backed Ubuntu/Python environment guide"
+name = "wsl2-time-sync-diagnostics"
+version = "1.0.0"
+description = "Read-only WSL2 clock diagnostics with evidence-backed Ubuntu time-sync analysis"
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
-keywords = ["WSL2", "Ubuntu", "timing", "clock", "Python"]
+keywords = ["WSL2", "WSL", "Ubuntu", "Linux", "time synchronization", "clock drift", "timekeeping", "Hyper-V", "systemd-timesyncd", "chrony", "Python"]
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 5 - Production/Stable",
   "Operating System :: POSIX :: Linux",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.14",
   "Topic :: System :: Monitoring",
 ]
+
+[project.urls]
+Homepage = "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics"
+Repository = "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics"
+Issues = "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/issues"
+Documentation = "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics#readme"
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]

@@ -1,7 +1,7 @@
-# WSL2 Timing & Ubuntu Environment Guide
+# WSL2 Time Sync Diagnostics
 
 <p align="center">
-  <a href="https://github.com/joeyn256/wsl2-time-sync-guide/actions/workflows/ci.yml"><img alt="CI status" src="https://github.com/joeyn256/wsl2-time-sync-guide/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/actions/workflows/ci.yml"><img alt="CI status" src="https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/actions/workflows/ci.yml/badge.svg"></a>
   <img alt="Python 3.12 and 3.14" src="https://img.shields.io/badge/python-3.12%20%7C%203.14-3776ab">
   <img alt="Runtime: standard library only" src="https://img.shields.io/badge/runtime-stdlib%20only-555">
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green">
@@ -47,7 +47,7 @@ Guest-side agreement between `CLOCK_MONOTONIC` and `CLOCK_MONOTONIC_RAW` is evid
 - **Choosing an environment** → [At a glance](#at-a-glance); Ubuntu 26.04 fresh install vs 24.04, with Python 3.12 vs 3.14 kept as a separate decision.
 - **How time reaches the guest** → [The architecture changed](#the-architecture-changed) and [docs/upstream-time-sync-status.md](docs/upstream-time-sync-status.md).
 - **The full D4R2 record and the C1 result** → [docs/timesyncd-investigation.md](docs/timesyncd-investigation.md).
-- **CLI and JSON schema** → [docs/v0.2-guest-core.md](docs/v0.2-guest-core.md); **arithmetic** → [docs/methodology.md](docs/methodology.md); **limits** → [docs/limitations.md](docs/limitations.md).
+- **CLI and JSON schema** → [docs/cli-schema.md](docs/cli-schema.md); **arithmetic** → [docs/methodology.md](docs/methodology.md); **limits** → [docs/limitations.md](docs/limitations.md).
 
 ---
 
@@ -86,7 +86,7 @@ Microsoft closed the historical WSL sleep/resume time-of-day bug (#10006) with t
 Canonical later documented the modern controller interaction directly and changed Ubuntu's default time-daemon architecture.
 
 <p align="center">
-  <img src="docs/assets/upstream-timeline.svg" alt="Three-lane timeline from 2023 to 2026: Microsoft WSL (#10006 in 2023, the WSL 2.1.1 prerelease in January 2024, #12583 in 2025, #40745 in 2026), Ubuntu/Canonical (24.04 timesyncd default, 25.10 chrony default, April 2026 26.04 WSL service exception with chrony -x and the Canonical time-sync page), and this project (2026 D4R2 finding and v0.2)." width="1000">
+  <img src="docs/assets/upstream-timeline.svg" alt="Three-lane timeline from 2023 to 2026: Microsoft WSL (#10006 in 2023, the WSL 2.1.1 prerelease in January 2024, #12583 in 2025, #40745 in 2026), Ubuntu/Canonical (24.04 timesyncd default, 25.10 chrony default, April 2026 26.04 WSL service exception with chrony -x and the Canonical time-sync page), and this project (2026 D4R2 finding and the public diagnostic core)." width="1000">
 </p>
 
 The dated upstream review distinguishes:
@@ -174,9 +174,9 @@ Read more: [Python 3.12 vs Python 3.14](docs/python-3.12-vs-3.14.md).
 
 ---
 
-## The v0.2 read-only diagnostic core
+## The read-only diagnostic core
 
-The CLI is standard-library-only at runtime and does **not** modify time services, firewall state, WSL configuration, or system Python.
+The CLI is standard-library-only at runtime and does **not** modify time services, firewall state, WSL configuration, or system Python. **v1.0.0 establishes this read-only CLI, schema-v2 report format, and documented fail-closed analysis behavior as the first stable public baseline.**
 
 ### Install
 
@@ -210,7 +210,7 @@ CLOCK_BOOTTIME (when available)
 CLOCK_MONOTONIC_RAW after
 ```
 
-The v0.2 scheduler uses the first valid RAW sample as the acquisition origin, so acquisition coverage and fixed-window analysis share the same reference. `perf_counter_ns` is used only as a finite waiting guard.
+The current scheduler uses the first valid RAW sample as the acquisition origin, so acquisition coverage and fixed-window analysis share the same reference. `perf_counter_ns` is used only as a finite waiting guard.
 
 ### Analyze without hiding uncertainty
 
@@ -263,7 +263,7 @@ Comparison checks schema, acquisition/reference, analysis version, thresholds, c
 
 `wsl-time-sync python-check --requirements requirements.txt` reports the interpreter and whether named distributions are installed; it installs nothing.
 
-See the full [v0.2 CLI and schema reference](docs/v0.2-guest-core.md). Keep original measurements private; before sharing output, remove usernames, hostnames, personal paths, and literal boot or machine identifiers from a separate copy.
+See the full [CLI and schema reference](docs/cli-schema.md). Keep original measurements private; before sharing output, remove usernames, hostnames, personal paths, and literal boot or machine identifiers from a separate copy.
 
 ---
 
@@ -285,17 +285,13 @@ A result in one category is not automatically evidence for another.
 
 ### Current software-validation status
 
-The v0.2 candidate head `6f529bd1` passed the exact-head GitHub Actions run [35953104105](https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35953104105) on `ubuntu-latest`:
+The implementation entering v1.0.0 passed exact-head GitHub Actions on the final v0.3.1 viewer commit `4e7a64a5` in [run 35959842755](https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/actions/runs/35959842755):
 - **271 tests on CPython 3.12.14** and **271 tests on CPython 3.14.7**;
-- the semantic CLI smoke: strict JSON, RAW acquisition completion, requested RAW-duration coverage, two complete fixed windows with zero partial windows, cumulative REALTIME evidence, and method-aware comparison.
+- semantic CLI smoke in both jobs: strict JSON, RAW acquisition completion, requested RAW-duration coverage, two complete fixed windows with zero partial windows, cumulative REALTIME evidence, and method-aware comparison.
 
-The runtime correction commit `dd583351` passed the same matrix in run [35951407913](https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35951407913). Earlier runs: the initial implementation `de2375d3` ([35946297095](https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35946297095), 193 tests per interpreter) and the upstream docs-only commit `cb01ad24` ([35949003144](https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35949003144)). Consult the checks on the current commit for its own result.
+The v1.0.0 release itself is gated on a fresh exact-head CI pass from `release/v1.0.0` before the tag is created. Historical implementation/review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
 
-Local WSL software checks, reported and not backed by committed logs:
-- initial implementation `de2375d3`: 193 tests on Ubuntu 24.04 / Python 3.12.3 and Ubuntu 26.04 / Python 3.14.4 (implementer, reproduced by the reviewer);
-- candidate head `6f529bd1`: 271 tests on Ubuntu 24.04 / Python 3.12.3 and Ubuntu 26.04 / Python 3.14.4 (reviewer, 2026-09-24).
-
-None of these is a host-referenced timing qualification, which remains unavailable.
+Local WSL software checks were also performed during review on Ubuntu 24.04 / Python 3.12.3 and Ubuntu 26.04 / Python 3.14.4. Those checks are software-validation evidence only; they are not host-referenced timing qualification, which remains unavailable.
 
 ---
 
@@ -317,7 +313,7 @@ None of these is a host-referenced timing qualification, which remains unavailab
 When working primarily from Linux tools, Microsoft recommends keeping Linux projects in the Linux filesystem, for example:
 
 ```bash
-~/Projects/wsl2-time-sync-guide
+~/Projects/WSL2-Time-Sync-Diagnostics
 ```
 
 rather than:
@@ -337,7 +333,7 @@ See [Microsoft's WSL filesystem guidance](https://learn.microsoft.com/windows/ws
 - [Ubuntu 26.04 findings](docs/findings-ubuntu-26.04.md)
 - [`systemd-timesyncd` investigation](docs/timesyncd-investigation.md)
 - [Python 3.12 vs Python 3.14](docs/python-3.12-vs-3.14.md)
-- [v0.2 CLI and schema reference](docs/v0.2-guest-core.md)
+- [CLI and schema reference](docs/cli-schema.md)
 - [Methodology](docs/methodology.md)
 - [Limitations](docs/limitations.md)
 - [Real Ubuntu 26.04 WSL2 CLI smoke test](docs/real-wsl-smoke-test.md)

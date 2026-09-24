@@ -8,7 +8,7 @@ That matters especially for timekeeping, where two clocks can agree with each ot
 
 ## Evidence categories
 
-The guide separates evidence into four broad categories.
+The project separates evidence into four broad categories.
 
 ### 1. Historical test evidence
 
@@ -102,7 +102,7 @@ A 300-second run can look acceptable on average while containing a serious 30-se
 
 Windowed analysis makes that visible.
 
-The v0.2 analyzer reports each configured window as well as the full-run result. A later within-band window does not erase an earlier outside-band window. Thresholds and window lengths are observation settings, not universal definitions of clock health.
+The current analyzer reports each configured window as well as the full-run result. A later within-band window does not erase an earlier outside-band window. Thresholds and window lengths are observation settings, not universal definitions of clock health.
 
 ## Why `CLOCK_MONOTONIC_RAW` is useful
 
@@ -114,7 +114,7 @@ It is that comparing adjusted and raw monotonic clocks can reveal when clock dis
 
 ## Bracketed guest acquisition
 
-The v0.2 probe uses a versioned schema and this acquisition order:
+The schema-v2 probe uses a versioned schema and this acquisition order:
 
 ```text
 MONOTONIC_RAW before
@@ -179,13 +179,13 @@ The analyzer still accepts v0.1 probe inputs. Their single RAW reads do not retr
 
 ## Kernel-state and finite settling observations
 
-The v0.2 kernel reader requests `adjtimex(modes=0)`. It validates the supported Linux x86-64 LP64 structure layout before calling the interface and returns structured unavailability on unsupported layouts or read errors. The result preserves raw kernel fields, including `tick`, scaled `freq`, status, and error estimates; units depend on the field and, for applicable fields, `STA_NANO`.
+The current kernel reader requests `adjtimex(modes=0)`. It validates the supported Linux x86-64 LP64 structure layout before calling the interface and returns structured unavailability on unsupported layouts or read errors. The result preserves raw kernel fields, including `tick`, scaled `freq`, status, and error estimates; units depend on the field and, for applicable fields, `STA_NANO`.
 
 A snapshot is supporting state evidence. It does not establish that every pending correction is absent, identify the writer of an earlier correction, or measure a clock's rate over a window. In particular, `tick == 10000` and a small `freq / 65536` are historical example values, not a portable readiness rule.
 
 The `settle-check` command observes repeated `adjtimex` snapshots for a finite requested duration. Its default policy, explicitly named `historical_example_tick10000_freq100ppm`, requires `tick == 10000` and `abs(freq / 65536) < 100`; these values and the required consecutive count are configurable. The frequency boundary is strict. Any observed tick/frequency anomaly remains visible even after later nominal readings. Missing readings, an incomplete scheduled capture, or too few consecutive readings prevent a within-band result.
 
-Its vocabulary is `WITHIN_CONFIGURED_BAND`, `ANOMALY_OBSERVED`, or `INDETERMINATE`. A within-band outcome describes only the sampled kernel fields under that policy. The command does not measure bracketed clock rates; use `probe` and `analyze` for those. It does not certify a future workload, uninterrupted stability, host agreement, or absolute accuracy. See the [v0.2 CLI and schema reference](v0.2-guest-core.md).
+Its vocabulary is `WITHIN_CONFIGURED_BAND`, `ANOMALY_OBSERVED`, or `INDETERMINATE`. A within-band outcome describes only the sampled kernel fields under that policy. The command does not measure bracketed clock rates; use `probe` and `analyze` for those. It does not certify a future workload, uninterrupted stability, host agreement, or absolute accuracy. See the [CLI and schema reference](cli-schema.md).
 
 ## Method-aware comparison
 

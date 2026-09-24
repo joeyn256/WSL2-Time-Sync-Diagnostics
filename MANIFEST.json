@@ -1,5 +1,5 @@
 {
-  "version": "public-v0.3.1",
+  "version": "public-v1.0.0",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
@@ -11,6 +11,7 @@
     "docs/methodology.md",
     "docs/limitations.md",
     "docs/real-wsl-smoke-test.md",
+    "docs/cli-schema.md",
     "docs/v0.2-guest-core.md"
   ],
   "public_assets": [
@@ -31,7 +32,9 @@
     "fixed-wait lesson present": true,
     "visuals distinguish vendor facts from project observations": true,
     "README opening labels evidence tiers (vendor fact / observation / inference / not established)": true,
-    "animated hero uses only published D4R2 values and has a complete static fallback": true,
-    "animated hero starts at the stop transition and distinguishes the stopped user-space write path from persistent kernel state": true
+    "animated hero uses only published D4R2 values and has a coherent static/reduced-motion fallback": true,
+    "animated hero distinguishes the stopped user-space write path from persistent kernel state": true,
+    "stable CLI/schema reference uses release-neutral naming": true,
+    "package and publication metadata target v1.0.0": true
   }
 }

@@ -1,6 +1,6 @@
 # Limitations
 
-This repository is a practical engineering guide built from a bounded set of WSL2 observations.
+This repository is a practical engineering project built from a bounded set of WSL2 observations.
 
 It is not a universal benchmark of Ubuntu, Python, Windows, or WSL2.
 
@@ -76,7 +76,7 @@ The Ubuntu 26.04 screen therefore supports a bounded guest-relative conclusion.
 
 It does not prove absolute guest-to-host accuracy.
 
-The v0.2 RAW-before/RAW-after enclosure improves accounting for sequential read uncertainty. It still compares guest clocks. Common-mode errors can leave MONOTONIC-versus-RAW inside the configured band while every guest clock differs from a host or external reference. The synthetic common-mode fixture illustrates that blind spot; the CLI does not collect host-reference samples.
+The schema-v2 RAW-before/RAW-after enclosure improves accounting for sequential read uncertainty. It still compares guest clocks. Common-mode errors can leave MONOTONIC-versus-RAW inside the configured band while every guest clock differs from a host or external reference. The synthetic common-mode fixture illustrates that blind spot; the CLI does not collect host-reference samples.
 
 ## Finite observations cannot certify settling
 
@@ -94,7 +94,7 @@ v0.1 probe inputs remain accepted, but their unbracketed endpoint rate has no me
 
 ## Synthetic tests establish algorithm behavior
 
-The v0.2 regression fixtures are generated from explicit parameters. Their historical shape labels describe a kind of failure, not a replay of private measurements. Passing a synthetic early-slew, sawtooth, step, or boundary test demonstrates the expected behavior on that constructed input. It does not reproduce a historical experiment or establish current live WSL behavior.
+The schema-v2 regression fixtures are generated from explicit parameters. Their historical shape labels describe a kind of failure, not a replay of private measurements. Passing a synthetic early-slew, sawtooth, step, or boundary test demonstrates the expected behavior on that constructed input. It does not reproduce a historical experiment or establish current live WSL behavior.
 
 ## The 26.04 result is a screen, not a guarantee
 
@@ -117,7 +117,7 @@ A later, stricter engineering branch attempted to establish a much broader Windo
 
 Complete live host/runtime qualification is not established by the summarized evidence.
 
-The guide therefore does not claim:
+The project therefore does not claim:
 
 - successful live host firewall-provider `CREATE/VERIFY`;
 - completed production runtime qualification;
@@ -164,13 +164,13 @@ If your current environment is stable and meets your needs, validate before migr
 
 ## No universal daemon recommendation
 
-The guide does not recommend permanently disabling `systemd-timesyncd` or universally preferring `chronyd`.
+The project does not recommend permanently disabling `systemd-timesyncd` or universally preferring `chronyd`.
 
 The observed 26.04 environment used `chronyd -x`, but that does not prove chronyd caused the clean result or that the same configuration is correct for every WSL2 machine.
 
 ## Public evidence is intentionally narrower than private investigation history
 
-The public guide omits private evidence paths and unrelated private project details. It retains a few labels for historical runs and qualification work so their scopes remain distinguishable.
+The public repository omits private evidence paths and unrelated private project details. It retains a few labels for historical runs and qualification work so their scopes remain distinguishable.
 
 That means some claims are summarized rather than accompanied by the full original evidence chain.
 
@@ -187,10 +187,10 @@ Useful future work could include:
 - testing across multiple Windows/WSL versions;
 - a dated Python dependency compatibility matrix for representative workloads.
 
-None of that is required for the current guide to remain useful.
+None of that is required for the current project to remain useful.
 
 ## Bottom line
 
-The repository is strongest as a documented case study and diagnostic guide.
+The repository is strongest as a documented case study and diagnostic tool.
 
 Use it to decide what to measure on **your** WSL2 environment, not as a substitute for measuring your environment.
