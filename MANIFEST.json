@@ -1,5 +1,5 @@
 {
-  "version": "public-v0.6.0",
+  "version": "public-v0.6.1",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
@@ -50,8 +50,10 @@
     "D4R2 step-by-step replay lives with the full record in docs/timesyncd-investigation.md": true,
     "stable CLI/schema reference uses release-neutral naming": true,
     "v1.0.0 stable contract remains explicitly deferred": true,
-    "package and publication metadata target v0.6.0 public release": true,
     "hero architecture labels say control paths, not proven writer count": true,
-    "same-host evidence and hero values are regression-checked by tests/test_public_evidence.py": true
+    "same-host evidence and hero values are regression-checked by tests/test_public_evidence.py": true,
+    "package and publication metadata target v0.6.1 public release": true,
+    "README places the measured comparison before long-form explanation and exposes engineer/reviewer entry points": true,
+    "README front door is regression-checked by tests/test_public_evidence.py": true
   }
 }
