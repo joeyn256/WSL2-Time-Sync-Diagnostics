@@ -2,111 +2,111 @@
 
 This page summarizes the historical Ubuntu 24.04 timing investigation under WSL2.
 
-This public draft summarizes historical findings; the original measurement logs are not included in the draft set.
-
-The goal is not to claim that every Ubuntu 24.04 installation behaves the same way. It is to document what happened in the investigated environment, what the experiments support, and what they do **not** prove.
+The original private measurement logs are not included in this repository. The values below are bounded summaries from preserved experiment outputs.
 
 ## Summary
 
-The Ubuntu 24.04 investigation observed recurring large corrections in realtime-related behavior.
+The investigated environment showed recurring large realtime corrections and a changing clock-rate pattern.
 
-The strongest practical finding was this:
+A temporary `systemd-timesyncd` intervention produced a suggestive but formally **INCONCLUSIVE** A–B–A causal result, and a later D4R2 run demonstrated the more durable operational lesson:
 
-> `systemd-timesyncd` state was strongly associated with the recurring timing pathology, but the evidence did not prove that `systemd-timesyncd` was the sole root cause.
+> **Stopping the service did not mean the kernel clock had already settled.**
 
-The investigation also exposed a more general lesson:
+## What was actually done
 
-> Stopping a time service does not prove that the kernel has finished an already-commanded clock correction (a gradual correction is called a slew).
+In the examined interventions, `systemd-timesyncd` was temporarily **stopped** and later **started** again.
 
-That distinction matters for benchmarking.
+The unit remained enabled. The examined records do not establish a persistent `disable`, `mask`, or configuration edit.
 
-## What was observed
+This distinction matters because:
 
-Across the broader investigation:
+```text
+inactive service
+≠
+disabled service
+≠
+settled clock
+```
 
-- recurring large realtime corrections were observed while `systemd-timesyncd` was active;
-- stopping `systemd-timesyncd` suppressed the recurring correction pattern that had been observed;
-- an already-commanded kernel slew could remain active after the service was stopped;
-- the historical summary reports restoration of the original `systemd-timesyncd` service state; that does not establish present-day service state or whole-host restoration.
+## C1 A–B–A result
 
-This supports a **strong experimental association** between the service state and the observed timing behavior.
+C1 used a frozen 0.500-second event threshold.
 
-It does not establish exclusive causation.
+- A0, service active: four qualifying events of roughly +0.588 to +0.628 seconds.
+- B, service stopped: no qualifying events under the frozen detector.
+- A1, service active again: two journal-matched events of roughly +0.424 and +0.449 seconds, both below the frozen threshold.
 
-WSL, Hyper-V, guest time discipline, kernel timekeeping, and service interaction remain part of the interpretation.
+Because A1 did not meet the predeclared qualifying-event requirement, the formal causal result was **INCONCLUSIVE**.
 
-## The historical failed timing run
+This is stronger evidence than a simple anecdote, but weaker than proof that `systemd-timesyncd` was the sole cause.
 
-The historical Ubuntu 24.04 test run, labeled D4R2, remains a failure against its timing criteria.
+## D4R2: fixed waiting was not enough
 
-It completed its full sample schedule but failed two test criteria. The failure pattern was consistent with an in-progress kernel slew during the early part of the run.
+D4R2 stopped the service, confirmed it inactive, and waited about 60 seconds measured by Windows QPC before opening a 120-second timing window.
 
-The historical summary reports approximately `+26,693 ppm` for the first failing 30-second interval. Ppm means parts per million of relative rate difference. The run compared `CLOCK_MONOTONIC` and `CLOCK_MONOTONIC_RAW` with Windows QueryPerformanceCounter (QPC), the host's elapsed-time counter. The draft set identifies a large early `MONOTONIC`/QPC anomaly and a `RAW`/QPC pass, but does not explicitly tie this quoted number to a clock pair or provide its calculation and sign convention. It should therefore not be read as a fully specified accuracy measurement or compared directly with the 26.04 statistic.
+PRE still showed:
 
-Later intervals were reported to show much smaller deviations.
+```text
+tick = 10833
+freq = 2157314
+historical baseline calculation ≈ +83,332.918 ppm
+```
 
-The important point is not the exact number by itself. It is the transition:
+The four 30-second MONOTONIC/QPC windows were:
 
-1. the run began with a large timing anomaly;
-2. the anomaly decreased during the observation, consistent with a residual clock correction;
-3. a fixed delay before the benchmark had not established a settled state.
+| Window | Rate enclosure |
+|---|---:|
+| 0–30 s | **+26,665.299 to +26,724.999 ppm** |
+| 30–60 s | −27.234 to +30.394 ppm |
+| 60–90 s | −32.612 to +25.100 ppm |
+| 90–120 s | −27.169 to +32.177 ppm |
 
-The failure should not be rewritten as a pass. The controlled causal result remains **inconclusive**.
+The full 120-second MONOTONIC/QPC enclosure was **+6,661.607 to +6,676.217 ppm**.
 
-## The fixed-wait problem
+By contrast, RAW/QPC remained within the historical screen, with a full-run enclosure of **−6.323 to +8.190 ppm**.
 
-The experiment waited 60 seconds measured by Windows QueryPerformanceCounter (QPC), the host's elapsed-time counter, after service intervention.
+POST later showed:
 
-That was not sufficient to establish that the kernel had settled.
+```text
+tick = 10000
+freq = -27187
+historical baseline calculation ≈ -0.415 ppm
+```
 
-This leads to the most useful operational lesson from the 24.04 work:
+That early-failure/later-recovery shape is consistent with a residual kernel correction continuing after the service stop.
 
-> **A fixed post-intervention delay is not a sufficient readiness check for a timing-sensitive benchmark.**
+## What the evidence supports
 
-If a benchmark depends on a stable timebase, prefer a measured state condition over a timer such as "wait 60 seconds."
+The historical evidence supports these bounded statements:
 
-For example, a future diagnostic should look for evidence that the relevant clock relationship has stabilized rather than infer stability from service state alone.
-
-## What the evidence does support
-
-The evidence supports these statements:
-
-- timing pathology occurred in the investigated Ubuntu 24.04 WSL2 environment;
-- large realtime corrections were observed;
-- `systemd-timesyncd` state was strongly associated with the recurring behavior;
-- stopping the service suppressed the recurring correction pattern that had been observed;
-- the residual anomaly was consistent with a kernel slew outlasting the service transition;
-- a simple fixed-delay benchmark can therefore capture an inherited transient.
+- significant timing pathology occurred in the investigated Ubuntu 24.04 WSL2 environment;
+- the recorded behavior differed across the active/stopped/restored phases;
+- C1 did not satisfy its predeclared causal-success rule and remained **INCONCLUSIVE**;
+- D4R2 showed that a successful service stop plus a 60-second host-measured wait did not establish a settled clock;
+- MONOTONIC/QPC showed a severe early anomaly while RAW/QPC did not show the same failure;
+- later D4R2 windows approached nominal behavior.
 
 ## What it does not support
 
-The evidence does **not** support these stronger statements:
+The evidence does **not** support these stronger claims:
 
-- "`systemd-timesyncd` is the sole root cause";
+- "`systemd-timesyncd` is proven to be the sole root cause";
 - "Ubuntu 24.04 is broken under WSL2";
-- "disabling `systemd-timesyncd` permanently fixes the problem";
+- "disabling `systemd-timesyncd` is the demonstrated fix";
 - "an inactive service means the clock is settled";
-- "every machine or WSL version will reproduce the same behavior";
-- "Ubuntu 26.04 is automatically better because this 24.04 run failed."
+- "every WSL2 machine will reproduce the same behavior";
+- "Ubuntu 26.04 is better because this 24.04 experiment failed."
 
-## Practical advice for Ubuntu 24.04 users
+## Practical advice
 
-If you already have a working Ubuntu 24.04 environment, do not change it solely because of this investigation.
+If an existing Ubuntu 24.04 environment is working, do not change it solely because of this case study.
 
-Instead:
+For timing-sensitive work:
 
-1. record your Windows, WSL, kernel, distro, and Python versions;
-2. inspect the active time services and clocksource;
-3. run a bounded read-only timing probe;
-4. look for evidence of active slew or abnormal clock-rate behavior;
-5. only then decide whether deeper investigation or migration is warranted.
+1. record the Windows, WSL, kernel, distro, and Python versions;
+2. inspect time-service and clocksource state;
+3. run a bounded timing observation;
+4. preserve early adverse windows rather than relying only on a long-run average;
+5. treat service state and clock-settling evidence as separate questions.
 
-If you temporarily change a time service for an experiment, capture the original state first and restore it afterward.
-
-Do not place service-stop commands in a first-run quick start.
-
-## Practical lesson
-
-The reported timing failure is specific to the investigated environment. Measure your own timebase before trusting a long timing-sensitive workload.
-
-See the [diagnostic workflow and clock caveats](../README.md#proposed-diagnostic-workflow).
+See the detailed [`systemd-timesyncd` investigation](timesyncd-investigation.md).
