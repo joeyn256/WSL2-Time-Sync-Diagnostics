@@ -285,11 +285,13 @@ A result in one category is not automatically evidence for another.
 
 ### Current software-validation status
 
-The implementation entering v1.0.0 passed exact-head GitHub Actions on the final v0.3.1 viewer commit `4e7a64a5` in [run 35959842755](https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/actions/runs/35959842755):
-- **271 tests on CPython 3.12.14** and **271 tests on CPython 3.14.7**;
-- semantic CLI smoke in both jobs: strict JSON, RAW acquisition completion, requested RAW-duration coverage, two complete fixed windows with zero partial windows, cumulative REALTIME evidence, and method-aware comparison.
+The stable v1 release gate requires every candidate to pass all of the following on **both Python 3.12 and Python 3.14**:
 
-The v1.0.0 release itself is gated on a fresh exact-head CI pass from `release/v1.0.0` before the tag is created. Historical implementation/review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
+- the complete **271-test** suite;
+- construction and installation of the normal `wsl2-time-sync-diagnostics` wheel, with distribution and import version checks;
+- the semantic CLI smoke: strict JSON, verified RAW acquisition completion and requested-duration coverage, two complete fixed windows with zero partial windows, cumulative REALTIME evidence, and method-aware comparison.
+
+The current `release/v1.0.0` candidate has passed these gates. The tag is created only from an exact candidate whose GitHub Actions checks are green; use the CI badge and the checks attached to the tagged/current commit for live status. Historical implementation and adversarial-review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
 
 Local WSL software checks were also performed during review on Ubuntu 24.04 / Python 3.12.3 and Ubuntu 26.04 / Python 3.14.4. Those checks are software-validation evidence only; they are not host-referenced timing qualification, which remains unavailable.
 
