@@ -8,36 +8,160 @@
     "privacy_secret_scan_hits": {}
   },
   "files": [
-    {"path":".github/workflows/ci.yml","bytes":504,"sha256":"2127bb8d1202217c718ea2bcd15ea3800a4eef21c8e1d3e457e0ab6cb1918f17"},
-    {"path":".gitignore","bytes":136,"sha256":"49a4d088e9a38c6105d231b1387973d24510bdf6ef6fbed9d54832de0bb8f13e"},
-    {"path":"CONTRIBUTING.md","bytes":2164,"sha256":"db28203c6f135e27bf74592876f1c28660f40d4565ec3a5b2f48f39e28ce9302"},
-    {"path":"LICENSE","bytes":1088,"sha256":"d71e190e72f3dbb5ef3a9403e3784ab3a90451afbc5a71b0f07286b4ec3a8976"},
-    {"path":"MANIFEST.json","bytes":1599,"sha256":"8debb299a17da3a4fa2a35488a135aac923a81a69a78c84ce636e9f891e6cf99"},
-    {"path":"README.md","bytes":15230,"sha256":"98209316ea61b8b9f5af59ab3ebd5bcf549293441924fb091697caa8906e6070"},
-    {"path":"RELEASE_CHECKLIST.md","bytes":692,"sha256":"4afb2fcc7c1a7873422564e2896a78d56b79020ef5750d4525d19058e19bd6e2"},
-    {"path":"SECURITY.md","bytes":1412,"sha256":"7df6ced40b407c7e7a83ce8fdfca1be057b04ed69b5b47a45834ef40823d813b"},
-    {"path":"docs/findings-ubuntu-24.04.md","bytes":5775,"sha256":"3c65d124803e8f45f623f748b49e5de229a5248eaa28d5170c3035b567d2a458"},
-    {"path":"docs/findings-ubuntu-26.04.md","bytes":4841,"sha256":"8fe84d69eda837d4869ddf24777e300cdb977fe4195368957474be9bf4eb55ba"},
-    {"path":"docs/limitations.md","bytes":5925,"sha256":"d82b11ed1d00fe2812448993b774744ffc93cb8fb345f01265457e58fb696cda"},
-    {"path":"docs/methodology.md","bytes":6653,"sha256":"299ab43b1cce71f6db06481e308f67543ddd5ec95678581c0a8fb721e5950558"},
-    {"path":"docs/python-3.12-vs-3.14.md","bytes":5334,"sha256":"a63b13364080e0bc12d38ed95d863a357293b7fe805c1d10aa959d9687d36ba1"},
-    {"path":"docs/timesyncd-investigation.md","bytes":6130,"sha256":"f688e7a71f4886b33b768da0ff10303fa5629a6f0e674d458be62897d2da511d"},
-    {"path":"examples/sample-analysis.json","bytes":402,"sha256":"256522ea50a54262a04399a308a3101738a48363f6beec64f8d3430b18724735"},
-    {"path":"examples/sample-diagnose.json","bytes":739,"sha256":"9c6034d9fa94bf26c8e67ca88a0f569990b2021d77ced8c99fd6d5966ede3bed"},
-    {"path":"examples/sample-probe.json","bytes":579,"sha256":"5e5eab0947181d5a1263163ddd68e85ad0320ddd0ec20da72befc83a77acaa5f"},
-    {"path":"pyproject.toml","bytes":900,"sha256":"63f172fc77a41b623724d5f80aec9770701d57513a401a5f4c86afbfefbe3e4c"},
-    {"path":"src/wsl_time_sync/__init__.py","bytes":22,"sha256":"91447944015cec709e8aa7655f7e9d64e1e4508e7023a57fe3746911c0fc6fed"},
-    {"path":"src/wsl_time_sync/__main__.py","bytes":48,"sha256":"935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d"},
-    {"path":"src/wsl_time_sync/analyze.py","bytes":2278,"sha256":"ebab3a1a566c58219828399633c5b114936beade427a6d786f9c9455544f2ea1"},
-    {"path":"src/wsl_time_sync/cli.py","bytes":2388,"sha256":"f93971cdf5c1bfe353bb2a58a38283ef51f953f34b093b51b35616b09759f4de"},
-    {"path":"src/wsl_time_sync/compare.py","bytes":1162,"sha256":"ed00cac045153feae890c6fbbe02c4c90cad5b246a5cc03daa1ec478d4b74f1a"},
-    {"path":"src/wsl_time_sync/diagnose.py","bytes":2868,"sha256":"1268ea1ad819d2ab523994c58ae8b7a7c579c076d1f104feb265117a9e217645"},
-    {"path":"src/wsl_time_sync/probe.py","bytes":1919,"sha256":"153479d5d14a94e1cb5329e4b9812b51a9e5e520ef0f9cbadd7c6064ecc551ef"},
-    {"path":"src/wsl_time_sync/python_check.py","bytes":1962,"sha256":"ad18577ecbd2852ac56fe88e1b4f8e0cb60809e1d1a0225d1210dd5241317c6d"},
-    {"path":"src/wsl_time_sync/utils.py","bytes":1485,"sha256":"50dc0b0205253bdb5cb6bfb111b64559b982a889a9758c32edd0dcdb8e60015c"},
-    {"path":"tests/test_analysis.py","bytes":1564,"sha256":"42fb459e6c068b836439a2c934acd6315791fd1b7a5cc387aad181ba7a166021"},
-    {"path":"tests/test_compare.py","bytes":397,"sha256":"ebec8893cd063e0a869c8f7e80fe9ef92f1910ee5ab3d9f03bb8c94ad6be03bd"},
-    {"path":"tests/test_probe.py","bytes":279,"sha256":"8586079d59920b7f80135a25064e99a72543287124361268ca4c1b48db311e15"},
-    {"path":"tests/test_python_check.py","bytes":350,"sha256":"2e026efb1af957191d67c9ec161ea7ef47a4ea0d1cbbe8d1917bf8d7b90a78f2"}
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 504,
+      "sha256": "2127bb8d1202217c718ea2bcd15ea3800a4eef21c8e1d3e457e0ab6cb1918f17"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 136,
+      "sha256": "49a4d088e9a38c6105d231b1387973d24510bdf6ef6fbed9d54832de0bb8f13e"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 2164,
+      "sha256": "db28203c6f135e27bf74592876f1c28660f40d4565ec3a5b2f48f39e28ce9302"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1088,
+      "sha256": "d71e190e72f3dbb5ef3a9403e3784ab3a90451afbc5a71b0f07286b4ec3a8976"
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 1599,
+      "sha256": "fd738d92342ee5b34a1d7966f2637b552c99d56c3fb233ec3fcbe2345b302254"
+    },
+    {
+      "path": "README.md",
+      "bytes": 15142,
+      "sha256": "50b19784069a1e216558f791eaaa7d4428f9495f4ed827dd0c33747545843542"
+    },
+    {
+      "path": "RELEASE_CHECKLIST.md",
+      "bytes": 692,
+      "sha256": "4afb2fcc7c1a7873422564e2896a78d56b79020ef5750d4525d19058e19bd6e2"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 1412,
+      "sha256": "7df6ced40b407c7e7a83ce8fdfca1be057b04ed69b5b47a45834ef40823d813b"
+    },
+    {
+      "path": "docs/findings-ubuntu-24.04.md",
+      "bytes": 5775,
+      "sha256": "3c65d124803e8f45f623f748b49e5de229a5248eaa28d5170c3035b567d2a458"
+    },
+    {
+      "path": "docs/findings-ubuntu-26.04.md",
+      "bytes": 4841,
+      "sha256": "8fe84d69eda837d4869ddf24777e300cdb977fe4195368957474be9bf4eb55ba"
+    },
+    {
+      "path": "docs/limitations.md",
+      "bytes": 5925,
+      "sha256": "d82b11ed1d00fe2812448993b774744ffc93cb8fb345f01265457e58fb696cda"
+    },
+    {
+      "path": "docs/methodology.md",
+      "bytes": 6653,
+      "sha256": "299ab43b1cce71f6db06481e308f67543ddd5ec95678581c0a8fb721e5950558"
+    },
+    {
+      "path": "docs/python-3.12-vs-3.14.md",
+      "bytes": 5334,
+      "sha256": "a63b13364080e0bc12d38ed95d863a357293b7fe805c1d10aa959d9687d36ba1"
+    },
+    {
+      "path": "docs/timesyncd-investigation.md",
+      "bytes": 6130,
+      "sha256": "f688e7a71f4886b33b768da0ff10303fa5629a6f0e674d458be62897d2da511d"
+    },
+    {
+      "path": "examples/sample-analysis.json",
+      "bytes": 402,
+      "sha256": "256522ea50a54262a04399a308a3101738a48363f6beec64f8d3430b18724735"
+    },
+    {
+      "path": "examples/sample-diagnose.json",
+      "bytes": 739,
+      "sha256": "9c6034d9fa94bf26c8e67ca88a0f569990b2021d77ced8c99fd6d5966ede3bed"
+    },
+    {
+      "path": "examples/sample-probe.json",
+      "bytes": 579,
+      "sha256": "5e5eab0947181d5a1263163ddd68e85ad0320ddd0ec20da72befc83a77acaa5f"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 856,
+      "sha256": "8f0c43a8f268647924a7654b311be63297e67694aebafa3ad84a9d021fa48d44"
+    },
+    {
+      "path": "src/wsl_time_sync/__init__.py",
+      "bytes": 22,
+      "sha256": "91447944015cec709e8aa7655f7e9d64e1e4508e7023a57fe3746911c0fc6fed"
+    },
+    {
+      "path": "src/wsl_time_sync/__main__.py",
+      "bytes": 48,
+      "sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d"
+    },
+    {
+      "path": "src/wsl_time_sync/analyze.py",
+      "bytes": 2278,
+      "sha256": "ebab3a1a566c58219828399633c5b114936beade427a6d786f9c9455544f2ea1"
+    },
+    {
+      "path": "src/wsl_time_sync/cli.py",
+      "bytes": 2388,
+      "sha256": "f93971cdf5c1bfe353bb2a58a38283ef51f953f34b093b51b35616b09759f4de"
+    },
+    {
+      "path": "src/wsl_time_sync/compare.py",
+      "bytes": 1162,
+      "sha256": "ed00cac045153feae890c6fbbe02c4c90cad5b246a5cc03daa1ec478d4b74f1a"
+    },
+    {
+      "path": "src/wsl_time_sync/diagnose.py",
+      "bytes": 2868,
+      "sha256": "1268ea1ad819d2ab523994c58ae8b7a7c579c076d1f104feb265117a9e217645"
+    },
+    {
+      "path": "src/wsl_time_sync/probe.py",
+      "bytes": 1919,
+      "sha256": "153479d5d14a94e1cb5329e4b9812b51a9e5e520ef0f9cbadd7c6064ecc551ef"
+    },
+    {
+      "path": "src/wsl_time_sync/python_check.py",
+      "bytes": 1962,
+      "sha256": "ad18577ecbd2852ac56fe88e1b4f8e0cb60809e1d1a0225d1210dd5241317c6d"
+    },
+    {
+      "path": "src/wsl_time_sync/utils.py",
+      "bytes": 1485,
+      "sha256": "50dc0b0205253bdb5cb6bfb111b64559b982a889a9758c32edd0dcdb8e60015c"
+    },
+    {
+      "path": "tests/test_analysis.py",
+      "bytes": 1564,
+      "sha256": "42fb459e6c068b836439a2c934acd6315791fd1b7a5cc387aad181ba7a166021"
+    },
+    {
+      "path": "tests/test_compare.py",
+      "bytes": 397,
+      "sha256": "ebec8893cd063e0a869c8f7e80fe9ef92f1910ee5ab3d9f03bb8c94ad6be03bd"
+    },
+    {
+      "path": "tests/test_probe.py",
+      "bytes": 279,
+      "sha256": "8586079d59920b7f80135a25064e99a72543287124361268ca4c1b48db311e15"
+    },
+    {
+      "path": "tests/test_python_check.py",
+      "bytes": 350,
+      "sha256": "2e026efb1af957191d67c9ec161ea7ef47a4ea0d1cbbe8d1917bf8d7b90a78f2"
+    }
   ]
-}
+}\n
