@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1450" height="520" viewBox="0 0 1450 520" role="img" aria-labelledby="title desc">
+<title id="title">D4R2 settling timeline</title>
+<desc id="desc">The service was confirmed stopped, but abnormal kernel state and an abnormal first timing window remained before later returning near nominal.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#a371f7"/></marker></defs>
+<rect width="1450" height="520" rx="28" fill="#0d1117"/>
+<text x="725" y="54" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="32" font-weight="700">The finding that makes this project different</text>
+<text x="725" y="86" text-anchor="middle" fill="#8b949e" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16">A successful service transition did not immediately produce settled timing</text>
+<line x1="130" y1="285" x2="1320" y2="285" stroke="#a371f7" stroke-width="4" marker-end="url(#arrow)"/>
+<g font-family="Inter,Segoe UI,Arial,sans-serif">
+ <circle cx="170" cy="285" r="12" fill="#3fb950"/><rect x="80" y="135" width="210" height="112" rx="18" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+ <text x="100" y="165" fill="#f0f6fc" font-size="17" font-weight="700">1 · Service stop</text><text x="100" y="192" fill="#8b949e" font-size="14">systemd-timesyncd</text><text x="100" y="214" fill="#8b949e" font-size="14">confirmed inactive;</text><text x="100" y="236" fill="#8b949e" font-size="14">unit remained enabled</text>
+ <circle cx="410" cy="285" r="12" fill="#58a6ff"/><rect x="315" y="320" width="220" height="102" rx="18" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+ <text x="335" y="350" fill="#f0f6fc" font-size="17" font-weight="700">2 · ~60 s wait</text><text x="335" y="377" fill="#8b949e" font-size="14">Measured by Windows QPC,</text><text x="335" y="399" fill="#8b949e" font-size="14">not guest wall time</text>
+ <circle cx="660" cy="285" r="12" fill="#d29922"/><rect x="550" y="125" width="260" height="124" rx="18" fill="#161b22" stroke="#d29922" stroke-width="2"/>
+ <text x="570" y="155" fill="#f0f6fc" font-size="17" font-weight="700">3 · PRE still abnormal</text><text x="570" y="183" fill="#8b949e" font-size="14">tick = 10833</text><text x="570" y="205" fill="#8b949e" font-size="14">freq = 2157314</text><text x="570" y="227" fill="#d29922" font-size="14">writer/reset source not proved</text>
+ <circle cx="925" cy="285" r="12" fill="#f85149"/><rect x="820" y="320" width="280" height="112" rx="18" fill="#161b22" stroke="#f85149" stroke-width="2"/>
+ <text x="840" y="350" fill="#f0f6fc" font-size="17" font-weight="700">4 · First 30 s still bad</text><text x="840" y="378" fill="#8b949e" font-size="14">MONOTONIC/QPC:</text><text x="840" y="400" fill="#f85149" font-size="14" font-weight="700">+26,665.299 to +26,724.999 ppm</text>
+ <circle cx="1185" cy="285" r="12" fill="#39d0d8"/><rect x="1080" y="125" width="250" height="124" rx="18" fill="#161b22" stroke="#39d0d8" stroke-width="2"/>
+ <text x="1100" y="155" fill="#f0f6fc" font-size="17" font-weight="700">5 · Later recovery</text><text x="1100" y="183" fill="#8b949e" font-size="14">Later windows returned</text><text x="1100" y="205" fill="#8b949e" font-size="14">near nominal; POST:</text><text x="1100" y="227" fill="#39d0d8" font-size="14">tick 10000 · freq ≈ -0.415 ppm</text>
+</g>
+<rect x="255" y="458" width="940" height="38" rx="19" fill="#2b2010" stroke="#d29922"/>
+<text x="725" y="483" text-anchor="middle" fill="#ffd580" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready</text>
+</svg>

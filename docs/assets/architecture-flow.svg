@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+<title id="title">Animated comparison of Ubuntu 24.04 and 26.04 default WSL time-control paths</title>
+<desc id="desc">The Hyper-V control path pulses on both sides. Ubuntu 24.04 also shows an active systemd-timesyncd path toward the Linux clock. Ubuntu 26.04 shows chrony observing with no clock control by default.</desc>
+<defs>
+ <marker id="blueArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#58a6ff"/></marker>
+ <marker id="orangeArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#d29922"/></marker>
+</defs>
+<rect width="1200" height="650" rx="30" fill="#0d1117"/>
+<text x="600" y="58" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="34" font-weight="700">Default WSL time-control paths</text>
+<text x="600" y="88" text-anchor="middle" fill="#8b949e" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16">The highlighted flows animate; the architecture labels remain the important part</text>
+
+<rect x="55" y="125" width="520" height="440" rx="26" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<rect x="625" y="125" width="520" height="440" rx="26" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<text x="90" y="170" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="27" font-weight="700">Ubuntu 24.04</text>
+<text x="660" y="170" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="27" font-weight="700">Ubuntu 26.04</text>
+
+<rect x="160" y="210" width="310" height="75" rx="18" fill="#111827" stroke="#58a6ff" stroke-width="2"/>
+<rect x="730" y="210" width="310" height="75" rx="18" fill="#111827" stroke="#58a6ff" stroke-width="2"/>
+<text x="315" y="242" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="700">Windows / Hyper-V</text>
+<text x="315" y="267" text-anchor="middle" fill="#58a6ff" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">implicit synchronization</text>
+<text x="885" y="242" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="700">Windows / Hyper-V</text>
+<text x="885" y="267" text-anchor="middle" fill="#58a6ff" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">implicit synchronization</text>
+
+<rect x="205" y="355" width="220" height="72" rx="18" fill="#111827" stroke="#39d0d8" stroke-width="2"/>
+<rect x="775" y="355" width="220" height="72" rx="18" fill="#111827" stroke="#39d0d8" stroke-width="2"/>
+<text x="315" y="397" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" font-weight="700">Linux clock</text>
+<text x="885" y="397" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" font-weight="700">Linux clock</text>
+
+<line x1="315" y1="285" x2="315" y2="345" stroke="#58a6ff" stroke-width="6" marker-end="url(#blueArrow)">
+ <animate attributeName="opacity" values="0.35;1;0.35" dur="1.8s" repeatCount="indefinite"/>
+</line>
+<line x1="885" y1="285" x2="885" y2="345" stroke="#58a6ff" stroke-width="6" marker-end="url(#blueArrow)">
+ <animate attributeName="opacity" values="0.35;1;0.35" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+</line>
+
+<rect x="100" y="470" width="245" height="66" rx="17" fill="#111827" stroke="#d29922" stroke-width="2"/>
+<text x="222" y="499" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">systemd-timesyncd</text>
+<text x="222" y="520" text-anchor="middle" fill="#d29922" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13">external NTP client</text>
+<path d="M222 470 C222 445, 245 432, 285 425" fill="none" stroke="#d29922" stroke-width="6" marker-end="url(#orangeArrow)">
+ <animate attributeName="opacity" values="0.25;1;0.25" dur="1.25s" repeatCount="indefinite"/>
+</path>
+<text x="445" y="495" text-anchor="middle" fill="#ffd580" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" font-weight="700">potentially competing</text>
+<text x="445" y="516" text-anchor="middle" fill="#ffd580" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" font-weight="700">clock discipline</text>
+
+<rect x="675" y="470" width="245" height="66" rx="17" fill="#111827" stroke="#3fb950" stroke-width="2"/>
+<text x="797" y="499" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="19" font-weight="700">chrony (-x)</text>
+<text x="797" y="520" text-anchor="middle" fill="#3fb950" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13">observes; no clock control</text>
+<path d="M797 470 C797 447, 820 434, 860 427" fill="none" stroke="#3fb950" stroke-width="4" stroke-dasharray="9 8">
+ <animate attributeName="stroke-dashoffset" values="0;34" dur="1.6s" repeatCount="indefinite"/>
+</path>
+<text x="1035" y="495" text-anchor="middle" fill="#88e0a0" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" font-weight="700">one default clock-control</text>
+<text x="1035" y="516" text-anchor="middle" fill="#88e0a0" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" font-weight="700">path*</text>
+
+<text x="600" y="610" text-anchor="middle" fill="#8b949e" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">* Defaults only — custom configuration and other timing faults remain possible.</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+<title id="title">Ubuntu 24.04 versus 26.04 WSL time synchronization architecture</title>
+<desc id="desc">Ubuntu 24.04 can have Hyper-V implicit synchronization and systemd-timesyncd both able to discipline the Linux clock. Ubuntu 26.04 uses chrony with -x by default in WSL, leaving Hyper-V as the default clock-control path.</desc>
+<defs>
+  <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#58a6ff"/></marker>
+  <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#d29922"/></marker>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-opacity="0.25"/></filter>
+</defs>
+<rect width="1400" height="760" rx="28" fill="#0d1117"/>
+<text x="700" y="54" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-weight="700" font-size="32">Why Ubuntu 24.04 and 26.04 behave differently under WSL</text>
+<text x="700" y="87" text-anchor="middle" fill="#8b949e" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17">Default controller architecture — not a claim that every machine behaves identically</text>
+<rect x="55" y="125" width="620" height="540" rx="26" fill="#161b22" stroke="#30363d" stroke-width="2" filter="url(#shadow)"/>
+<text x="90" y="172" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" font-weight="700">Ubuntu 24.04 WSL</text>
+<text x="90" y="201" fill="#8b949e" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16">Canonical: systemd-timesyncd enabled by default</text>
+<rect x="190" y="240" width="350" height="82" rx="18" fill="#111827" stroke="#58a6ff" stroke-width="2"/>
+<text x="365" y="273" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="650">Windows / Hyper-V</text>
+<text x="365" y="299" text-anchor="middle" fill="#58a6ff" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15">implicit time synchronization</text>
+<line x1="365" y1="322" x2="365" y2="378" stroke="#58a6ff" stroke-width="5" marker-end="url(#arrowBlue)"/>
+<rect x="220" y="390" width="290" height="82" rx="18" fill="#111827" stroke="#39d0d8" stroke-width="2"/>
+<text x="365" y="424" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" font-weight="700">Linux clock</text>
+<text x="365" y="451" text-anchor="middle" fill="#8b949e" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">shared guest kernel clock state</text>
+<rect x="95" y="530" width="270" height="80" rx="18" fill="#111827" stroke="#d29922" stroke-width="2"/>
+<text x="230" y="562" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" font-weight="650">systemd-timesyncd</text>
+<text x="230" y="587" text-anchor="middle" fill="#d29922" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">external NTP client</text>
+<path d="M230 530 C230 500, 280 486, 330 472" fill="none" stroke="#d29922" stroke-width="5" marker-end="url(#arrowOrange)"/>
+<rect x="405" y="530" width="215" height="80" rx="18" fill="#2d220f" stroke="#d29922" stroke-width="2"/>
+<text x="512" y="558" text-anchor="middle" fill="#ffd580" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">Potential competing</text>
+<text x="512" y="582" text-anchor="middle" fill="#ffd580" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">clock discipline</text>
+<rect x="725" y="125" width="620" height="540" rx="26" fill="#161b22" stroke="#30363d" stroke-width="2" filter="url(#shadow)"/>
+<text x="760" y="172" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" font-weight="700">Ubuntu 26.04 WSL</text>
+<text x="760" y="201" fill="#8b949e" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16">Fresh default: chrony + WSL-aware packaging</text>
+<rect x="855" y="240" width="360" height="82" rx="18" fill="#111827" stroke="#58a6ff" stroke-width="2"/>
+<text x="1035" y="273" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="650">Windows / Hyper-V</text>
+<text x="1035" y="299" text-anchor="middle" fill="#58a6ff" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15">implicit time synchronization</text>
+<line x1="1035" y1="322" x2="1035" y2="378" stroke="#58a6ff" stroke-width="5" marker-end="url(#arrowBlue)"/>
+<rect x="890" y="390" width="290" height="82" rx="18" fill="#111827" stroke="#39d0d8" stroke-width="2"/>
+<text x="1035" y="424" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" font-weight="700">Linux clock</text>
+<text x="1035" y="451" text-anchor="middle" fill="#8b949e" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">default control remains with Hyper-V</text>
+<rect x="790" y="530" width="270" height="80" rx="18" fill="#111827" stroke="#3fb950" stroke-width="2"/>
+<text x="925" y="559" text-anchor="middle" fill="#f0f6fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="19" font-weight="650">chrony</text>
+<text x="925" y="585" text-anchor="middle" fill="#3fb950" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">runs with -x by default in WSL</text>
+<path d="M925 530 C925 500, 970 486, 1005 472" fill="none" stroke="#3fb950" stroke-width="4" stroke-dasharray="9 8"/>
+<rect x="1090" y="530" width="205" height="80" rx="18" fill="#11251b" stroke="#3fb950" stroke-width="2"/>
+<text x="1192" y="558" text-anchor="middle" fill="#88e0a0" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="700">Effectively one default</text>
+<text x="1192" y="582" text-anchor="middle" fill="#88e0a0" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="700">clock-control path*</text>
+<text x="700" y="715" text-anchor="middle" fill="#8b949e" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">* Custom configuration, other writers, host errors, and other WSL timing defects remain possible. This diagram describes defaults, not universal behavior.</text>
+</svg>

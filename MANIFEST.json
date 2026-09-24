@@ -13,6 +13,13 @@
     "docs/real-wsl-smoke-test.md",
     "docs/v0.2-guest-core.md"
   ],
+  "public_assets": [
+    "docs/assets/architecture-flow.svg",
+    "docs/assets/architecture-wsl-time-sync.svg",
+    "docs/assets/upstream-timeline.svg",
+    "docs/assets/unique-contribution.svg",
+    "docs/assets/d4r2-settling.svg"
+  ],
   "cross_document_checks": {
     "causal limitation present": true,
     "timesyncd stop-vs-disable wording corrected": true,
@@ -23,6 +30,7 @@
     "no controlled distro ranking claimed": true,
     "Python advice is workload-specific": true,
     "guest-vs-host distinction present": true,
-    "fixed-wait lesson present": true
+    "fixed-wait lesson present": true,
+    "visuals distinguish vendor facts from project observations": true
   }
 }
