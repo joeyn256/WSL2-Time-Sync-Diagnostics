@@ -1,9 +1,9 @@
 {
-  "release": "0.6.0",
+  "release": "0.6.1",
   "status": "public-release",
   "branch": "main",
-  "base_release": "v0.4.0",
-  "base_commit": "94574ba4f8ee0b6749be68cba4d7f457e5e38e64",
+  "base_release": "v0.6.0",
+  "base_commit": "d210a0ec8f1e28637e796ee18f5c1f402ef0fff2",
   "repository": "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics",
   "scope_issue": "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/issues/2",
   "development_lineage": {
@@ -16,7 +16,7 @@
     "v0_4_0_public_release_on_main": "94574ba4f8ee0b6749be68cba4d7f457e5e38e64",
     "v0_5_0_visual_storytelling": "f36795859e16097d08cd6adcd7a83280683d42b6"
   },
-  "versioning_note": "v0.4.0 is a normal public GitHub Release. v0.5.0 was an unpublished visual-storytelling development branch. v0.6.0 is the next normal public release, incorporating the measured same-host comparison and refined visual model. The stable v1.0.0 contract remains deferred.",
+  "versioning_note": "v0.6.0 is the measured-comparison release. v0.6.1 is a presentation/documentation patch that promotes the measured three-model graph to the README front door, improves engineer/reviewer navigation, and adds a regression test protecting that structure. Runtime behavior and schema-v2 semantics are unchanged. Stable v1.0.0 remains deferred.",
   "cli_behavior_change": false,
   "runtime_dependencies": "Python standard library only",
   "changes": [
@@ -30,7 +30,8 @@
     "Release-neutral documentation naming, preview security/support policy, and repository/package branding cleanup.",
     "v0.4.0: publish the diagnostic core and reviewed presentation baseline to main while keeping the stable v1.0.0 contract deferred.",
     "v0.5.0: docs/assets/clock-steering-story.svg (three architecture-state cards over a synchronized D4R2 replay) and docs/assets/three-model-timing-comparison.svg (three panels on one 0-120 s axis); README opening reordered with a 'How to read the figure' note; the step-by-step D4R2 replay moved next to the full table in docs/timesyncd-investigation.md.",
-    "v0.6.0: the three-model comparison's outer panels are now measured. Two read-only guest-side screens were taken on one Windows host on 2026-09-24 from fresh WSL boots with the project CLI: Ubuntu 24.04 with systemd-timesyncd active (about 4.8 % slow with +1.6 s REALTIME jumps every 34 s, tick 10000 -> 9437) and Ubuntu 26.04 fresh default (within +/-0.73 ppm, tick 10000). Raw probe/analysis/settle JSON, redacted environment snapshots, logs, hashes and the verbatim protocol are committed under evidence/2026-09-24-same-host-screens/ and described in docs/same-host-screens-2026-09-24.md."
+    "v0.6.0: the three-model comparison's outer panels are now measured. Two read-only guest-side screens were taken on one Windows host on 2026-09-24 from fresh WSL boots with the project CLI: Ubuntu 24.04 with systemd-timesyncd active (about 4.8 % slow with +1.6 s REALTIME jumps every 34 s, tick 10000 -> 9437) and Ubuntu 26.04 fresh default (within +/-0.73 ppm, tick 10000). Raw probe/analysis/settle JSON, redacted environment snapshots, logs, hashes and the verbatim protocol are committed under evidence/2026-09-24-same-host-screens/ and described in docs/same-host-screens-2026-09-24.md.",
+    "v0.6.1: move the measured three-model comparison to the README front door; add concise engineering-depth and Windows/Ubuntu troubleshooting paths; refresh evidence-boundary copy; add a README front-door regression test. No runtime or schema behavior changes."
   ],
   "validation": {
     "durable_github_ci": {
@@ -61,7 +62,13 @@
         "tests_passed_per_interpreter": 271,
         "semantic_smoke": "Passed in both jobs."
       },
-      "v0_6_0_release_gate": "The exact v0.6.0 release commit must pass the complete Python 3.12/3.14 gate, 0.6.0 wheel metadata/import verification, and semantic CLI smoke before main advances and the tag is created; consult the checks attached to the release commit."
+      "v0_6_0_release": {
+        "commit": "d210a0ec8f1e28637e796ee18f5c1f402ef0fff2",
+        "tests_passed_per_interpreter": 275,
+        "main_run_url": "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/actions/runs/36037416443",
+        "semantic_smoke": "Passed in both Python jobs."
+      },
+      "v0_6_1_release_gate": "The exact v0.6.1 release commit must pass the complete Python 3.12/3.14 suite (276 tests expected), 0.6.1 wheel metadata/import verification, semantic CLI smoke, and README/evidence regression checks before main/tag publication."
     },
     "local_wsl_review": {
       "ubuntu_24_04_python_3_12_3": "271-test final-core review passed; software validation only.",
@@ -81,14 +88,14 @@
     "host_referenced_timing_qualification": "Unavailable for a current machine; CI, local software tests and the committed guest-side screens do not establish it."
   },
   "presentation_assets": {
-    "three-model-timing-comparison.svg": "README hero. Three panels share one 0-120 s axis and one symmetric-log +/-100,000 ppm scale with the +/-1000 ppm screen; cursors move together at ten times real time. Left panel (24.04, timesyncd enabled): the four 30 s enclosures from the 2026-09-24 same-host screen (-55,088.612 to -49,693.640 ppm, printed exactly in the chips and rounded outward in the headline; running means at 60/90/120 s are explicitly marked derived) drawn as deviation blocks, measured REALTIME jumps marked at 31, 65 and 99 s, the 300 s run in the final chip, tick 10000 -> 9437 in the panel summary, and the host clock offset in the caption. Middle panel (24.04 after the stop, D4R2, Windows QPC reference): t = 0 is the window opening about 60 s after the confirmed stop with the unit still enabled; the four published 30 s enclosures appear as each window closes, the 120 s enclosure appears at 120 s, PRE tick 10833 and POST tick 10000 are marked, and the 0-60 s and 0-90 s running means are labelled as derived. Right panel (26.04 fresh default, same host, same day): the four 30 s enclosures (-0.73 to -0.27 ppm) hug the zero line, the 300 s run appears at the final checkpoint. Checkpoint cards reveal immediately at 30/60/90/120 s, the first-window collection state is explicit, and the +/-100,000 ppm scale endpoints are labelled. Cursors and sampling washes are illustrative and hidden when animation is off; the static/reduced-motion state is the complete result. The footer records that W32Time was stopped and the host clock about 1.06 s behind NTP, that the result is guest-side only and not a ranking, and that the tick writer is not established.",
+    "three-model-timing-comparison.svg": "README hero. Three panels share one 0-120 s axis and one symmetric-log +/-100,000 ppm scale with the +/-1000 ppm screen; cursors move together at ten times real time. Left panel (24.04, timesyncd enabled): the four 30 s enclosures from the 2026-09-24 same-host screen (-55,088.612 to -49,693.640 ppm, printed exactly in the chips and rounded outward in the headline; running means at 60/90/120 s are explicitly marked derived) drawn as deviation blocks, measured REALTIME jumps marked at 31, 65 and 99 s, the 300 s run in the final chip, tick 10000 -> 9437 in the panel summary, and the host clock offset in the caption. Middle panel (24.04 after the stop, D4R2, Windows QPC reference): t = 0 is the window opening about 60 s after the confirmed stop with the unit still enabled; the four published 30 s enclosures appear as each window closes, the 120 s enclosure appears at 120 s, PRE tick 10833 and POST tick 10000 are marked, and the 0-60 s and 0-90 s running means are labelled as derived. Right panel (26.04 fresh default, same host, same day): the four 30 s enclosures (-0.73 to -0.27 ppm) hug the zero line, the 300 s run appears at the final checkpoint. Checkpoint cards reveal immediately at 30/60/90/120 s, the first-window collection state is explicit, and the +/-100,000 ppm scale endpoints are labelled. Cursors and sampling washes are illustrative and hidden when animation is off; the static/reduced-motion state is the complete result. The footer records that W32Time was stopped and the host clock about 1.06 s behind NTP, that the result is guest-side only and not a ranking, and that the tick writer is not established. v0.6.1 promotes this asset to the first substantive element in the README after badges/tagline.",
     "clock-steering-story.svg": "Shown in the 'What is actually unique here?' section. Card A (24.04 default) and card D (26.04 fresh default) show documented control paths; card A carries the C1 A0 REALTIME-step observation and card D the historical 300 s guest-side screen; card B (24.04 after systemctl stop) shows the measured D4R2 state with PRE tick 10833 and POST tick 10000 marked 'set by ?' / 'reset by ?'. The chart replays the four published 30 s MONOTONIC/QPC enclosures, the 120 s average and the RAW/QPC full-run enclosure; the only derived figure (about +0.80 s over window 1) is labelled derived; the static/reduced-motion state is the complete result.",
     "d4r2-settling-animated.svg": "Step-by-step D4R2 replay embedded beside the full table in docs/timesyncd-investigation.md; published D4R2 interval enclosures only, coherent static/reduced-motion result.",
     "architecture-host-vm-guest.svg": "Microsoft/Canonical default architecture is separated from project measurement points and bounded interpretation.",
     "upstream-timeline.svg": "Vendor and project events are separate lanes; WSL 2.1.1 is identified as a prerelease and later Microsoft reports are not equated with #10006."
   },
   "provenance": "Fresh implementations of bounded acquisition/math ideas and public Linux interfaces. The committed 2026-09-24 evidence was produced by the repository's own read-only CLI on the reviewing machine; no historical private raw evidence or unrelated project data is copied into the repository.",
-  "note": "v0.6.0 is a normal pre-1.0 GitHub Release. It advances main with the measured same-host comparison, committed redacted evidence, and the three-model visual. Runtime behavior and the schema-v2 contract are unchanged from the diagnostic core. The official stable v1.0.0 release remains deferred. Host-reference qualification and a Windows QPC companion remain outside the current CLI.",
+  "note": "v0.6.1 is a normal pre-1.0 GitHub Release focused on README/front-door presentation and discoverability. Runtime behavior and schema-v2 semantics are unchanged from v0.6.0. Stable v1.0.0 remains deferred.",
   "preview_public_contract": {
     "cli": "wsl-time-sync",
     "python_import": "wsl_time_sync",
