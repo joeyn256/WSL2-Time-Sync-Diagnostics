@@ -12,6 +12,7 @@ EVIDENCE = ROOT / "evidence" / "2026-09-24-same-host-screens"
 LEFT = EVIDENCE / "ubuntu-24.04-timesyncd-enabled"
 RIGHT = EVIDENCE / "ubuntu-26.04-fresh-default"
 HERO = ROOT / "docs" / "assets" / "three-model-timing-comparison.svg"
+README = ROOT / "README.md"
 
 
 def _load(path: Path) -> dict:
@@ -99,3 +100,17 @@ def test_three_model_visual_is_bound_to_committed_evidence() -> None:
     svg = HERO.read_text(encoding="utf-8")
     assert "@keyframes k30{0%,16.64%{opacity:0}16.67%,100%{opacity:1}}" in svg
     assert "@media (prefers-reduced-motion:reduce){.a{animation:none !important}}" in svg
+
+
+def test_readme_keeps_measured_comparison_as_front_door() -> None:
+    readme = README.read_text(encoding="utf-8")
+    hero = "docs/assets/three-model-timing-comparison.svg"
+    assert hero in readme
+    assert readme.index(hero) < readme.index("## Why this project exists")
+    assert readme.index(hero) < readme.index("## At a glance")
+    assert "## Engineering depth at a glance" in readme
+    assert "## For Windows / Ubuntu engineers" in readme
+    assert "evidence/2026-09-24-same-host-screens/PROTOCOL.md" in readme
+    assert "src/wsl_time_sync/" in readme
+    assert "tests/" in readme
+    assert "v0.6.1" in readme
