@@ -1,0 +1,22 @@
+{
+  "version": "public-draft-r3-editorial-corrected",
+  "cross_document_checks": {
+    "causal limitation present": true,
+    "26.04 universal-fix disclaimer present": true,
+    "no controlled distro ranking claimed": true,
+    "Python advice is workload-specific": true,
+    "TP1R5 qualification unavailable": true,
+    "finite historical evidence retained": true,
+    "guest-vs-host distinction present": true,
+    "fixed-wait lesson present": true
+  },
+  "files": [
+    {"path":"README.md","bytes":14118,"sha256":"4d5f2047c4e988f727af72c6f9e727a44623c21f87916aed6e2249508df91b15"},
+    {"path":"docs/findings-ubuntu-24.04.md","bytes":5775,"sha256":"3c65d124803e8f45f623f748b49e5de229a5248eaa28d5170c3035b567d2a458"},
+    {"path":"docs/findings-ubuntu-26.04.md","bytes":4841,"sha256":"8fe84d69eda837d4869ddf24777e300cdb977fe4195368957474be9bf4eb55ba"},
+    {"path":"docs/timesyncd-investigation.md","bytes":6130,"sha256":"f688e7a71f4886b33b768da0ff10303fa5629a6f0e674d458be62897d2da511d"},
+    {"path":"docs/python-3.12-vs-3.14.md","bytes":5334,"sha256":"a63b13364080e0bc12d38ed95d863a357293b7fe805c1d10aa959d9687d36ba1"},
+    {"path":"docs/methodology.md","bytes":6653,"sha256":"299ab43b1cce71f6db06481e308f67543ddd5ec95678581c0a8fb721e5950558"},
+    {"path":"docs/limitations.md","bytes":5925,"sha256":"d82b11ed1d00fe2812448993b774744ffc93cb8fb345f01265457e58fb696cda"}
+  ]
+}
