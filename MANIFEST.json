@@ -1,5 +1,5 @@
 {
-  "version": "public-draft-r3-editorial-corrected",
+  "version": "public-draft-r3-editorial-corrected-plus-cli-readme",
   "cross_document_checks": {
     "causal limitation present": true,
     "26.04 universal-fix disclaimer present": true,
@@ -11,7 +11,7 @@
     "fixed-wait lesson present": true
   },
   "files": [
-    {"path":"README.md","bytes":14118,"sha256":"4d5f2047c4e988f727af72c6f9e727a44623c21f87916aed6e2249508df91b15"},
+    {"path":"README.md","bytes":15230,"sha256":"98209316ea61b8b9f5af59ab3ebd5bcf549293441924fb091697caa8906e6070"},
     {"path":"docs/findings-ubuntu-24.04.md","bytes":5775,"sha256":"3c65d124803e8f45f623f748b49e5de229a5248eaa28d5170c3035b567d2a458"},
     {"path":"docs/findings-ubuntu-26.04.md","bytes":4841,"sha256":"8fe84d69eda837d4869ddf24777e300cdb977fe4195368957474be9bf4eb55ba"},
     {"path":"docs/timesyncd-investigation.md","bytes":6130,"sha256":"f688e7a71f4886b33b768da0ff10303fa5629a6f0e674d458be62897d2da511d"},
