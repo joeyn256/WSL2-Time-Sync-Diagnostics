@@ -1,0 +1,4613 @@
+{
+  "classification": "OUTSIDE",
+  "continuity_label": null,
+  "coverage": {
+    "cadence_requested_s": 1.0,
+    "collection_complete": true,
+    "collection_completion_verified": true,
+    "complete": true,
+    "complete_window_count": 10,
+    "duration_requested_s": 300.0,
+    "elapsed_observation_ns": 285653275375,
+    "invalid_sample_count": 0,
+    "invalid_window_count": 0,
+    "issues": [],
+    "observations_expected_from_schedule": 301,
+    "observations_planned": 301,
+    "observed_duration_ns": 300059328585,
+    "partial_window_count": 0,
+    "requested_duration_fraction": 1.00019776195,
+    "requested_raw_duration_covered": true,
+    "sample_count": 301,
+    "valid_sample_count": 301,
+    "window_count": 10
+  },
+  "first_index": 0,
+  "full_run": {
+    "acquisition_complete": true,
+    "classification": "OUTSIDE",
+    "complete": true,
+    "issues": [],
+    "monotonic_vs_raw_ppm": -48010.74796587305,
+    "rate_interval_ppm": [
+      -48010.755673874926,
+      -48010.74025787105
+    ],
+    "raw_duration_interval_ns": [
+      300059326572,
+      300059331431
+    ],
+    "raw_duration_ns": 300059329001.5,
+    "realtime_offset_change_interval_ns": [
+      -1478055541,
+      -1478050682
+    ],
+    "realtime_offset_direction": "NEGATIVE",
+    "span_complete": true
+  },
+  "large_realtime_minus_raw_changes": 8,
+  "last_index": 300,
+  "method": {
+    "acquisition": "raw_bracket_v1",
+    "analysis": "fixed_window_interval_v2",
+    "clock_pair": "CLOCK_MONOTONIC/CLOCK_MONOTONIC_RAW",
+    "reference": "CLOCK_MONOTONIC_RAW",
+    "uncertainty": "raw_bracket"
+  },
+  "notes": [
+    "Analysis describes configured guest-relative observations, not universal health or readiness.",
+    "MONOTONIC-vs-RAW agreement does not prove absolute accuracy against Windows or an external clock.",
+    "Point ppm estimates are descriptive only; classifications use exact rational intervals and decimal settings before outward JSON rounding.",
+    "Schema-2 completion requires consistent RAW-origin scheduling, count, indexes, bounded guard metadata, and requested RAW-duration coverage; a completion claim never overrides a shortfall.",
+    "Full-run rate classification describes the observed span; span_complete and acquisition_complete distinguish valid local geometry from a finished requested acquisition.",
+    "Fixed-window cumulative REALTIME-minus-RAW changes use the configured event band; full-run cumulative change is descriptive and is not thresholded as one event.",
+    "Legacy sequential acquisition has unbounded timing uncertainty and cannot establish WITHIN.",
+    "Fixed nominal RAW boundaries use the first sample at/after each boundary; partial windows remain indeterminate."
+  ],
+  "outside_realtime_offset_windows": 2,
+  "realtime_backward_events": 0,
+  "realtime_events": [
+    {
+      "classification": "WITHIN",
+      "direction": "POSITIVE",
+      "first_index": 0,
+      "first_position": 0,
+      "issues": [],
+      "last_index": 1,
+      "last_position": 1,
+      "offset_change_interval_ns": [
+        1075217,
+        1080477
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "POSITIVE",
+      "first_index": 1,
+      "first_position": 1,
+      "issues": [],
+      "last_index": 2,
+      "last_position": 2,
+      "offset_change_interval_ns": [
+        1075847,
+        1081679
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "POSITIVE",
+      "first_index": 2,
+      "first_position": 2,
+      "issues": [],
+      "last_index": 3,
+      "last_position": 3,
+      "offset_change_interval_ns": [
+        1075557,
+        1081128
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "POSITIVE",
+      "first_index": 3,
+      "first_position": 3,
+      "issues": [],
+      "last_index": 4,
+      "last_position": 4,
+      "offset_change_interval_ns": [
+        1075807,
+        1081649
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 4,
+      "first_position": 4,
+      "issues": [],
+      "last_index": 5,
+      "last_position": 5,
+      "offset_change_interval_ns": [
+        -89882670,
+        -89877129
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 5,
+      "first_position": 5,
+      "issues": [],
+      "last_index": 6,
+      "last_position": 6,
+      "offset_change_interval_ns": [
+        -82748448,
+        -82743178
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 6,
+      "first_position": 6,
+      "issues": [],
+      "last_index": 7,
+      "last_position": 7,
+      "offset_change_interval_ns": [
+        -83390991,
+        -83385049
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 7,
+      "first_position": 7,
+      "issues": [],
+      "last_index": 8,
+      "last_position": 8,
+      "offset_change_interval_ns": [
+        -83328615,
+        -83322854
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 8,
+      "first_position": 8,
+      "issues": [],
+      "last_index": 9,
+      "last_position": 9,
+      "offset_change_interval_ns": [
+        -83348703,
+        -83343584
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 9,
+      "first_position": 9,
+      "issues": [],
+      "last_index": 10,
+      "last_position": 10,
+      "offset_change_interval_ns": [
+        -83325210,
+        -83319560
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 10,
+      "first_position": 10,
+      "issues": [],
+      "last_index": 11,
+      "last_position": 11,
+      "offset_change_interval_ns": [
+        -83335967,
+        -83329986
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 11,
+      "first_position": 11,
+      "issues": [],
+      "last_index": 12,
+      "last_position": 12,
+      "offset_change_interval_ns": [
+        -83353968,
+        -83347476
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 12,
+      "first_position": 12,
+      "issues": [],
+      "last_index": 13,
+      "last_position": 13,
+      "offset_change_interval_ns": [
+        -83311735,
+        -83305434
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 13,
+      "first_position": 13,
+      "issues": [],
+      "last_index": 14,
+      "last_position": 14,
+      "offset_change_interval_ns": [
+        -83341907,
+        -83336327
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 14,
+      "first_position": 14,
+      "issues": [],
+      "last_index": 15,
+      "last_position": 15,
+      "offset_change_interval_ns": [
+        -83329945,
+        -83325246
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 15,
+      "first_position": 15,
+      "issues": [],
+      "last_index": 16,
+      "last_position": 16,
+      "offset_change_interval_ns": [
+        -83336658,
+        -83332680
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 16,
+      "first_position": 16,
+      "issues": [],
+      "last_index": 17,
+      "last_position": 17,
+      "offset_change_interval_ns": [
+        -83340005,
+        -83335005
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 17,
+      "first_position": 17,
+      "issues": [],
+      "last_index": 18,
+      "last_position": 18,
+      "offset_change_interval_ns": [
+        -83339374,
+        -83333032
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 18,
+      "first_position": 18,
+      "issues": [],
+      "last_index": 19,
+      "last_position": 19,
+      "offset_change_interval_ns": [
+        -83336875,
+        -83330513
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 19,
+      "first_position": 19,
+      "issues": [],
+      "last_index": 20,
+      "last_position": 20,
+      "offset_change_interval_ns": [
+        -83329454,
+        -83323673
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 20,
+      "first_position": 20,
+      "issues": [],
+      "last_index": 21,
+      "last_position": 21,
+      "offset_change_interval_ns": [
+        -83347756,
+        -83342436
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 21,
+      "first_position": 21,
+      "issues": [],
+      "last_index": 22,
+      "last_position": 22,
+      "offset_change_interval_ns": [
+        -16633899,
+        -16628398
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 22,
+      "first_position": 22,
+      "issues": [],
+      "last_index": 23,
+      "last_position": 23,
+      "offset_change_interval_ns": [
+        -28430994,
+        -28425332
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 23,
+      "first_position": 23,
+      "issues": [],
+      "last_index": 24,
+      "last_position": 24,
+      "offset_change_interval_ns": [
+        -28083827,
+        -28079057
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 24,
+      "first_position": 24,
+      "issues": [],
+      "last_index": 25,
+      "last_position": 25,
+      "offset_change_interval_ns": [
+        -28116418,
+        -28090188
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 25,
+      "first_position": 25,
+      "issues": [],
+      "last_index": 26,
+      "last_position": 26,
+      "offset_change_interval_ns": [
+        -28098881,
+        -28071969
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 26,
+      "first_position": 26,
+      "issues": [],
+      "last_index": 27,
+      "last_position": 27,
+      "offset_change_interval_ns": [
+        -28099606,
+        -28093754
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 27,
+      "first_position": 27,
+      "issues": [],
+      "last_index": 28,
+      "last_position": 28,
+      "offset_change_interval_ns": [
+        -28094095,
+        -28089116
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 28,
+      "first_position": 28,
+      "issues": [],
+      "last_index": 29,
+      "last_position": 29,
+      "offset_change_interval_ns": [
+        -28094966,
+        -28091169
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 29,
+      "first_position": 29,
+      "issues": [],
+      "last_index": 30,
+      "last_position": 30,
+      "offset_change_interval_ns": [
+        -21917382,
+        -21912272
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "OUTSIDE",
+      "direction": "POSITIVE",
+      "first_index": 30,
+      "first_position": 30,
+      "issues": [],
+      "last_index": 31,
+      "last_position": 31,
+      "offset_change_interval_ns": [
+        1642837197,
+        1642842206
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 31,
+      "first_position": 31,
+      "issues": [],
+      "last_index": 32,
+      "last_position": 32,
+      "offset_change_interval_ns": [
+        -9427455,
+        -9421565
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 32,
+      "first_position": 32,
+      "issues": [],
+      "last_index": 33,
+      "last_position": 33,
+      "offset_change_interval_ns": [
+        -9424123,
+        -9417861
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 33,
+      "first_position": 33,
+      "issues": [],
+      "last_index": 34,
+      "last_position": 34,
+      "offset_change_interval_ns": [
+        -9423657,
+        -9419528
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 34,
+      "first_position": 34,
+      "issues": [],
+      "last_index": 35,
+      "last_position": 35,
+      "offset_change_interval_ns": [
+        -9426166,
+        -9420685
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 35,
+      "first_position": 35,
+      "issues": [],
+      "last_index": 36,
+      "last_position": 36,
+      "offset_change_interval_ns": [
+        -9423189,
+        -9417729
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 36,
+      "first_position": 36,
+      "issues": [],
+      "last_index": 37,
+      "last_position": 37,
+      "offset_change_interval_ns": [
+        -9423989,
+        -9420183
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 37,
+      "first_position": 37,
+      "issues": [],
+      "last_index": 38,
+      "last_position": 38,
+      "offset_change_interval_ns": [
+        -27012816,
+        -27009210
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 38,
+      "first_position": 38,
+      "issues": [],
+      "last_index": 39,
+      "last_position": 39,
+      "offset_change_interval_ns": [
+        -88453166,
+        -88449549
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 39,
+      "first_position": 39,
+      "issues": [],
+      "last_index": 40,
+      "last_position": 40,
+      "offset_change_interval_ns": [
+        -82882405,
+        -82876233
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 40,
+      "first_position": 40,
+      "issues": [],
+      "last_index": 41,
+      "last_position": 41,
+      "offset_change_interval_ns": [
+        -83370717,
+        -83364426
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 41,
+      "first_position": 41,
+      "issues": [],
+      "last_index": 42,
+      "last_position": 42,
+      "offset_change_interval_ns": [
+        -83330283,
+        -83326436
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 42,
+      "first_position": 42,
+      "issues": [],
+      "last_index": 43,
+      "last_position": 43,
+      "offset_change_interval_ns": [
+        -83337056,
+        -83333248
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 43,
+      "first_position": 43,
+      "issues": [],
+      "last_index": 44,
+      "last_position": 44,
+      "offset_change_interval_ns": [
+        -83336330,
+        -83332583
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 44,
+      "first_position": 44,
+      "issues": [],
+      "last_index": 45,
+      "last_position": 45,
+      "offset_change_interval_ns": [
+        -83337372,
+        -83332964
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 45,
+      "first_position": 45,
+      "issues": [],
+      "last_index": 46,
+      "last_position": 46,
+      "offset_change_interval_ns": [
+        -83330855,
+        -83325435
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 46,
+      "first_position": 46,
+      "issues": [],
+      "last_index": 47,
+      "last_position": 47,
+      "offset_change_interval_ns": [
+        -83339080,
+        -83333530
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 47,
+      "first_position": 47,
+      "issues": [],
+      "last_index": 48,
+      "last_position": 48,
+      "offset_change_interval_ns": [
+        -83340705,
+        -83335085
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 48,
+      "first_position": 48,
+      "issues": [],
+      "last_index": 49,
+      "last_position": 49,
+      "offset_change_interval_ns": [
+        -83331389,
+        -83325859
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 49,
+      "first_position": 49,
+      "issues": [],
+      "last_index": 50,
+      "last_position": 50,
+      "offset_change_interval_ns": [
+        -83333668,
+        -83327887
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 50,
+      "first_position": 50,
+      "issues": [],
+      "last_index": 51,
+      "last_position": 51,
+      "offset_change_interval_ns": [
+        -83344253,
+        -83338432
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 51,
+      "first_position": 51,
+      "issues": [],
+      "last_index": 52,
+      "last_position": 52,
+      "offset_change_interval_ns": [
+        -83330139,
+        -83324629
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 52,
+      "first_position": 52,
+      "issues": [],
+      "last_index": 53,
+      "last_position": 53,
+      "offset_change_interval_ns": [
+        -64827741,
+        -64822041
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 53,
+      "first_position": 53,
+      "issues": [],
+      "last_index": 54,
+      "last_position": 54,
+      "offset_change_interval_ns": [
+        -2956,
+        2945
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 54,
+      "first_position": 54,
+      "issues": [],
+      "last_index": 55,
+      "last_position": 55,
+      "offset_change_interval_ns": [
+        -21190,
+        3116
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 55,
+      "first_position": 55,
+      "issues": [],
+      "last_index": 56,
+      "last_position": 56,
+      "offset_change_interval_ns": [
+        -60512322,
+        -60489158
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 56,
+      "first_position": 56,
+      "issues": [],
+      "last_index": 57,
+      "last_position": 57,
+      "offset_change_interval_ns": [
+        -61170286,
+        -61166509
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 57,
+      "first_position": 57,
+      "issues": [],
+      "last_index": 58,
+      "last_position": 58,
+      "offset_change_interval_ns": [
+        -61126181,
+        -61122404
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 58,
+      "first_position": 58,
+      "issues": [],
+      "last_index": 59,
+      "last_position": 59,
+      "offset_change_interval_ns": [
+        -61130606,
+        -61126648
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 59,
+      "first_position": 59,
+      "issues": [],
+      "last_index": 60,
+      "last_position": 60,
+      "offset_change_interval_ns": [
+        -61135589,
+        -61130138
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 60,
+      "first_position": 60,
+      "issues": [],
+      "last_index": 61,
+      "last_position": 61,
+      "offset_change_interval_ns": [
+        -61131950,
+        -61124766
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 61,
+      "first_position": 61,
+      "issues": [],
+      "last_index": 62,
+      "last_position": 62,
+      "offset_change_interval_ns": [
+        -3890468,
+        -3883175
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 62,
+      "first_position": 62,
+      "issues": [],
+      "last_index": 63,
+      "last_position": 63,
+      "offset_change_interval_ns": [
+        -3316,
+        3096
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 63,
+      "first_position": 63,
+      "issues": [],
+      "last_index": 64,
+      "last_position": 64,
+      "offset_change_interval_ns": [
+        -11060580,
+        -11055790
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "OUTSIDE",
+      "direction": "POSITIVE",
+      "first_index": 64,
+      "first_position": 64,
+      "issues": [],
+      "last_index": 65,
+      "last_position": 65,
+      "offset_change_interval_ns": [
+        1690855183,
+        1690860013
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 65,
+      "first_position": 65,
+      "issues": [],
+      "last_index": 66,
+      "last_position": 66,
+      "offset_change_interval_ns": [
+        -19939713,
+        -19933251
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 66,
+      "first_position": 66,
+      "issues": [],
+      "last_index": 67,
+      "last_position": 67,
+      "offset_change_interval_ns": [
+        -19946133,
+        -19939872
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 67,
+      "first_position": 67,
+      "issues": [],
+      "last_index": 68,
+      "last_position": 68,
+      "offset_change_interval_ns": [
+        -19937324,
+        -19931573
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 68,
+      "first_position": 68,
+      "issues": [],
+      "last_index": 69,
+      "last_position": 69,
+      "offset_change_interval_ns": [
+        -19941712,
+        -19936110
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 69,
+      "first_position": 69,
+      "issues": [],
+      "last_index": 70,
+      "last_position": 70,
+      "offset_change_interval_ns": [
+        -19942231,
+        -19936940
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 70,
+      "first_position": 70,
+      "issues": [],
+      "last_index": 71,
+      "last_position": 71,
+      "offset_change_interval_ns": [
+        -19941374,
+        -19935774
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 71,
+      "first_position": 71,
+      "issues": [],
+      "last_index": 72,
+      "last_position": 72,
+      "offset_change_interval_ns": [
+        -46700673,
+        -46695804
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 72,
+      "first_position": 72,
+      "issues": [],
+      "last_index": 73,
+      "last_position": 73,
+      "offset_change_interval_ns": [
+        -86686605,
+        -86680983
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 73,
+      "first_position": 73,
+      "issues": [],
+      "last_index": 74,
+      "last_position": 74,
+      "offset_change_interval_ns": [
+        -83019289,
+        -83012656
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 74,
+      "first_position": 74,
+      "issues": [],
+      "last_index": 75,
+      "last_position": 75,
+      "offset_change_interval_ns": [
+        -83364167,
+        -83358297
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 75,
+      "first_position": 75,
+      "issues": [],
+      "last_index": 76,
+      "last_position": 76,
+      "offset_change_interval_ns": [
+        -83333534,
+        -83328034
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 76,
+      "first_position": 76,
+      "issues": [],
+      "last_index": 77,
+      "last_position": 77,
+      "offset_change_interval_ns": [
+        -83332775,
+        -83327785
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 77,
+      "first_position": 77,
+      "issues": [],
+      "last_index": 78,
+      "last_position": 78,
+      "offset_change_interval_ns": [
+        -83332324,
+        -83327835
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 78,
+      "first_position": 78,
+      "issues": [],
+      "last_index": 79,
+      "last_position": 79,
+      "offset_change_interval_ns": [
+        -83339576,
+        -83334957
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 79,
+      "first_position": 79,
+      "issues": [],
+      "last_index": 80,
+      "last_position": 80,
+      "offset_change_interval_ns": [
+        -83332942,
+        -83328503
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 80,
+      "first_position": 80,
+      "issues": [],
+      "last_index": 81,
+      "last_position": 81,
+      "offset_change_interval_ns": [
+        -83341892,
+        -83337143
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 81,
+      "first_position": 81,
+      "issues": [],
+      "last_index": 82,
+      "last_position": 82,
+      "offset_change_interval_ns": [
+        -83334663,
+        -83328802
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 82,
+      "first_position": 82,
+      "issues": [],
+      "last_index": 83,
+      "last_position": 83,
+      "offset_change_interval_ns": [
+        -83337873,
+        -83331370
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 83,
+      "first_position": 83,
+      "issues": [],
+      "last_index": 84,
+      "last_position": 84,
+      "offset_change_interval_ns": [
+        -83334664,
+        -83327810
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 84,
+      "first_position": 84,
+      "issues": [],
+      "last_index": 85,
+      "last_position": 85,
+      "offset_change_interval_ns": [
+        -83334073,
+        -83328121
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 85,
+      "first_position": 85,
+      "issues": [],
+      "last_index": 86,
+      "last_position": 86,
+      "offset_change_interval_ns": [
+        -83335243,
+        -83330864
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 86,
+      "first_position": 86,
+      "issues": [],
+      "last_index": 87,
+      "last_position": 87,
+      "offset_change_interval_ns": [
+        -10707170,
+        -10703623
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 87,
+      "first_position": 87,
+      "issues": [],
+      "last_index": 88,
+      "last_position": 88,
+      "offset_change_interval_ns": [
+        -2494,
+        2204
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 88,
+      "first_position": 88,
+      "issues": [],
+      "last_index": 89,
+      "last_position": 89,
+      "offset_change_interval_ns": [
+        -5387021,
+        -5381221
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 89,
+      "first_position": 89,
+      "issues": [],
+      "last_index": 90,
+      "last_position": 90,
+      "offset_change_interval_ns": [
+        -41497596,
+        -41492978
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 90,
+      "first_position": 90,
+      "issues": [],
+      "last_index": 91,
+      "last_position": 91,
+      "offset_change_interval_ns": [
+        -40004411,
+        -39999843
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 91,
+      "first_position": 91,
+      "issues": [],
+      "last_index": 92,
+      "last_position": 92,
+      "offset_change_interval_ns": [
+        -40064449,
+        -40058668
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 92,
+      "first_position": 92,
+      "issues": [],
+      "last_index": 93,
+      "last_position": 93,
+      "offset_change_interval_ns": [
+        -40062139,
+        -40056127
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 93,
+      "first_position": 93,
+      "issues": [],
+      "last_index": 94,
+      "last_position": 94,
+      "offset_change_interval_ns": [
+        -40060782,
+        -40054791
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 94,
+      "first_position": 94,
+      "issues": [],
+      "last_index": 95,
+      "last_position": 95,
+      "offset_change_interval_ns": [
+        -40061564,
+        -40055954
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 95,
+      "first_position": 95,
+      "issues": [],
+      "last_index": 96,
+      "last_position": 96,
+      "offset_change_interval_ns": [
+        -39398224,
+        -39392804
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 96,
+      "first_position": 96,
+      "issues": [],
+      "last_index": 97,
+      "last_position": 97,
+      "offset_change_interval_ns": [
+        -3046,
+        3046
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 97,
+      "first_position": 97,
+      "issues": [],
+      "last_index": 98,
+      "last_position": 98,
+      "offset_change_interval_ns": [
+        -49297179,
+        -49291929
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "OUTSIDE",
+      "direction": "POSITIVE",
+      "first_index": 98,
+      "first_position": 98,
+      "issues": [],
+      "last_index": 99,
+      "last_position": 99,
+      "offset_change_interval_ns": [
+        1645810510,
+        1645815649
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 99,
+      "first_position": 99,
+      "issues": [],
+      "last_index": 100,
+      "last_position": 100,
+      "offset_change_interval_ns": [
+        -55978901,
+        -55972569
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 100,
+      "first_position": 100,
+      "issues": [],
+      "last_index": 101,
+      "last_position": 101,
+      "offset_change_interval_ns": [
+        -56002128,
+        -55996227
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 101,
+      "first_position": 101,
+      "issues": [],
+      "last_index": 102,
+      "last_position": 102,
+      "offset_change_interval_ns": [
+        -24941596,
+        -24937018
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 102,
+      "first_position": 102,
+      "issues": [],
+      "last_index": 103,
+      "last_position": 103,
+      "offset_change_interval_ns": [
+        -2665,
+        1933
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 103,
+      "first_position": 103,
+      "issues": [],
+      "last_index": 104,
+      "last_position": 104,
+      "offset_change_interval_ns": [
+        -3015,
+        2956
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 104,
+      "first_position": 104,
+      "issues": [],
+      "last_index": 105,
+      "last_position": 105,
+      "offset_change_interval_ns": [
+        -2826,
+        2965
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 105,
+      "first_position": 105,
+      "issues": [],
+      "last_index": 106,
+      "last_position": 106,
+      "offset_change_interval_ns": [
+        -52209972,
+        -52204622
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 106,
+      "first_position": 106,
+      "issues": [],
+      "last_index": 107,
+      "last_position": 107,
+      "offset_change_interval_ns": [
+        -86163201,
+        -86157540
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 107,
+      "first_position": 107,
+      "issues": [],
+      "last_index": 108,
+      "last_position": 108,
+      "offset_change_interval_ns": [
+        -83080333,
+        -83074662
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 108,
+      "first_position": 108,
+      "issues": [],
+      "last_index": 109,
+      "last_position": 109,
+      "offset_change_interval_ns": [
+        -83353656,
+        -83349177
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 109,
+      "first_position": 109,
+      "issues": [],
+      "last_index": 110,
+      "last_position": 110,
+      "offset_change_interval_ns": [
+        -83337812,
+        -83334175
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 110,
+      "first_position": 110,
+      "issues": [],
+      "last_index": 111,
+      "last_position": 111,
+      "offset_change_interval_ns": [
+        -83336545,
+        -83331606
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 111,
+      "first_position": 111,
+      "issues": [],
+      "last_index": 112,
+      "last_position": 112,
+      "offset_change_interval_ns": [
+        -83331296,
+        -83326297
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 112,
+      "first_position": 112,
+      "issues": [],
+      "last_index": 113,
+      "last_position": 113,
+      "offset_change_interval_ns": [
+        -83334689,
+        -83331053
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 113,
+      "first_position": 113,
+      "issues": [],
+      "last_index": 114,
+      "last_position": 114,
+      "offset_change_interval_ns": [
+        -13444025,
+        -13439287
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 114,
+      "first_position": 114,
+      "issues": [],
+      "last_index": 115,
+      "last_position": 115,
+      "offset_change_interval_ns": [
+        -83062994,
+        -83057013
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 115,
+      "first_position": 115,
+      "issues": [],
+      "last_index": 116,
+      "last_position": 116,
+      "offset_change_interval_ns": [
+        -83316299,
+        -83311630
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 116,
+      "first_position": 116,
+      "issues": [],
+      "last_index": 117,
+      "last_position": 117,
+      "offset_change_interval_ns": [
+        -83345152,
+        -83340784
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 117,
+      "first_position": 117,
+      "issues": [],
+      "last_index": 118,
+      "last_position": 118,
+      "offset_change_interval_ns": [
+        -83327846,
+        -83323497
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 118,
+      "first_position": 118,
+      "issues": [],
+      "last_index": 119,
+      "last_position": 119,
+      "offset_change_interval_ns": [
+        -83333262,
+        -83329885
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 119,
+      "first_position": 119,
+      "issues": [],
+      "last_index": 120,
+      "last_position": 120,
+      "offset_change_interval_ns": [
+        -29632283,
+        -29627775
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 120,
+      "first_position": 120,
+      "issues": [],
+      "last_index": 121,
+      "last_position": 121,
+      "offset_change_interval_ns": [
+        -2805,
+        2685
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 121,
+      "first_position": 121,
+      "issues": [],
+      "last_index": 122,
+      "last_position": 122,
+      "offset_change_interval_ns": [
+        -2034,
+        2394
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 122,
+      "first_position": 122,
+      "issues": [],
+      "last_index": 123,
+      "last_position": 123,
+      "offset_change_interval_ns": [
+        -18740578,
+        -18736861
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 123,
+      "first_position": 123,
+      "issues": [],
+      "last_index": 124,
+      "last_position": 124,
+      "offset_change_interval_ns": [
+        -40388983,
+        -40381999
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 124,
+      "first_position": 124,
+      "issues": [],
+      "last_index": 125,
+      "last_position": 125,
+      "offset_change_interval_ns": [
+        -39491548,
+        -39482590
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 125,
+      "first_position": 125,
+      "issues": [],
+      "last_index": 126,
+      "last_position": 126,
+      "offset_change_interval_ns": [
+        -39527952,
+        -39519625
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 126,
+      "first_position": 126,
+      "issues": [],
+      "last_index": 127,
+      "last_position": 127,
+      "offset_change_interval_ns": [
+        -39527855,
+        -39521743
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 127,
+      "first_position": 127,
+      "issues": [],
+      "last_index": 128,
+      "last_position": 128,
+      "offset_change_interval_ns": [
+        -39524076,
+        -39519167
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 128,
+      "first_position": 128,
+      "issues": [],
+      "last_index": 129,
+      "last_position": 129,
+      "offset_change_interval_ns": [
+        -39524645,
+        -39518533
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 129,
+      "first_position": 129,
+      "issues": [],
+      "last_index": 130,
+      "last_position": 130,
+      "offset_change_interval_ns": [
+        -18305241,
+        -18299670
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 130,
+      "first_position": 130,
+      "issues": [],
+      "last_index": 131,
+      "last_position": 131,
+      "offset_change_interval_ns": [
+        -12044164,
+        -12038964
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "OUTSIDE",
+      "direction": "POSITIVE",
+      "first_index": 131,
+      "first_position": 131,
+      "issues": [],
+      "last_index": 132,
+      "last_position": 132,
+      "offset_change_interval_ns": [
+        1571661908,
+        1571667208
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 132,
+      "first_position": 132,
+      "issues": [],
+      "last_index": 133,
+      "last_position": 133,
+      "offset_change_interval_ns": [
+        -66424511,
+        -66417077
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 133,
+      "first_position": 133,
+      "issues": [],
+      "last_index": 134,
+      "last_position": 134,
+      "offset_change_interval_ns": [
+        -66736370,
+        -66728425
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 134,
+      "first_position": 134,
+      "issues": [],
+      "last_index": 135,
+      "last_position": 135,
+      "offset_change_interval_ns": [
+        -36685861,
+        -36679730
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 135,
+      "first_position": 135,
+      "issues": [],
+      "last_index": 136,
+      "last_position": 136,
+      "offset_change_interval_ns": [
+        -2405,
+        2354
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 136,
+      "first_position": 136,
+      "issues": [],
+      "last_index": 137,
+      "last_position": 137,
+      "offset_change_interval_ns": [
+        -2735,
+        2194
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 137,
+      "first_position": 137,
+      "issues": [],
+      "last_index": 138,
+      "last_position": 138,
+      "offset_change_interval_ns": [
+        -2614,
+        3016
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 138,
+      "first_position": 138,
+      "issues": [],
+      "last_index": 139,
+      "last_position": 139,
+      "offset_change_interval_ns": [
+        -2744,
+        2536
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 139,
+      "first_position": 139,
+      "issues": [],
+      "last_index": 140,
+      "last_position": 140,
+      "offset_change_interval_ns": [
+        -82101853,
+        -82095772
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 140,
+      "first_position": 140,
+      "issues": [],
+      "last_index": 141,
+      "last_position": 141,
+      "offset_change_interval_ns": [
+        -83450638,
+        -83444026
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 141,
+      "first_position": 141,
+      "issues": [],
+      "last_index": 142,
+      "last_position": 142,
+      "offset_change_interval_ns": [
+        -83325436,
+        -83319425
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 142,
+      "first_position": 142,
+      "issues": [],
+      "last_index": 143,
+      "last_position": 143,
+      "offset_change_interval_ns": [
+        -83333784,
+        -83327983
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 143,
+      "first_position": 143,
+      "issues": [],
+      "last_index": 144,
+      "last_position": 144,
+      "offset_change_interval_ns": [
+        -83345960,
+        -83339418
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 144,
+      "first_position": 144,
+      "issues": [],
+      "last_index": 145,
+      "last_position": 145,
+      "offset_change_interval_ns": [
+        -83349091,
+        -83341016
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 145,
+      "first_position": 145,
+      "issues": [],
+      "last_index": 146,
+      "last_position": 146,
+      "offset_change_interval_ns": [
+        -83315380,
+        -83308196
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 146,
+      "first_position": 146,
+      "issues": [],
+      "last_index": 147,
+      "last_position": 147,
+      "offset_change_interval_ns": [
+        -83335984,
+        -83330173
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 147,
+      "first_position": 147,
+      "issues": [],
+      "last_index": 148,
+      "last_position": 148,
+      "offset_change_interval_ns": [
+        -47252815,
+        -47247094
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 148,
+      "first_position": 148,
+      "issues": [],
+      "last_index": 149,
+      "last_position": 149,
+      "offset_change_interval_ns": [
+        -86611530,
+        -86607141
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 149,
+      "first_position": 149,
+      "issues": [],
+      "last_index": 150,
+      "last_position": 150,
+      "offset_change_interval_ns": [
+        -83039857,
+        -83035568
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 150,
+      "first_position": 150,
+      "issues": [],
+      "last_index": 151,
+      "last_position": 151,
+      "offset_change_interval_ns": [
+        -83354932,
+        -83349752
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 151,
+      "first_position": 151,
+      "issues": [],
+      "last_index": 152,
+      "last_position": 152,
+      "offset_change_interval_ns": [
+        -83342956,
+        -83337385
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 152,
+      "first_position": 152,
+      "issues": [],
+      "last_index": 153,
+      "last_position": 153,
+      "offset_change_interval_ns": [
+        -83360094,
+        -83354182
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 153,
+      "first_position": 153,
+      "issues": [],
+      "last_index": 154,
+      "last_position": 154,
+      "offset_change_interval_ns": [
+        -3051077,
+        -3046157
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 154,
+      "first_position": 154,
+      "issues": [],
+      "last_index": 155,
+      "last_position": 155,
+      "offset_change_interval_ns": [
+        -1973,
+        1784
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 155,
+      "first_position": 155,
+      "issues": [],
+      "last_index": 156,
+      "last_position": 156,
+      "offset_change_interval_ns": [
+        -2605,
+        2244
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 156,
+      "first_position": 156,
+      "issues": [],
+      "last_index": 157,
+      "last_position": 157,
+      "offset_change_interval_ns": [
+        -46844541,
+        -46838349
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 157,
+      "first_position": 157,
+      "issues": [],
+      "last_index": 158,
+      "last_position": 158,
+      "offset_change_interval_ns": [
+        -60260848,
+        -60255368
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 158,
+      "first_position": 158,
+      "issues": [],
+      "last_index": 159,
+      "last_position": 159,
+      "offset_change_interval_ns": [
+        -59409820,
+        -59405733
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 159,
+      "first_position": 159,
+      "issues": [],
+      "last_index": 160,
+      "last_position": 160,
+      "offset_change_interval_ns": [
+        -59476752,
+        -59471814
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 160,
+      "first_position": 160,
+      "issues": [],
+      "last_index": 161,
+      "last_position": 161,
+      "offset_change_interval_ns": [
+        -59459718,
+        -59453587
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 161,
+      "first_position": 161,
+      "issues": [],
+      "last_index": 162,
+      "last_position": 162,
+      "offset_change_interval_ns": [
+        -15255354,
+        -15249483
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 162,
+      "first_position": 162,
+      "issues": [],
+      "last_index": 163,
+      "last_position": 163,
+      "offset_change_interval_ns": [
+        -2986,
+        2665
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 163,
+      "first_position": 163,
+      "issues": [],
+      "last_index": 164,
+      "last_position": 164,
+      "offset_change_interval_ns": [
+        -3617,
+        3447
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 164,
+      "first_position": 164,
+      "issues": [],
+      "last_index": 165,
+      "last_position": 165,
+      "offset_change_interval_ns": [
+        -14672574,
+        -14665921
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "OUTSIDE",
+      "direction": "POSITIVE",
+      "first_index": 165,
+      "first_position": 165,
+      "issues": [],
+      "last_index": 166,
+      "last_position": 166,
+      "offset_change_interval_ns": [
+        1620030593,
+        1620035683
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 166,
+      "first_position": 166,
+      "issues": [],
+      "last_index": 167,
+      "last_position": 167,
+      "offset_change_interval_ns": [
+        -33416984,
+        -33411403
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 167,
+      "first_position": 167,
+      "issues": [],
+      "last_index": 168,
+      "last_position": 168,
+      "offset_change_interval_ns": [
+        -33435639,
+        -33429798
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 168,
+      "first_position": 168,
+      "issues": [],
+      "last_index": 169,
+      "last_position": 169,
+      "offset_change_interval_ns": [
+        -33438203,
+        -33431581
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 169,
+      "first_position": 169,
+      "issues": [],
+      "last_index": 170,
+      "last_position": 170,
+      "offset_change_interval_ns": [
+        -27002840,
+        -26997450
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 170,
+      "first_position": 170,
+      "issues": [],
+      "last_index": 171,
+      "last_position": 171,
+      "offset_change_interval_ns": [
+        -24978,
+        2003
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 171,
+      "first_position": 171,
+      "issues": [],
+      "last_index": 172,
+      "last_position": 172,
+      "offset_change_interval_ns": [
+        -2965,
+        25188
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 172,
+      "first_position": 172,
+      "issues": [],
+      "last_index": 173,
+      "last_position": 173,
+      "offset_change_interval_ns": [
+        -21403713,
+        -21392261
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 173,
+      "first_position": 173,
+      "issues": [],
+      "last_index": 174,
+      "last_position": 174,
+      "offset_change_interval_ns": [
+        -88974180,
+        -88962116
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 174,
+      "first_position": 174,
+      "issues": [],
+      "last_index": 175,
+      "last_position": 175,
+      "offset_change_interval_ns": [
+        -82821104,
+        -82814802
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 175,
+      "first_position": 175,
+      "issues": [],
+      "last_index": 176,
+      "last_position": 176,
+      "offset_change_interval_ns": [
+        -83384323,
+        -83378873
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 176,
+      "first_position": 176,
+      "issues": [],
+      "last_index": 177,
+      "last_position": 177,
+      "offset_change_interval_ns": [
+        -83331126,
+        -83325716
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 177,
+      "first_position": 177,
+      "issues": [],
+      "last_index": 178,
+      "last_position": 178,
+      "offset_change_interval_ns": [
+        -83336570,
+        -83330960
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 178,
+      "first_position": 178,
+      "issues": [],
+      "last_index": 179,
+      "last_position": 179,
+      "offset_change_interval_ns": [
+        -83331900,
+        -83325859
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 179,
+      "first_position": 179,
+      "issues": [],
+      "last_index": 180,
+      "last_position": 180,
+      "offset_change_interval_ns": [
+        -56539017,
+        -56533447
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 180,
+      "first_position": 180,
+      "issues": [],
+      "last_index": 181,
+      "last_position": 181,
+      "offset_change_interval_ns": [
+        -2745,
+        2394
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 181,
+      "first_position": 181,
+      "issues": [],
+      "last_index": 182,
+      "last_position": 182,
+      "offset_change_interval_ns": [
+        -58198783,
+        -58194095
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 182,
+      "first_position": 182,
+      "issues": [],
+      "last_index": 183,
+      "last_position": 183,
+      "offset_change_interval_ns": [
+        -85634129,
+        -85629601
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 183,
+      "first_position": 183,
+      "issues": [],
+      "last_index": 184,
+      "last_position": 184,
+      "offset_change_interval_ns": [
+        -83117279,
+        -83111819
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 184,
+      "first_position": 184,
+      "issues": [],
+      "last_index": 185,
+      "last_position": 185,
+      "offset_change_interval_ns": [
+        -83350774,
+        -83346216
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 185,
+      "first_position": 185,
+      "issues": [],
+      "last_index": 186,
+      "last_position": 186,
+      "offset_change_interval_ns": [
+        -83336962,
+        -83332193
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 186,
+      "first_position": 186,
+      "issues": [],
+      "last_index": 187,
+      "last_position": 187,
+      "offset_change_interval_ns": [
+        -25898923,
+        -25893893
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 187,
+      "first_position": 187,
+      "issues": [],
+      "last_index": 188,
+      "last_position": 188,
+      "offset_change_interval_ns": [
+        -2996,
+        2174
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 188,
+      "first_position": 188,
+      "issues": [],
+      "last_index": 189,
+      "last_position": 189,
+      "offset_change_interval_ns": [
+        -2836,
+        3186
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 189,
+      "first_position": 189,
+      "issues": [],
+      "last_index": 190,
+      "last_position": 190,
+      "offset_change_interval_ns": [
+        -15676195,
+        -15670623
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 190,
+      "first_position": 190,
+      "issues": [],
+      "last_index": 191,
+      "last_position": 191,
+      "offset_change_interval_ns": [
+        -74509987,
+        -74505668
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 191,
+      "first_position": 191,
+      "issues": [],
+      "last_index": 192,
+      "last_position": 192,
+      "offset_change_interval_ns": [
+        -70058544,
+        -70053945
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 192,
+      "first_position": 192,
+      "issues": [],
+      "last_index": 193,
+      "last_position": 193,
+      "offset_change_interval_ns": [
+        -70404797,
+        -70398725
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 193,
+      "first_position": 193,
+      "issues": [],
+      "last_index": 194,
+      "last_position": 194,
+      "offset_change_interval_ns": [
+        -70364225,
+        -70358183
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 194,
+      "first_position": 194,
+      "issues": [],
+      "last_index": 195,
+      "last_position": 195,
+      "offset_change_interval_ns": [
+        -21297080,
+        -21290247
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 195,
+      "first_position": 195,
+      "issues": [],
+      "last_index": 196,
+      "last_position": 196,
+      "offset_change_interval_ns": [
+        -3196,
+        3787
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 196,
+      "first_position": 196,
+      "issues": [],
+      "last_index": 197,
+      "last_position": 197,
+      "offset_change_interval_ns": [
+        -3005,
+        2936
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 197,
+      "first_position": 197,
+      "issues": [],
+      "last_index": 198,
+      "last_position": 198,
+      "offset_change_interval_ns": [
+        -2014,
+        2564
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 198,
+      "first_position": 198,
+      "issues": [],
+      "last_index": 199,
+      "last_position": 199,
+      "offset_change_interval_ns": [
+        -42815753,
+        -42810704
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "OUTSIDE",
+      "direction": "POSITIVE",
+      "first_index": 199,
+      "first_position": 199,
+      "issues": [],
+      "last_index": 200,
+      "last_position": 200,
+      "offset_change_interval_ns": [
+        1480019715,
+        1480026027
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 200,
+      "first_position": 200,
+      "issues": [],
+      "last_index": 201,
+      "last_position": 201,
+      "offset_change_interval_ns": [
+        -46779973,
+        -46775244
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 201,
+      "first_position": 201,
+      "issues": [],
+      "last_index": 202,
+      "last_position": 202,
+      "offset_change_interval_ns": [
+        -46804943,
+        -46800445
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 202,
+      "first_position": 202,
+      "issues": [],
+      "last_index": 203,
+      "last_position": 203,
+      "offset_change_interval_ns": [
+        -6916983,
+        -6911383
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 203,
+      "first_position": 203,
+      "issues": [],
+      "last_index": 204,
+      "last_position": 204,
+      "offset_change_interval_ns": [
+        -3005,
+        2585
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 204,
+      "first_position": 204,
+      "issues": [],
+      "last_index": 205,
+      "last_position": 205,
+      "offset_change_interval_ns": [
+        -2665,
+        2885
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 205,
+      "first_position": 205,
+      "issues": [],
+      "last_index": 206,
+      "last_position": 206,
+      "offset_change_interval_ns": [
+        -3987,
+        3507
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 206,
+      "first_position": 206,
+      "issues": [],
+      "last_index": 207,
+      "last_position": 207,
+      "offset_change_interval_ns": [
+        -60654771,
+        -60648148
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 207,
+      "first_position": 207,
+      "issues": [],
+      "last_index": 208,
+      "last_position": 208,
+      "offset_change_interval_ns": [
+        -85409238,
+        -85404668
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 208,
+      "first_position": 208,
+      "issues": [],
+      "last_index": 209,
+      "last_position": 209,
+      "offset_change_interval_ns": [
+        -83132204,
+        -83127755
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 209,
+      "first_position": 209,
+      "issues": [],
+      "last_index": 210,
+      "last_position": 210,
+      "offset_change_interval_ns": [
+        -83359898,
+        -83355049
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 210,
+      "first_position": 210,
+      "issues": [],
+      "last_index": 211,
+      "last_position": 211,
+      "offset_change_interval_ns": [
+        -83342617,
+        -83336426
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 211,
+      "first_position": 211,
+      "issues": [],
+      "last_index": 212,
+      "last_position": 212,
+      "offset_change_interval_ns": [
+        -83330427,
+        -83324267
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 212,
+      "first_position": 212,
+      "issues": [],
+      "last_index": 213,
+      "last_position": 213,
+      "offset_change_interval_ns": [
+        -83335972,
+        -83329721
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 213,
+      "first_position": 213,
+      "issues": [],
+      "last_index": 214,
+      "last_position": 214,
+      "offset_change_interval_ns": [
+        -62914183,
+        -62907891
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 214,
+      "first_position": 214,
+      "issues": [],
+      "last_index": 215,
+      "last_position": 215,
+      "offset_change_interval_ns": [
+        -2544330,
+        -2539200
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 215,
+      "first_position": 215,
+      "issues": [],
+      "last_index": 216,
+      "last_position": 216,
+      "offset_change_interval_ns": [
+        -90679514,
+        -90675075
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 216,
+      "first_position": 216,
+      "issues": [],
+      "last_index": 217,
+      "last_position": 217,
+      "offset_change_interval_ns": [
+        -82673142,
+        -82668012
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 217,
+      "first_position": 217,
+      "issues": [],
+      "last_index": 218,
+      "last_position": 218,
+      "offset_change_interval_ns": [
+        -83401438,
+        -83396008
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 218,
+      "first_position": 218,
+      "issues": [],
+      "last_index": 219,
+      "last_position": 219,
+      "offset_change_interval_ns": [
+        -83327944,
+        -83323025
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 219,
+      "first_position": 219,
+      "issues": [],
+      "last_index": 220,
+      "last_position": 220,
+      "offset_change_interval_ns": [
+        -83264513,
+        -83258773
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 220,
+      "first_position": 220,
+      "issues": [],
+      "last_index": 221,
+      "last_position": 221,
+      "offset_change_interval_ns": [
+        -3001,
+        3160
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 221,
+      "first_position": 221,
+      "issues": [],
+      "last_index": 222,
+      "last_position": 222,
+      "offset_change_interval_ns": [
+        -2615,
+        2685
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 222,
+      "first_position": 222,
+      "issues": [],
+      "last_index": 223,
+      "last_position": 223,
+      "offset_change_interval_ns": [
+        -2585,
+        2605
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 223,
+      "first_position": 223,
+      "issues": [],
+      "last_index": 224,
+      "last_position": 224,
+      "offset_change_interval_ns": [
+        -43643803,
+        -43636319
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 224,
+      "first_position": 224,
+      "issues": [],
+      "last_index": 225,
+      "last_position": 225,
+      "offset_change_interval_ns": [
+        -70938924,
+        -70929887
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 225,
+      "first_position": 225,
+      "issues": [],
+      "last_index": 226,
+      "last_position": 226,
+      "offset_change_interval_ns": [
+        -68899667,
+        -68892924
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 226,
+      "first_position": 226,
+      "issues": [],
+      "last_index": 227,
+      "last_position": 227,
+      "offset_change_interval_ns": [
+        -69079244,
+        -69072681
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 227,
+      "first_position": 227,
+      "issues": [],
+      "last_index": 228,
+      "last_position": 228,
+      "offset_change_interval_ns": [
+        -63278697,
+        -63272485
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 228,
+      "first_position": 228,
+      "issues": [],
+      "last_index": 229,
+      "last_position": 229,
+      "offset_change_interval_ns": [
+        -2574,
+        2456
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 229,
+      "first_position": 229,
+      "issues": [],
+      "last_index": 230,
+      "last_position": 230,
+      "offset_change_interval_ns": [
+        -3067,
+        3006
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 230,
+      "first_position": 230,
+      "issues": [],
+      "last_index": 231,
+      "last_position": 231,
+      "offset_change_interval_ns": [
+        -3106,
+        2876
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 231,
+      "first_position": 231,
+      "issues": [],
+      "last_index": 232,
+      "last_position": 232,
+      "offset_change_interval_ns": [
+        -7798673,
+        -7794144
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 232,
+      "first_position": 232,
+      "issues": [],
+      "last_index": 233,
+      "last_position": 233,
+      "offset_change_interval_ns": [
+        -30104876,
+        -30100437
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "OUTSIDE",
+      "direction": "POSITIVE",
+      "first_index": 233,
+      "first_position": 233,
+      "issues": [],
+      "last_index": 234,
+      "last_position": 234,
+      "offset_change_interval_ns": [
+        1508303260,
+        1508308761
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 234,
+      "first_position": 234,
+      "issues": [],
+      "last_index": 235,
+      "last_position": 235,
+      "offset_change_interval_ns": [
+        -29445980,
+        -29440148
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 235,
+      "first_position": 235,
+      "issues": [],
+      "last_index": 236,
+      "last_position": 236,
+      "offset_change_interval_ns": [
+        -29448234,
+        -29443514
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 236,
+      "first_position": 236,
+      "issues": [],
+      "last_index": 237,
+      "last_position": 237,
+      "offset_change_interval_ns": [
+        -29448563,
+        -29443993
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 237,
+      "first_position": 237,
+      "issues": [],
+      "last_index": 238,
+      "last_position": 238,
+      "offset_change_interval_ns": [
+        -5914291,
+        -5908229
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 238,
+      "first_position": 238,
+      "issues": [],
+      "last_index": 239,
+      "last_position": 239,
+      "offset_change_interval_ns": [
+        -2635,
+        3366
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 239,
+      "first_position": 239,
+      "issues": [],
+      "last_index": 240,
+      "last_position": 240,
+      "offset_change_interval_ns": [
+        -7486419,
+        -7481820
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 240,
+      "first_position": 240,
+      "issues": [],
+      "last_index": 241,
+      "last_position": 241,
+      "offset_change_interval_ns": [
+        -90242731,
+        -90237220
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 241,
+      "first_position": 241,
+      "issues": [],
+      "last_index": 242,
+      "last_position": 242,
+      "offset_change_interval_ns": [
+        -82704828,
+        -82698396
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 242,
+      "first_position": 242,
+      "issues": [],
+      "last_index": 243,
+      "last_position": 243,
+      "offset_change_interval_ns": [
+        -83392104,
+        -83386543
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 243,
+      "first_position": 243,
+      "issues": [],
+      "last_index": 244,
+      "last_position": 244,
+      "offset_change_interval_ns": [
+        -83341802,
+        -83336481
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 244,
+      "first_position": 244,
+      "issues": [],
+      "last_index": 245,
+      "last_position": 245,
+      "offset_change_interval_ns": [
+        -83325245,
+        -83319745
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 245,
+      "first_position": 245,
+      "issues": [],
+      "last_index": 246,
+      "last_position": 246,
+      "offset_change_interval_ns": [
+        -83333589,
+        -83327628
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 246,
+      "first_position": 246,
+      "issues": [],
+      "last_index": 247,
+      "last_position": 247,
+      "offset_change_interval_ns": [
+        -83332484,
+        -83327484
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 247,
+      "first_position": 247,
+      "issues": [],
+      "last_index": 248,
+      "last_position": 248,
+      "offset_change_interval_ns": [
+        -1091477,
+        -1086588
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 248,
+      "first_position": 248,
+      "issues": [],
+      "last_index": 249,
+      "last_position": 249,
+      "offset_change_interval_ns": [
+        -43013168,
+        -43006967
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 249,
+      "first_position": 249,
+      "issues": [],
+      "last_index": 250,
+      "last_position": 250,
+      "offset_change_interval_ns": [
+        -86997589,
+        -86991618
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 250,
+      "first_position": 250,
+      "issues": [],
+      "last_index": 251,
+      "last_position": 251,
+      "offset_change_interval_ns": [
+        -83005681,
+        -83000241
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 251,
+      "first_position": 251,
+      "issues": [],
+      "last_index": 252,
+      "last_position": 252,
+      "offset_change_interval_ns": [
+        -83364522,
+        -83358611
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 252,
+      "first_position": 252,
+      "issues": [],
+      "last_index": 253,
+      "last_position": 253,
+      "offset_change_interval_ns": [
+        -83338997,
+        -83332375
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 253,
+      "first_position": 253,
+      "issues": [],
+      "last_index": 254,
+      "last_position": 254,
+      "offset_change_interval_ns": [
+        -31936324,
+        -31931165
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 254,
+      "first_position": 254,
+      "issues": [],
+      "last_index": 255,
+      "last_position": 255,
+      "offset_change_interval_ns": [
+        -2565,
+        2174
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 255,
+      "first_position": 255,
+      "issues": [],
+      "last_index": 256,
+      "last_position": 256,
+      "offset_change_interval_ns": [
+        -2334,
+        2646
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 256,
+      "first_position": 256,
+      "issues": [],
+      "last_index": 257,
+      "last_position": 257,
+      "offset_change_interval_ns": [
+        -4060711,
+        -4056062
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 257,
+      "first_position": 257,
+      "issues": [],
+      "last_index": 258,
+      "last_position": 258,
+      "offset_change_interval_ns": [
+        -81390852,
+        -81386423
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 258,
+      "first_position": 258,
+      "issues": [],
+      "last_index": 259,
+      "last_position": 259,
+      "offset_change_interval_ns": [
+        -75113909,
+        -75110402
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 259,
+      "first_position": 259,
+      "issues": [],
+      "last_index": 260,
+      "last_position": 260,
+      "offset_change_interval_ns": [
+        -75642245,
+        -75635663
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 260,
+      "first_position": 260,
+      "issues": [],
+      "last_index": 261,
+      "last_position": 261,
+      "offset_change_interval_ns": [
+        -75567882,
+        -75561210
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 261,
+      "first_position": 261,
+      "issues": [],
+      "last_index": 262,
+      "last_position": 262,
+      "offset_change_interval_ns": [
+        -11898083,
+        -11894747
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 262,
+      "first_position": 262,
+      "issues": [],
+      "last_index": 263,
+      "last_position": 263,
+      "offset_change_interval_ns": [
+        -2374,
+        2164
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 263,
+      "first_position": 263,
+      "issues": [],
+      "last_index": 264,
+      "last_position": 264,
+      "offset_change_interval_ns": [
+        -2865,
+        2725
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 264,
+      "first_position": 264,
+      "issues": [],
+      "last_index": 265,
+      "last_position": 265,
+      "offset_change_interval_ns": [
+        -2034,
+        2224
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 265,
+      "first_position": 265,
+      "issues": [],
+      "last_index": 266,
+      "last_position": 266,
+      "offset_change_interval_ns": [
+        -21590699,
+        -21586180
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 266,
+      "first_position": 266,
+      "issues": [],
+      "last_index": 267,
+      "last_position": 267,
+      "offset_change_interval_ns": [
+        -29615487,
+        -29610927
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "OUTSIDE",
+      "direction": "POSITIVE",
+      "first_index": 267,
+      "first_position": 267,
+      "issues": [],
+      "last_index": 268,
+      "last_position": 268,
+      "offset_change_interval_ns": [
+        1472154144,
+        1472157561
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 268,
+      "first_position": 268,
+      "issues": [],
+      "last_index": 269,
+      "last_position": 269,
+      "offset_change_interval_ns": [
+        -29382557,
+        -29379100
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 269,
+      "first_position": 269,
+      "issues": [],
+      "last_index": 270,
+      "last_position": 270,
+      "offset_change_interval_ns": [
+        -29383363,
+        -29379575
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 270,
+      "first_position": 270,
+      "issues": [],
+      "last_index": 271,
+      "last_position": 271,
+      "offset_change_interval_ns": [
+        -13719802,
+        -13715764
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 271,
+      "first_position": 271,
+      "issues": [],
+      "last_index": 272,
+      "last_position": 272,
+      "offset_change_interval_ns": [
+        -2536,
+        2314
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 272,
+      "first_position": 272,
+      "issues": [],
+      "last_index": 273,
+      "last_position": 273,
+      "offset_change_interval_ns": [
+        -2113,
+        2626
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 273,
+      "first_position": 273,
+      "issues": [],
+      "last_index": 274,
+      "last_position": 274,
+      "offset_change_interval_ns": [
+        -49997934,
+        -49993667
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 274,
+      "first_position": 274,
+      "issues": [],
+      "last_index": 275,
+      "last_position": 275,
+      "offset_change_interval_ns": [
+        -86350007,
+        -86346130
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 275,
+      "first_position": 275,
+      "issues": [],
+      "last_index": 276,
+      "last_position": 276,
+      "offset_change_interval_ns": [
+        -83070148,
+        -83065730
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 276,
+      "first_position": 276,
+      "issues": [],
+      "last_index": 277,
+      "last_position": 277,
+      "offset_change_interval_ns": [
+        -83349393,
+        -83344794
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 277,
+      "first_position": 277,
+      "issues": [],
+      "last_index": 278,
+      "last_position": 278,
+      "offset_change_interval_ns": [
+        -83337906,
+        -83334569
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 278,
+      "first_position": 278,
+      "issues": [],
+      "last_index": 279,
+      "last_position": 279,
+      "offset_change_interval_ns": [
+        -83333282,
+        -83329875
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 279,
+      "first_position": 279,
+      "issues": [],
+      "last_index": 280,
+      "last_position": 280,
+      "offset_change_interval_ns": [
+        -83337503,
+        -83333915
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 280,
+      "first_position": 280,
+      "issues": [],
+      "last_index": 281,
+      "last_position": 281,
+      "offset_change_interval_ns": [
+        -8623936,
+        -8620078
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 281,
+      "first_position": 281,
+      "issues": [],
+      "last_index": 282,
+      "last_position": 282,
+      "offset_change_interval_ns": [
+        -1904,
+        2034
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 282,
+      "first_position": 282,
+      "issues": [],
+      "last_index": 283,
+      "last_position": 283,
+      "offset_change_interval_ns": [
+        -88972824,
+        -88968956
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 283,
+      "first_position": 283,
+      "issues": [],
+      "last_index": 284,
+      "last_position": 284,
+      "offset_change_interval_ns": [
+        -82827057,
+        -82822398
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 284,
+      "first_position": 284,
+      "issues": [],
+      "last_index": 285,
+      "last_position": 285,
+      "offset_change_interval_ns": [
+        -83375311,
+        -83370823
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 285,
+      "first_position": 285,
+      "issues": [],
+      "last_index": 286,
+      "last_position": 286,
+      "offset_change_interval_ns": [
+        -83349915,
+        -83344805
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 286,
+      "first_position": 286,
+      "issues": [],
+      "last_index": 287,
+      "last_position": 287,
+      "offset_change_interval_ns": [
+        -71896631,
+        -71890578
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 287,
+      "first_position": 287,
+      "issues": [],
+      "last_index": 288,
+      "last_position": 288,
+      "offset_change_interval_ns": [
+        -2615,
+        2656
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 288,
+      "first_position": 288,
+      "issues": [],
+      "last_index": 289,
+      "last_position": 289,
+      "offset_change_interval_ns": [
+        -3437,
+        3136
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 289,
+      "first_position": 289,
+      "issues": [],
+      "last_index": 290,
+      "last_position": 290,
+      "offset_change_interval_ns": [
+        -3777,
+        3707
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 290,
+      "first_position": 290,
+      "issues": [],
+      "last_index": 291,
+      "last_position": 291,
+      "offset_change_interval_ns": [
+        -50287727,
+        -50281395
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 291,
+      "first_position": 291,
+      "issues": [],
+      "last_index": 292,
+      "last_position": 292,
+      "offset_change_interval_ns": [
+        -86298497,
+        -86294078
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 292,
+      "first_position": 292,
+      "issues": [],
+      "last_index": 293,
+      "last_position": 293,
+      "offset_change_interval_ns": [
+        -83069206,
+        -83066050
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 293,
+      "first_position": 293,
+      "issues": [],
+      "last_index": 294,
+      "last_position": 294,
+      "offset_change_interval_ns": [
+        -83380763,
+        -83374572
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 294,
+      "first_position": 294,
+      "issues": [],
+      "last_index": 295,
+      "last_position": 295,
+      "offset_change_interval_ns": [
+        -32336957,
+        -32329373
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 295,
+      "first_position": 295,
+      "issues": [],
+      "last_index": 296,
+      "last_position": 296,
+      "offset_change_interval_ns": [
+        -2996,
+        3046
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 296,
+      "first_position": 296,
+      "issues": [],
+      "last_index": 297,
+      "last_position": 297,
+      "offset_change_interval_ns": [
+        -1894,
+        2675
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 297,
+      "first_position": 297,
+      "issues": [],
+      "last_index": 298,
+      "last_position": 298,
+      "offset_change_interval_ns": [
+        -1774,
+        1643
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 298,
+      "first_position": 298,
+      "issues": [],
+      "last_index": 299,
+      "last_position": 299,
+      "offset_change_interval_ns": [
+        -12093083,
+        -12089395
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 299,
+      "first_position": 299,
+      "issues": [],
+      "last_index": 300,
+      "last_position": 300,
+      "offset_change_interval_ns": [
+        -58913146,
+        -58908466
+      ],
+      "realtime_backward": false
+    }
+  ],
+  "sample_count": 301,
+  "schema_version": 2,
+  "settings": {
+    "cadence_requested_s": 1.0,
+    "duration_requested_s": 300.0,
+    "event_threshold_ns": 500000000,
+    "rate_band_ppm": 100.0,
+    "window_s": 30.0
+  },
+  "source_schema_version": 2,
+  "windows": [
+    {
+      "boundary_coverage": true,
+      "classification": "OUTSIDE",
+      "complete": true,
+      "end_displacement_ns": 22445725,
+      "first_index": 0,
+      "first_position": 0,
+      "issues": [],
+      "last_index": 30,
+      "last_position": 30,
+      "monotonic_vs_raw_ppm": -55088.530482005546,
+      "nominal_end_ns": 116239302235,
+      "nominal_start_ns": 86239302235,
+      "partial": false,
+      "rate_interval_ppm": [
+        -55088.61213999473,
+        -55088.44882400224
+      ],
+      "raw_duration_interval_ns": [
+        30022443712,
+        30022448901
+      ],
+      "raw_duration_ns": 30022446306.5,
+      "realtime_offset_change_interval_ns": [
+        -1653895297,
+        -1653890108
+      ],
+      "realtime_offset_classification": "OUTSIDE",
+      "realtime_offset_direction": "NEGATIVE",
+      "sample_count": 31,
+      "start_displacement_ns": 0,
+      "window_index": 0
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "OUTSIDE",
+      "complete": true,
+      "end_displacement_ns": 61296234,
+      "first_index": 30,
+      "first_position": 30,
+      "issues": [],
+      "last_index": 60,
+      "last_position": 60,
+      "monotonic_vs_raw_ppm": -54399.33548400117,
+      "nominal_end_ns": 146239302235,
+      "nominal_start_ns": 116239302235,
+      "partial": false,
+      "rate_interval_ppm": [
+        -54399.437838790654,
+        -54399.233129189524
+      ],
+      "raw_duration_interval_ns": [
+        30038847333,
+        30038853836
+      ],
+      "raw_duration_ns": 30038850584.5,
+      "realtime_offset_change_interval_ns": [
+        18041661,
+        18048164
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "POSITIVE",
+      "sample_count": 31,
+      "start_displacement_ns": 22445725,
+      "window_index": 1
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "OUTSIDE",
+      "complete": true,
+      "end_displacement_ns": 41582492,
+      "first_index": 60,
+      "first_position": 60,
+      "issues": [],
+      "last_index": 90,
+      "last_position": 90,
+      "monotonic_vs_raw_ppm": -49693.7194422312,
+      "nominal_end_ns": 176239302235,
+      "nominal_start_ns": 146239302235,
+      "partial": false,
+      "rate_interval_ppm": [
+        -49693.79932044417,
+        -49693.639564004814
+      ],
+      "raw_duration_interval_ns": [
+        29980282931,
+        29980287971
+      ],
+      "raw_duration_ns": 29980285451,
+      "realtime_offset_change_interval_ns": [
+        221146022,
+        221151062
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "POSITIVE",
+      "sample_count": 31,
+      "start_displacement_ns": 61296234,
+      "window_index": 2
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "OUTSIDE",
+      "complete": true,
+      "end_displacement_ns": 29890261,
+      "first_index": 90,
+      "first_position": 90,
+      "issues": [],
+      "last_index": 120,
+      "last_position": 120,
+      "monotonic_vs_raw_ppm": -52680.84889636096,
+      "nominal_end_ns": 206239302235,
+      "nominal_start_ns": 176239302235,
+      "partial": false,
+      "rate_interval_ppm": [
+        -52680.920257298654,
+        -52680.77753541252
+      ],
+      "raw_duration_interval_ns": [
+        29988306056,
+        29988310574
+      ],
+      "raw_duration_ns": 29988308315,
+      "realtime_offset_change_interval_ns": [
+        122392659,
+        122397177
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "POSITIVE",
+      "sample_count": 31,
+      "start_displacement_ns": 41582492,
+      "window_index": 3
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "OUTSIDE",
+      "complete": true,
+      "end_displacement_ns": 83203229,
+      "first_index": 120,
+      "first_position": 120,
+      "issues": [],
+      "last_index": 150,
+      "last_position": 150,
+      "monotonic_vs_raw_ppm": -46914.996964912134,
+      "nominal_end_ns": 236239302235,
+      "nominal_start_ns": 206239302235,
+      "partial": false,
+      "rate_interval_ppm": [
+        -46915.080053339305,
+        -46914.91387647048
+      ],
+      "raw_duration_interval_ns": [
+        30053310163,
+        30053315403
+      ],
+      "raw_duration_ns": 30053312783,
+      "realtime_offset_change_interval_ns": [
+        232349705,
+        232354945
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "POSITIVE",
+      "sample_count": 31,
+      "start_displacement_ns": 29890261,
+      "window_index": 4
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "OUTSIDE",
+      "complete": true,
+      "end_displacement_ns": 56746216,
+      "first_index": 150,
+      "first_position": 150,
+      "issues": [],
+      "last_index": 180,
+      "last_position": 180,
+      "monotonic_vs_raw_ppm": -43802.44064114952,
+      "nominal_end_ns": 266239302235,
+      "nominal_start_ns": 236239302235,
+      "partial": false,
+      "rate_interval_ppm": [
+        -43802.516869504994,
+        -43802.3644127819
+      ],
+      "raw_duration_interval_ns": [
+        29973540552,
+        29973545331
+      ],
+      "raw_duration_ns": 29973542941.5,
+      "realtime_offset_change_interval_ns": [
+        341196721,
+        341201500
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "POSITIVE",
+      "sample_count": 31,
+      "start_displacement_ns": 83203229,
+      "window_index": 5
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "OUTSIDE",
+      "complete": true,
+      "end_displacement_ns": 83506755,
+      "first_index": 180,
+      "first_position": 180,
+      "issues": [],
+      "last_index": 210,
+      "last_position": 210,
+      "monotonic_vs_raw_ppm": -41451.8597239951,
+      "nominal_end_ns": 296239302235,
+      "nominal_start_ns": 266239302235,
+      "partial": false,
+      "rate_interval_ppm": [
+        -41451.94623566494,
+        -41451.773212309636
+      ],
+      "raw_duration_interval_ns": [
+        30026758195,
+        30026763615
+      ],
+      "raw_duration_ns": 30026760905,
+      "realtime_offset_change_interval_ns": [
+        282349923,
+        282355343
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "POSITIVE",
+      "sample_count": 31,
+      "start_displacement_ns": 56746216,
+      "window_index": 6
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "OUTSIDE",
+      "complete": true,
+      "end_displacement_ns": 7581000,
+      "first_index": 210,
+      "first_position": 210,
+      "issues": [],
+      "last_index": 240,
+      "last_position": 240,
+      "monotonic_vs_raw_ppm": -40892.30494921552,
+      "nominal_end_ns": 326239302235,
+      "nominal_start_ns": 296239302235,
+      "partial": false,
+      "rate_interval_ppm": [
+        -40892.385237902185,
+        -40892.22466051541
+      ],
+      "raw_duration_interval_ns": [
+        29924071169,
+        29924076179
+      ],
+      "raw_duration_ns": 29924073674,
+      "realtime_offset_change_interval_ns": [
+        314065576,
+        314070586
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "POSITIVE",
+      "sample_count": 31,
+      "start_displacement_ns": 83506755,
+      "window_index": 7
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "OUTSIDE",
+      "complete": true,
+      "end_displacement_ns": 29530380,
+      "first_index": 240,
+      "first_position": 240,
+      "issues": [],
+      "last_index": 270,
+      "last_position": 270,
+      "monotonic_vs_raw_ppm": -48810.22040720136,
+      "nominal_end_ns": 356239302235,
+      "nominal_start_ns": 326239302235,
+      "partial": false,
+      "rate_interval_ppm": [
+        -48810.28279130998,
+        -48810.15802308456
+      ],
+      "raw_duration_interval_ns": [
+        30021947446,
+        30021951384
+      ],
+      "raw_duration_ns": 30021949415,
+      "realtime_offset_change_interval_ns": [
+        36149924,
+        36153862
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "POSITIVE",
+      "sample_count": 31,
+      "start_displacement_ns": 7581000,
+      "window_index": 8
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "OUTSIDE",
+      "complete": true,
+      "end_displacement_ns": 59328585,
+      "first_index": 270,
+      "first_position": 270,
+      "issues": [],
+      "last_index": 300,
+      "last_position": 300,
+      "monotonic_vs_raw_ppm": -46349.7153722139,
+      "nominal_end_ns": 386239302235,
+      "nominal_start_ns": 356239302235,
+      "partial": false,
+      "rate_interval_ppm": [
+        -46349.79238244572,
+        -46349.63836196964
+      ],
+      "raw_duration_interval_ns": [
+        30029796201,
+        30029801051
+      ],
+      "raw_duration_ns": 30029798626,
+      "realtime_offset_change_interval_ns": [
+        -1391875249,
+        -1391870399
+      ],
+      "realtime_offset_classification": "OUTSIDE",
+      "realtime_offset_direction": "NEGATIVE",
+      "sample_count": 31,
+      "start_displacement_ns": 29530380,
+      "window_index": 9
+    }
+  ]
+}

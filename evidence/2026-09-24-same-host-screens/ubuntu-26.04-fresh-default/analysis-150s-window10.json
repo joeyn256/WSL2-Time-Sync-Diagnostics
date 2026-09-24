@@ -1,0 +1,2678 @@
+{
+  "classification": "WITHIN",
+  "continuity_label": null,
+  "coverage": {
+    "cadence_requested_s": 1.0,
+    "collection_complete": true,
+    "collection_completion_verified": true,
+    "complete": true,
+    "complete_window_count": 15,
+    "duration_requested_s": 150.0,
+    "elapsed_observation_ns": 150000845104,
+    "invalid_sample_count": 0,
+    "invalid_window_count": 0,
+    "issues": [],
+    "observations_expected_from_schedule": 151,
+    "observations_planned": 151,
+    "observed_duration_ns": 150000644679,
+    "partial_window_count": 0,
+    "requested_duration_fraction": 1.00000429786,
+    "requested_raw_duration_covered": true,
+    "sample_count": 151,
+    "valid_sample_count": 151,
+    "window_count": 15
+  },
+  "first_index": 0,
+  "full_run": {
+    "acquisition_complete": true,
+    "classification": "WITHIN",
+    "complete": true,
+    "issues": [],
+    "monotonic_vs_raw_ppm": -0.7437268084327515,
+    "rate_interval_ppm": [
+      -0.7702433408842947,
+      -0.7172102745749542
+    ],
+    "raw_duration_interval_ns": [
+      150000639720,
+      150000647675
+    ],
+    "raw_duration_ns": 150000643697.5,
+    "realtime_offset_change_interval_ns": [
+      -115656,
+      -107701
+    ],
+    "realtime_offset_direction": "NEGATIVE",
+    "span_complete": true
+  },
+  "large_realtime_minus_raw_changes": 0,
+  "last_index": 150,
+  "method": {
+    "acquisition": "raw_bracket_v1",
+    "analysis": "fixed_window_interval_v2",
+    "clock_pair": "CLOCK_MONOTONIC/CLOCK_MONOTONIC_RAW",
+    "reference": "CLOCK_MONOTONIC_RAW",
+    "uncertainty": "raw_bracket"
+  },
+  "notes": [
+    "Analysis describes configured guest-relative observations, not universal health or readiness.",
+    "MONOTONIC-vs-RAW agreement does not prove absolute accuracy against Windows or an external clock.",
+    "Point ppm estimates are descriptive only; classifications use exact rational intervals and decimal settings before outward JSON rounding.",
+    "Schema-2 completion requires consistent RAW-origin scheduling, count, indexes, bounded guard metadata, and requested RAW-duration coverage; a completion claim never overrides a shortfall.",
+    "Full-run rate classification describes the observed span; span_complete and acquisition_complete distinguish valid local geometry from a finished requested acquisition.",
+    "Fixed-window cumulative REALTIME-minus-RAW changes use the configured event band; full-run cumulative change is descriptive and is not thresholded as one event.",
+    "Legacy sequential acquisition has unbounded timing uncertainty and cannot establish WITHIN.",
+    "Fixed nominal RAW boundaries use the first sample at/after each boundary; partial windows remain indeterminate."
+  ],
+  "outside_realtime_offset_windows": 0,
+  "realtime_backward_events": 0,
+  "realtime_events": [
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 0,
+      "first_position": 0,
+      "issues": [],
+      "last_index": 1,
+      "last_position": 1,
+      "offset_change_interval_ns": [
+        -5039,
+        1783
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 1,
+      "first_position": 1,
+      "issues": [],
+      "last_index": 2,
+      "last_position": 2,
+      "offset_change_interval_ns": [
+        -2113,
+        2144
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 2,
+      "first_position": 2,
+      "issues": [],
+      "last_index": 3,
+      "last_position": 3,
+      "offset_change_interval_ns": [
+        -3387,
+        2754
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 3,
+      "first_position": 3,
+      "issues": [],
+      "last_index": 4,
+      "last_position": 4,
+      "offset_change_interval_ns": [
+        -3326,
+        3377
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 4,
+      "first_position": 4,
+      "issues": [],
+      "last_index": 5,
+      "last_position": 5,
+      "offset_change_interval_ns": [
+        -3136,
+        3246
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 5,
+      "first_position": 5,
+      "issues": [],
+      "last_index": 6,
+      "last_position": 6,
+      "offset_change_interval_ns": [
+        -2524,
+        3086
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 6,
+      "first_position": 6,
+      "issues": [],
+      "last_index": 7,
+      "last_position": 7,
+      "offset_change_interval_ns": [
+        -3186,
+        2414
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 7,
+      "first_position": 7,
+      "issues": [],
+      "last_index": 8,
+      "last_position": 8,
+      "offset_change_interval_ns": [
+        -2915,
+        3226
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 8,
+      "first_position": 8,
+      "issues": [],
+      "last_index": 9,
+      "last_position": 9,
+      "offset_change_interval_ns": [
+        -2795,
+        2735
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 9,
+      "first_position": 9,
+      "issues": [],
+      "last_index": 10,
+      "last_position": 10,
+      "offset_change_interval_ns": [
+        -3106,
+        3046
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 10,
+      "first_position": 10,
+      "issues": [],
+      "last_index": 11,
+      "last_position": 11,
+      "offset_change_interval_ns": [
+        -2415,
+        3066
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 11,
+      "first_position": 11,
+      "issues": [],
+      "last_index": 12,
+      "last_position": 12,
+      "offset_change_interval_ns": [
+        -3386,
+        2314
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 12,
+      "first_position": 12,
+      "issues": [],
+      "last_index": 13,
+      "last_position": 13,
+      "offset_change_interval_ns": [
+        -3106,
+        3446
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 13,
+      "first_position": 13,
+      "issues": [],
+      "last_index": 14,
+      "last_position": 14,
+      "offset_change_interval_ns": [
+        -2805,
+        3016
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 14,
+      "first_position": 14,
+      "issues": [],
+      "last_index": 15,
+      "last_position": 15,
+      "offset_change_interval_ns": [
+        -2064,
+        2565
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 15,
+      "first_position": 15,
+      "issues": [],
+      "last_index": 16,
+      "last_position": 16,
+      "offset_change_interval_ns": [
+        -3367,
+        2254
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 16,
+      "first_position": 16,
+      "issues": [],
+      "last_index": 17,
+      "last_position": 17,
+      "offset_change_interval_ns": [
+        -2444,
+        3387
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 17,
+      "first_position": 17,
+      "issues": [],
+      "last_index": 18,
+      "last_position": 18,
+      "offset_change_interval_ns": [
+        -3437,
+        2174
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 18,
+      "first_position": 18,
+      "issues": [],
+      "last_index": 19,
+      "last_position": 19,
+      "offset_change_interval_ns": [
+        -2364,
+        3697
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 19,
+      "first_position": 19,
+      "issues": [],
+      "last_index": 20,
+      "last_position": 20,
+      "offset_change_interval_ns": [
+        -2895,
+        2434
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 20,
+      "first_position": 20,
+      "issues": [],
+      "last_index": 21,
+      "last_position": 21,
+      "offset_change_interval_ns": [
+        -17674,
+        -12214
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 21,
+      "first_position": 21,
+      "issues": [],
+      "last_index": 22,
+      "last_position": 22,
+      "offset_change_interval_ns": [
+        -24962,
+        -19581
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 22,
+      "first_position": 22,
+      "issues": [],
+      "last_index": 23,
+      "last_position": 23,
+      "offset_change_interval_ns": [
+        -4562,
+        2412
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 23,
+      "first_position": 23,
+      "issues": [],
+      "last_index": 24,
+      "last_position": 24,
+      "offset_change_interval_ns": [
+        -4823,
+        3583
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 24,
+      "first_position": 24,
+      "issues": [],
+      "last_index": 25,
+      "last_position": 25,
+      "offset_change_interval_ns": [
+        -3653,
+        3431
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 25,
+      "first_position": 25,
+      "issues": [],
+      "last_index": 26,
+      "last_position": 26,
+      "offset_change_interval_ns": [
+        -2483,
+        2026
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 26,
+      "first_position": 26,
+      "issues": [],
+      "last_index": 27,
+      "last_position": 27,
+      "offset_change_interval_ns": [
+        -3777,
+        1493
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 27,
+      "first_position": 27,
+      "issues": [],
+      "last_index": 28,
+      "last_position": 28,
+      "offset_change_interval_ns": [
+        -3307,
+        2875
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 28,
+      "first_position": 28,
+      "issues": [],
+      "last_index": 29,
+      "last_position": 29,
+      "offset_change_interval_ns": [
+        -6473,
+        -1413
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 29,
+      "first_position": 29,
+      "issues": [],
+      "last_index": 30,
+      "last_position": 30,
+      "offset_change_interval_ns": [
+        -11372,
+        -6152
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 30,
+      "first_position": 30,
+      "issues": [],
+      "last_index": 31,
+      "last_position": 31,
+      "offset_change_interval_ns": [
+        -9254,
+        -3643
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 31,
+      "first_position": 31,
+      "issues": [],
+      "last_index": 32,
+      "last_position": 32,
+      "offset_change_interval_ns": [
+        -5326,
+        1588
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 32,
+      "first_position": 32,
+      "issues": [],
+      "last_index": 33,
+      "last_position": 33,
+      "offset_change_interval_ns": [
+        -4952,
+        2513
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 33,
+      "first_position": 33,
+      "issues": [],
+      "last_index": 34,
+      "last_position": 34,
+      "offset_change_interval_ns": [
+        -3618,
+        1703
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 34,
+      "first_position": 34,
+      "issues": [],
+      "last_index": 35,
+      "last_position": 35,
+      "offset_change_interval_ns": [
+        -4478,
+        712
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 35,
+      "first_position": 35,
+      "issues": [],
+      "last_index": 36,
+      "last_position": 36,
+      "offset_change_interval_ns": [
+        -5152,
+        1841
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 36,
+      "first_position": 36,
+      "issues": [],
+      "last_index": 37,
+      "last_position": 37,
+      "offset_change_interval_ns": [
+        -4148,
+        2595
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 37,
+      "first_position": 37,
+      "issues": [],
+      "last_index": 38,
+      "last_position": 38,
+      "offset_change_interval_ns": [
+        -3652,
+        2910
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 38,
+      "first_position": 38,
+      "issues": [],
+      "last_index": 39,
+      "last_position": 39,
+      "offset_change_interval_ns": [
+        -4243,
+        3091
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 39,
+      "first_position": 39,
+      "issues": [],
+      "last_index": 40,
+      "last_position": 40,
+      "offset_change_interval_ns": [
+        -3739,
+        23363
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 40,
+      "first_position": 40,
+      "issues": [],
+      "last_index": 41,
+      "last_position": 41,
+      "offset_change_interval_ns": [
+        -22901,
+        3048
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 41,
+      "first_position": 41,
+      "issues": [],
+      "last_index": 42,
+      "last_position": 42,
+      "offset_change_interval_ns": [
+        -3436,
+        2485
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 42,
+      "first_position": 42,
+      "issues": [],
+      "last_index": 43,
+      "last_position": 43,
+      "offset_change_interval_ns": [
+        -3909,
+        2082
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 43,
+      "first_position": 43,
+      "issues": [],
+      "last_index": 44,
+      "last_position": 44,
+      "offset_change_interval_ns": [
+        -3904,
+        1476
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 44,
+      "first_position": 44,
+      "issues": [],
+      "last_index": 45,
+      "last_position": 45,
+      "offset_change_interval_ns": [
+        -4422,
+        1640
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 45,
+      "first_position": 45,
+      "issues": [],
+      "last_index": 46,
+      "last_position": 46,
+      "offset_change_interval_ns": [
+        -5179,
+        2356
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 46,
+      "first_position": 46,
+      "issues": [],
+      "last_index": 47,
+      "last_position": 47,
+      "offset_change_interval_ns": [
+        -3534,
+        2518
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 47,
+      "first_position": 47,
+      "issues": [],
+      "last_index": 48,
+      "last_position": 48,
+      "offset_change_interval_ns": [
+        -2904,
+        824
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 48,
+      "first_position": 48,
+      "issues": [],
+      "last_index": 49,
+      "last_position": 49,
+      "offset_change_interval_ns": [
+        -4605,
+        1016
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 49,
+      "first_position": 49,
+      "issues": [],
+      "last_index": 50,
+      "last_position": 50,
+      "offset_change_interval_ns": [
+        -4365,
+        2397
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 50,
+      "first_position": 50,
+      "issues": [],
+      "last_index": 51,
+      "last_position": 51,
+      "offset_change_interval_ns": [
+        -4177,
+        1754
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 51,
+      "first_position": 51,
+      "issues": [],
+      "last_index": 52,
+      "last_position": 52,
+      "offset_change_interval_ns": [
+        -4245,
+        1917
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 52,
+      "first_position": 52,
+      "issues": [],
+      "last_index": 53,
+      "last_position": 53,
+      "offset_change_interval_ns": [
+        -2588,
+        2642
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 53,
+      "first_position": 53,
+      "issues": [],
+      "last_index": 54,
+      "last_position": 54,
+      "offset_change_interval_ns": [
+        -1051,
+        3949
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 54,
+      "first_position": 54,
+      "issues": [],
+      "last_index": 55,
+      "last_position": 55,
+      "offset_change_interval_ns": [
+        -1204,
+        4718
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 55,
+      "first_position": 55,
+      "issues": [],
+      "last_index": 56,
+      "last_position": 56,
+      "offset_change_interval_ns": [
+        -869,
+        4732
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 56,
+      "first_position": 56,
+      "issues": [],
+      "last_index": 57,
+      "last_position": 57,
+      "offset_change_interval_ns": [
+        -2849,
+        2481
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 57,
+      "first_position": 57,
+      "issues": [],
+      "last_index": 58,
+      "last_position": 58,
+      "offset_change_interval_ns": [
+        -3607,
+        1743
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 58,
+      "first_position": 58,
+      "issues": [],
+      "last_index": 59,
+      "last_position": 59,
+      "offset_change_interval_ns": [
+        -3489,
+        1891
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 59,
+      "first_position": 59,
+      "issues": [],
+      "last_index": 60,
+      "last_position": 60,
+      "offset_change_interval_ns": [
+        -3677,
+        1613
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 60,
+      "first_position": 60,
+      "issues": [],
+      "last_index": 61,
+      "last_position": 61,
+      "offset_change_interval_ns": [
+        -3160,
+        2131
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 61,
+      "first_position": 61,
+      "issues": [],
+      "last_index": 62,
+      "last_position": 62,
+      "offset_change_interval_ns": [
+        -2536,
+        3657
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 62,
+      "first_position": 62,
+      "issues": [],
+      "last_index": 63,
+      "last_position": 63,
+      "offset_change_interval_ns": [
+        -1934,
+        4058
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 63,
+      "first_position": 63,
+      "issues": [],
+      "last_index": 64,
+      "last_position": 64,
+      "offset_change_interval_ns": [
+        -1776,
+        3363
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 64,
+      "first_position": 64,
+      "issues": [],
+      "last_index": 65,
+      "last_position": 65,
+      "offset_change_interval_ns": [
+        -2138,
+        3321
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 65,
+      "first_position": 65,
+      "issues": [],
+      "last_index": 66,
+      "last_position": 66,
+      "offset_change_interval_ns": [
+        -1904,
+        3877
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 66,
+      "first_position": 66,
+      "issues": [],
+      "last_index": 67,
+      "last_position": 67,
+      "offset_change_interval_ns": [
+        -23906,
+        2124
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 67,
+      "first_position": 67,
+      "issues": [],
+      "last_index": 68,
+      "last_position": 68,
+      "offset_change_interval_ns": [
+        -2303,
+        22404
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 68,
+      "first_position": 68,
+      "issues": [],
+      "last_index": 69,
+      "last_position": 69,
+      "offset_change_interval_ns": [
+        -1661,
+        2446
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "POSITIVE",
+      "first_index": 69,
+      "first_position": 69,
+      "issues": [],
+      "last_index": 70,
+      "last_position": 70,
+      "offset_change_interval_ns": [
+        2092,
+        7170
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "POSITIVE",
+      "first_index": 70,
+      "first_position": 70,
+      "issues": [],
+      "last_index": 71,
+      "last_position": 71,
+      "offset_change_interval_ns": [
+        2664,
+        6841
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 71,
+      "first_position": 71,
+      "issues": [],
+      "last_index": 72,
+      "last_position": 72,
+      "offset_change_interval_ns": [
+        -2364,
+        1684
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 72,
+      "first_position": 72,
+      "issues": [],
+      "last_index": 73,
+      "last_position": 73,
+      "offset_change_interval_ns": [
+        -2969,
+        2161
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 73,
+      "first_position": 73,
+      "issues": [],
+      "last_index": 74,
+      "last_position": 74,
+      "offset_change_interval_ns": [
+        -2778,
+        2411
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 74,
+      "first_position": 74,
+      "issues": [],
+      "last_index": 75,
+      "last_position": 75,
+      "offset_change_interval_ns": [
+        -2943,
+        2146
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 75,
+      "first_position": 75,
+      "issues": [],
+      "last_index": 76,
+      "last_position": 76,
+      "offset_change_interval_ns": [
+        -2842,
+        2348
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 76,
+      "first_position": 76,
+      "issues": [],
+      "last_index": 77,
+      "last_position": 77,
+      "offset_change_interval_ns": [
+        -2989,
+        2110
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 77,
+      "first_position": 77,
+      "issues": [],
+      "last_index": 78,
+      "last_position": 78,
+      "offset_change_interval_ns": [
+        -4153,
+        1687
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 78,
+      "first_position": 78,
+      "issues": [],
+      "last_index": 79,
+      "last_position": 79,
+      "offset_change_interval_ns": [
+        -3970,
+        2131
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 79,
+      "first_position": 79,
+      "issues": [],
+      "last_index": 80,
+      "last_position": 80,
+      "offset_change_interval_ns": [
+        -3745,
+        1715
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 80,
+      "first_position": 80,
+      "issues": [],
+      "last_index": 81,
+      "last_position": 81,
+      "offset_change_interval_ns": [
+        -3799,
+        1611
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 81,
+      "first_position": 81,
+      "issues": [],
+      "last_index": 82,
+      "last_position": 82,
+      "offset_change_interval_ns": [
+        -2989,
+        1430
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 82,
+      "first_position": 82,
+      "issues": [],
+      "last_index": 83,
+      "last_position": 83,
+      "offset_change_interval_ns": [
+        -3287,
+        902
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 83,
+      "first_position": 83,
+      "issues": [],
+      "last_index": 84,
+      "last_position": 84,
+      "offset_change_interval_ns": [
+        -3717,
+        2395
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 84,
+      "first_position": 84,
+      "issues": [],
+      "last_index": 85,
+      "last_position": 85,
+      "offset_change_interval_ns": [
+        -4690,
+        2674
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 85,
+      "first_position": 85,
+      "issues": [],
+      "last_index": 86,
+      "last_position": 86,
+      "offset_change_interval_ns": [
+        -5167,
+        1235
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 86,
+      "first_position": 86,
+      "issues": [],
+      "last_index": 87,
+      "last_position": 87,
+      "offset_change_interval_ns": [
+        -5295,
+        336
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 87,
+      "first_position": 87,
+      "issues": [],
+      "last_index": 88,
+      "last_position": 88,
+      "offset_change_interval_ns": [
+        -5140,
+        741
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 88,
+      "first_position": 88,
+      "issues": [],
+      "last_index": 89,
+      "last_position": 89,
+      "offset_change_interval_ns": [
+        -5777,
+        705
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 89,
+      "first_position": 89,
+      "issues": [],
+      "last_index": 90,
+      "last_position": 90,
+      "offset_change_interval_ns": [
+        -4524,
+        1587
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 90,
+      "first_position": 90,
+      "issues": [],
+      "last_index": 91,
+      "last_position": 91,
+      "offset_change_interval_ns": [
+        -2943,
+        2106
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 91,
+      "first_position": 91,
+      "issues": [],
+      "last_index": 92,
+      "last_position": 92,
+      "offset_change_interval_ns": [
+        -2815,
+        1684
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 92,
+      "first_position": 92,
+      "issues": [],
+      "last_index": 93,
+      "last_position": 93,
+      "offset_change_interval_ns": [
+        -3193,
+        1897
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 93,
+      "first_position": 93,
+      "issues": [],
+      "last_index": 94,
+      "last_position": 94,
+      "offset_change_interval_ns": [
+        -3885,
+        2477
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 94,
+      "first_position": 94,
+      "issues": [],
+      "last_index": 95,
+      "last_position": 95,
+      "offset_change_interval_ns": [
+        -3656,
+        2636
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 95,
+      "first_position": 95,
+      "issues": [],
+      "last_index": 96,
+      "last_position": 96,
+      "offset_change_interval_ns": [
+        -3970,
+        2974
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 96,
+      "first_position": 96,
+      "issues": [],
+      "last_index": 97,
+      "last_position": 97,
+      "offset_change_interval_ns": [
+        -3741,
+        2852
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 97,
+      "first_position": 97,
+      "issues": [],
+      "last_index": 98,
+      "last_position": 98,
+      "offset_change_interval_ns": [
+        -4246,
+        2406
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 98,
+      "first_position": 98,
+      "issues": [],
+      "last_index": 99,
+      "last_position": 99,
+      "offset_change_interval_ns": [
+        -3380,
+        3142
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 99,
+      "first_position": 99,
+      "issues": [],
+      "last_index": 100,
+      "last_position": 100,
+      "offset_change_interval_ns": [
+        -3020,
+        2000
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 100,
+      "first_position": 100,
+      "issues": [],
+      "last_index": 101,
+      "last_position": 101,
+      "offset_change_interval_ns": [
+        -3190,
+        1890
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 101,
+      "first_position": 101,
+      "issues": [],
+      "last_index": 102,
+      "last_position": 102,
+      "offset_change_interval_ns": [
+        -3457,
+        2153
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 102,
+      "first_position": 102,
+      "issues": [],
+      "last_index": 103,
+      "last_position": 103,
+      "offset_change_interval_ns": [
+        -2560,
+        2258
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 103,
+      "first_position": 103,
+      "issues": [],
+      "last_index": 104,
+      "last_position": 104,
+      "offset_change_interval_ns": [
+        -2010,
+        1296
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 104,
+      "first_position": 104,
+      "issues": [],
+      "last_index": 105,
+      "last_position": 105,
+      "offset_change_interval_ns": [
+        -3216,
+        1202
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 105,
+      "first_position": 105,
+      "issues": [],
+      "last_index": 106,
+      "last_position": 106,
+      "offset_change_interval_ns": [
+        -3167,
+        2363
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 106,
+      "first_position": 106,
+      "issues": [],
+      "last_index": 107,
+      "last_position": 107,
+      "offset_change_interval_ns": [
+        -3769,
+        2263
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 107,
+      "first_position": 107,
+      "issues": [],
+      "last_index": 108,
+      "last_position": 108,
+      "offset_change_interval_ns": [
+        -3010,
+        2732
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 108,
+      "first_position": 108,
+      "issues": [],
+      "last_index": 109,
+      "last_position": 109,
+      "offset_change_interval_ns": [
+        -3303,
+        1908
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 109,
+      "first_position": 109,
+      "issues": [],
+      "last_index": 110,
+      "last_position": 110,
+      "offset_change_interval_ns": [
+        -3274,
+        2417
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 110,
+      "first_position": 110,
+      "issues": [],
+      "last_index": 111,
+      "last_position": 111,
+      "offset_change_interval_ns": [
+        -3807,
+        2345
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 111,
+      "first_position": 111,
+      "issues": [],
+      "last_index": 112,
+      "last_position": 112,
+      "offset_change_interval_ns": [
+        -3853,
+        2951
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 112,
+      "first_position": 112,
+      "issues": [],
+      "last_index": 113,
+      "last_position": 113,
+      "offset_change_interval_ns": [
+        -3319,
+        2682
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 113,
+      "first_position": 113,
+      "issues": [],
+      "last_index": 114,
+      "last_position": 114,
+      "offset_change_interval_ns": [
+        -4317,
+        2145
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 114,
+      "first_position": 114,
+      "issues": [],
+      "last_index": 115,
+      "last_position": 115,
+      "offset_change_interval_ns": [
+        -3171,
+        3162
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 115,
+      "first_position": 115,
+      "issues": [],
+      "last_index": 116,
+      "last_position": 116,
+      "offset_change_interval_ns": [
+        -3281,
+        1949
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 116,
+      "first_position": 116,
+      "issues": [],
+      "last_index": 117,
+      "last_position": 117,
+      "offset_change_interval_ns": [
+        -4299,
+        2574
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 117,
+      "first_position": 117,
+      "issues": [],
+      "last_index": 118,
+      "last_position": 118,
+      "offset_change_interval_ns": [
+        -3331,
+        3322
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 118,
+      "first_position": 118,
+      "issues": [],
+      "last_index": 119,
+      "last_position": 119,
+      "offset_change_interval_ns": [
+        -4292,
+        2280
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 119,
+      "first_position": 119,
+      "issues": [],
+      "last_index": 120,
+      "last_position": 120,
+      "offset_change_interval_ns": [
+        -3735,
+        3588
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 120,
+      "first_position": 120,
+      "issues": [],
+      "last_index": 121,
+      "last_position": 121,
+      "offset_change_interval_ns": [
+        -3278,
+        2643
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 121,
+      "first_position": 121,
+      "issues": [],
+      "last_index": 122,
+      "last_position": 122,
+      "offset_change_interval_ns": [
+        -3445,
+        2476
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 122,
+      "first_position": 122,
+      "issues": [],
+      "last_index": 123,
+      "last_position": 123,
+      "offset_change_interval_ns": [
+        -3533,
+        2598
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 123,
+      "first_position": 123,
+      "issues": [],
+      "last_index": 124,
+      "last_position": 124,
+      "offset_change_interval_ns": [
+        -2205,
+        2123
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 124,
+      "first_position": 124,
+      "issues": [],
+      "last_index": 125,
+      "last_position": 125,
+      "offset_change_interval_ns": [
+        -1971,
+        1796
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "POSITIVE",
+      "first_index": 125,
+      "first_position": 125,
+      "issues": [],
+      "last_index": 126,
+      "last_position": 126,
+      "offset_change_interval_ns": [
+        2599,
+        7337
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "POSITIVE",
+      "first_index": 126,
+      "first_position": 126,
+      "issues": [],
+      "last_index": 127,
+      "last_position": 127,
+      "offset_change_interval_ns": [
+        2265,
+        7484
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 127,
+      "first_position": 127,
+      "issues": [],
+      "last_index": 128,
+      "last_position": 128,
+      "offset_change_interval_ns": [
+        -1158,
+        4132
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 128,
+      "first_position": 128,
+      "issues": [],
+      "last_index": 129,
+      "last_position": 129,
+      "offset_change_interval_ns": [
+        -2042,
+        2196
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 129,
+      "first_position": 129,
+      "issues": [],
+      "last_index": 130,
+      "last_position": 130,
+      "offset_change_interval_ns": [
+        -2614,
+        1704
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 130,
+      "first_position": 130,
+      "issues": [],
+      "last_index": 131,
+      "last_position": 131,
+      "offset_change_interval_ns": [
+        -2481,
+        2598
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 131,
+      "first_position": 131,
+      "issues": [],
+      "last_index": 132,
+      "last_position": 132,
+      "offset_change_interval_ns": [
+        -2890,
+        2199
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 132,
+      "first_position": 132,
+      "issues": [],
+      "last_index": 133,
+      "last_position": 133,
+      "offset_change_interval_ns": [
+        -4161,
+        2371
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 133,
+      "first_position": 133,
+      "issues": [],
+      "last_index": 134,
+      "last_position": 134,
+      "offset_change_interval_ns": [
+        -6762,
+        -170
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 134,
+      "first_position": 134,
+      "issues": [],
+      "last_index": 135,
+      "last_position": 135,
+      "offset_change_interval_ns": [
+        -5735,
+        -1187
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "NEGATIVE",
+      "first_index": 135,
+      "first_position": 135,
+      "issues": [],
+      "last_index": 136,
+      "last_position": 136,
+      "offset_change_interval_ns": [
+        -5440,
+        -341
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 136,
+      "first_position": 136,
+      "issues": [],
+      "last_index": 137,
+      "last_position": 137,
+      "offset_change_interval_ns": [
+        -3815,
+        2878
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 137,
+      "first_position": 137,
+      "issues": [],
+      "last_index": 138,
+      "last_position": 138,
+      "offset_change_interval_ns": [
+        -3816,
+        2957
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 138,
+      "first_position": 138,
+      "issues": [],
+      "last_index": 139,
+      "last_position": 139,
+      "offset_change_interval_ns": [
+        -4269,
+        2954
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 139,
+      "first_position": 139,
+      "issues": [],
+      "last_index": 140,
+      "last_position": 140,
+      "offset_change_interval_ns": [
+        -4049,
+        3275
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 140,
+      "first_position": 140,
+      "issues": [],
+      "last_index": 141,
+      "last_position": 141,
+      "offset_change_interval_ns": [
+        -3283,
+        2859
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 141,
+      "first_position": 141,
+      "issues": [],
+      "last_index": 142,
+      "last_position": 142,
+      "offset_change_interval_ns": [
+        -2869,
+        2471
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 142,
+      "first_position": 142,
+      "issues": [],
+      "last_index": 143,
+      "last_position": 143,
+      "offset_change_interval_ns": [
+        -4201,
+        2612
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 143,
+      "first_position": 143,
+      "issues": [],
+      "last_index": 144,
+      "last_position": 144,
+      "offset_change_interval_ns": [
+        -3189,
+        3614
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 144,
+      "first_position": 144,
+      "issues": [],
+      "last_index": 145,
+      "last_position": 145,
+      "offset_change_interval_ns": [
+        -3051,
+        2359
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 145,
+      "first_position": 145,
+      "issues": [],
+      "last_index": 146,
+      "last_position": 146,
+      "offset_change_interval_ns": [
+        -3410,
+        2460
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 146,
+      "first_position": 146,
+      "issues": [],
+      "last_index": 147,
+      "last_position": 147,
+      "offset_change_interval_ns": [
+        -3030,
+        2850
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 147,
+      "first_position": 147,
+      "issues": [],
+      "last_index": 148,
+      "last_position": 148,
+      "offset_change_interval_ns": [
+        -3664,
+        2768
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 148,
+      "first_position": 148,
+      "issues": [],
+      "last_index": 149,
+      "last_position": 149,
+      "offset_change_interval_ns": [
+        -3334,
+        3129
+      ],
+      "realtime_backward": false
+    },
+    {
+      "classification": "WITHIN",
+      "direction": "UNRESOLVED",
+      "first_index": 149,
+      "first_position": 149,
+      "issues": [],
+      "last_index": 150,
+      "last_position": 150,
+      "offset_change_interval_ns": [
+        -3917,
+        1895
+      ],
+      "realtime_backward": false
+    }
+  ],
+  "sample_count": 151,
+  "schema_version": 2,
+  "settings": {
+    "cadence_requested_s": 1.0,
+    "duration_requested_s": 150.0,
+    "event_threshold_ns": 500000000,
+    "rate_band_ppm": 1000.0,
+    "window_s": 10.0
+  },
+  "source_schema_version": 2,
+  "windows": [
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 244493,
+      "first_index": 0,
+      "first_position": 0,
+      "issues": [],
+      "last_index": 10,
+      "last_position": 10,
+      "monotonic_vs_raw_ppm": -0.1608960791717155,
+      "nominal_end_ns": 13633488961,
+      "nominal_start_ns": 3633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -0.5761857198131202,
+        0.25439390640100246
+      ],
+      "raw_duration_interval_ns": [
+        10000239534,
+        10000247840
+      ],
+      "raw_duration_ns": 10000243687,
+      "realtime_offset_change_interval_ns": [
+        -6011,
+        2295
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "UNRESOLVED",
+      "sample_count": 11,
+      "start_displacement_ns": 0,
+      "window_index": 0
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 285563,
+      "first_index": 10,
+      "first_position": 10,
+      "issues": [],
+      "last_index": 20,
+      "last_position": 20,
+      "monotonic_vs_raw_ppm": -0.007399969782963388,
+      "nominal_end_ns": 23633488961,
+      "nominal_start_ns": 13633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -0.31849860035790073,
+        0.30369885435681176
+      ],
+      "raw_duration_interval_ns": [
+        10000037723,
+        10000043945
+      ],
+      "raw_duration_ns": 10000040834,
+      "realtime_offset_change_interval_ns": [
+        -3076,
+        3146
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "UNRESOLVED",
+      "sample_count": 11,
+      "start_displacement_ns": 244493,
+      "window_index": 1
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 464396,
+      "first_index": 20,
+      "first_position": 20,
+      "issues": [],
+      "last_index": 30,
+      "last_position": 30,
+      "monotonic_vs_raw_ppm": -5.358304216025495,
+      "nominal_end_ns": 33633488961,
+      "nominal_start_ns": 23633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -5.63829763219585,
+        -5.078310643061586
+      ],
+      "raw_duration_interval_ns": [
+        10000175958,
+        10000181558
+      ],
+      "raw_duration_ns": 10000178758,
+      "realtime_offset_change_interval_ns": [
+        -56113,
+        -50513
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "NEGATIVE",
+      "sample_count": 11,
+      "start_displacement_ns": 285563,
+      "window_index": 2
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 656763,
+      "first_index": 30,
+      "first_position": 30,
+      "issues": [],
+      "last_index": 40,
+      "last_position": 40,
+      "monotonic_vs_raw_ppm": -0.5222394172621126,
+      "nominal_end_ns": 43633488961,
+      "nominal_start_ns": 33633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -1.8221607067443037,
+        0.7776852518213475
+      ],
+      "raw_duration_interval_ns": [
+        10000189642,
+        10000215641
+      ],
+      "raw_duration_ns": 10000202641.5,
+      "realtime_offset_change_interval_ns": [
+        -18944,
+        7055
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "UNRESOLVED",
+      "sample_count": 11,
+      "start_displacement_ns": 464396,
+      "window_index": 3
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 388135,
+      "first_index": 40,
+      "first_position": 40,
+      "issues": [],
+      "last_index": 50,
+      "last_position": 50,
+      "monotonic_vs_raw_ppm": -2.0140061509949914,
+      "nominal_end_ns": 53633488961,
+      "nominal_start_ns": 43633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -3.3239883193668422,
+        -0.7040205505006731
+      ],
+      "raw_duration_interval_ns": [
+        9999708098,
+        9999734297
+      ],
+      "raw_duration_ns": 9999721197.5,
+      "realtime_offset_change_interval_ns": [
+        -32758,
+        -6559
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "NEGATIVE",
+      "sample_count": 11,
+      "start_displacement_ns": 656763,
+      "window_index": 4
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 188386,
+      "first_index": 50,
+      "first_position": 50,
+      "issues": [],
+      "last_index": 60,
+      "last_position": 60,
+      "monotonic_vs_raw_ppm": -0.010800215943837668,
+      "nominal_end_ns": 63633488961,
+      "nominal_start_ns": 53633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -0.28380559704370156,
+        0.26220531421998544
+      ],
+      "raw_duration_interval_ns": [
+        9999797326,
+        9999802786
+      ],
+      "raw_duration_ns": 9999800056,
+      "realtime_offset_change_interval_ns": [
+        -2888,
+        2572
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "UNRESOLVED",
+      "sample_count": 11,
+      "start_displacement_ns": 388135,
+      "window_index": 5
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 194169,
+      "first_index": 60,
+      "first_position": 60,
+      "issues": [],
+      "last_index": 70,
+      "last_position": 70,
+      "monotonic_vs_raw_ppm": 0.755249562521691,
+      "nominal_end_ns": 73633488961,
+      "nominal_start_ns": 63633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        0.5007995824833881,
+        1.0096996720495466
+      ],
+      "raw_duration_interval_ns": [
+        10000003248,
+        10000008337
+      ],
+      "raw_duration_ns": 10000005792.5,
+      "realtime_offset_change_interval_ns": [
+        5118,
+        10207
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "POSITIVE",
+      "sample_count": 11,
+      "start_displacement_ns": 188386,
+      "window_index": 6
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 201364,
+      "first_index": 70,
+      "first_position": 70,
+      "issues": [],
+      "last_index": 80,
+      "last_position": 80,
+      "monotonic_vs_raw_ppm": -0.03284997614927482,
+      "nominal_end_ns": 83633488961,
+      "nominal_start_ns": 73633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -0.2947997087378878,
+        0.22909989367473935
+      ],
+      "raw_duration_interval_ns": [
+        10000004641,
+        10000009880
+      ],
+      "raw_duration_ns": 10000007260.5,
+      "realtime_offset_change_interval_ns": [
+        -3047,
+        2192
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "UNRESOLVED",
+      "sample_count": 11,
+      "start_displacement_ns": 194169,
+      "window_index": 7
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 215433,
+      "first_index": 80,
+      "first_position": 80,
+      "issues": [],
+      "last_index": 90,
+      "last_position": 90,
+      "monotonic_vs_raw_ppm": -1.5534478261827844,
+      "nominal_end_ns": 93633488961,
+      "nominal_start_ns": 83633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -1.8143969875566817,
+        -1.2924985286196748
+      ],
+      "raw_duration_interval_ns": [
+        10000011384,
+        10000016603
+      ],
+      "raw_duration_ns": 10000013993.5,
+      "realtime_offset_change_interval_ns": [
+        -17994,
+        -12775
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "NEGATIVE",
+      "sample_count": 11,
+      "start_displacement_ns": 201364,
+      "window_index": 8
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 224794,
+      "first_index": 90,
+      "first_position": 90,
+      "issues": [],
+      "last_index": 100,
+      "last_position": 100,
+      "monotonic_vs_raw_ppm": -0.5387494975352811,
+      "nominal_end_ns": 103633488961,
+      "nominal_start_ns": 93633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -0.7886990672844831,
+        -0.2887998028363746
+      ],
+      "raw_duration_interval_ns": [
+        10000006827,
+        10000011826
+      ],
+      "raw_duration_ns": 10000009326.5,
+      "realtime_offset_change_interval_ns": [
+        -7837,
+        -2838
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "NEGATIVE",
+      "sample_count": 11,
+      "start_displacement_ns": 215433,
+      "window_index": 9
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 571814,
+      "first_index": 100,
+      "first_position": 100,
+      "issues": [],
+      "last_index": 110,
+      "last_position": 110,
+      "monotonic_vs_raw_ppm": -0.5286816452306409,
+      "nominal_end_ns": 113633488961,
+      "nominal_start_ns": 103633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -0.7911723243965065,
+        -0.2661908282619168
+      ],
+      "raw_duration_interval_ns": [
+        10000344555,
+        10000349805
+      ],
+      "raw_duration_ns": 10000347180,
+      "realtime_offset_change_interval_ns": [
+        -7862,
+        -2612
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "NEGATIVE",
+      "sample_count": 11,
+      "start_displacement_ns": 224794,
+      "window_index": 10
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 243421,
+      "first_index": 110,
+      "first_position": 110,
+      "issues": [],
+      "last_index": 120,
+      "last_position": 120,
+      "monotonic_vs_raw_ppm": -0.46926539765354414,
+      "nominal_end_ns": 123633488961,
+      "nominal_start_ns": 113633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -0.7748251870099067,
+        -0.16370542156341022
+      ],
+      "raw_duration_interval_ns": [
+        9999668822,
+        9999674933
+      ],
+      "raw_duration_ns": 9999671877.5,
+      "realtime_offset_change_interval_ns": [
+        -8259,
+        -2148
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "NEGATIVE",
+      "sample_count": 11,
+      "start_displacement_ns": 571814,
+      "window_index": 11
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 377409,
+      "first_index": 120,
+      "first_position": 120,
+      "issues": [],
+      "last_index": 130,
+      "last_position": 130,
+      "monotonic_vs_raw_ppm": 0.9082378616280388,
+      "nominal_end_ns": 133633488961,
+      "nominal_start_ns": 123633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        0.6096916695998107,
+        1.206784231915869
+      ],
+      "raw_duration_interval_ns": [
+        10000130662,
+        10000136633
+      ],
+      "raw_duration_ns": 10000133647.5,
+      "realtime_offset_change_interval_ns": [
+        6568,
+        12539
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "POSITIVE",
+      "sample_count": 11,
+      "start_displacement_ns": 243421,
+      "window_index": 12
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 547403,
+      "first_index": 130,
+      "first_position": 130,
+      "issues": [],
+      "last_index": 140,
+      "last_position": 140,
+      "monotonic_vs_raw_ppm": -1.224979126968166,
+      "nominal_end_ns": 143633488961,
+      "nominal_start_ns": 133633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -1.529573470924763,
+        -0.9203845974558
+      ],
+      "raw_duration_interval_ns": [
+        10000167349,
+        10000173441
+      ],
+      "raw_duration_ns": 10000170395,
+      "realtime_offset_change_interval_ns": [
+        -15988,
+        -9896
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "NEGATIVE",
+      "sample_count": 11,
+      "start_displacement_ns": 377409,
+      "window_index": 13
+    },
+    {
+      "boundary_coverage": true,
+      "classification": "WITHIN",
+      "complete": true,
+      "end_displacement_ns": 644679,
+      "first_index": 140,
+      "first_position": 140,
+      "issues": [],
+      "last_index": 150,
+      "last_position": 150,
+      "monotonic_vs_raw_ppm": -0.3977461398538254,
+      "nominal_end_ns": 153633488961,
+      "nominal_start_ns": 143633488961,
+      "partial": false,
+      "rate_interval_ppm": [
+        -0.7198927814911015,
+        -0.07559929065941566
+      ],
+      "raw_duration_interval_ns": [
+        10000093829,
+        10000100272
+      ],
+      "raw_duration_ns": 10000097050.5,
+      "realtime_offset_change_interval_ns": [
+        -6687,
+        -244
+      ],
+      "realtime_offset_classification": "WITHIN",
+      "realtime_offset_direction": "NEGATIVE",
+      "sample_count": 11,
+      "start_displacement_ns": 547403,
+      "window_index": 14
+    }
+  ]
+}

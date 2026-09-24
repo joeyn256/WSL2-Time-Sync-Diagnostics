@@ -1,0 +1,108 @@
+=== followup 2026-09-24T16:43:27Z uptime_s=3.55 ===
+--- timedatectl show-timesync ---
+FallbackNTPServers=ntp.ubuntu.com
+ServerName=ntp.ubuntu.com
+ServerAddress=91.189.91.157
+RootDistanceMaxUSec=5s
+PollIntervalMinUSec=32s
+PollIntervalMaxUSec=34min 8s
+PollIntervalUSec=32s
+Frequency=0
+NTPMessage={ Leap=0, Version=4, Mode=4, Stratum=2, Precision=-24, RootDelay=42.449ms, RootDispersion=1.159ms, Reference=84A36001, OriginateTimestamp=Thu 2026-09-24 12:43:24 EDT, ReceiveTimestamp=Thu 2026-09-24 12:43:25 EDT, TransmitTimestamp=Thu 2026-09-24 12:43:25 EDT, DestinationTimestamp=Thu 2026-09-24 12:43:24 EDT, Ignored=no, PacketCount=1, Jitter=0 }
+--- systemd version ---
+systemd 255 (255.4-1ubuntu8.17)
+--- running services ---
+cron.service
+dbus.service
+getty@tty1.service
+rsyslog.service
+snapd.service
+systemd-journald.service
+systemd-logind.service
+systemd-resolved.service
+systemd-timedated.service
+systemd-timesyncd.service
+systemd-udevd.service
+unattended-upgrades.service
+user@1000.service
+wsl-pro.service
+--- timesyncd journal (read-only) ---
+Sep 23 23:23:13.411699 [host] systemd[1]: Stopping systemd-timesyncd.service - Network Time Synchronization...
+Sep 23 23:23:13.443417 [host] systemd[1]: systemd-timesyncd.service: Deactivated successfully.
+Sep 23 23:23:13.443662 [host] systemd[1]: Stopped systemd-timesyncd.service - Network Time Synchronization.
+-- Boot [redacted boot id] --
+Sep 23 23:24:23.714543 [host] systemd[1]: Starting systemd-timesyncd.service - Network Time Synchronization...
+Sep 23 23:24:23.790551 [host] systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+Sep 23 23:24:24.035377 [host] systemd-timesyncd[164]: Contacted time server 185.125.190.57:123 (ntp.ubuntu.com).
+Sep 23 23:24:24.035507 [host] systemd-timesyncd[164]: Initial clock synchronization to Wed 2026-09-23 23:24:23.700979 EDT.
+Sep 23 23:24:43.117068 [host] systemd[1]: Stopping systemd-timesyncd.service - Network Time Synchronization...
+Sep 23 23:24:43.141835 [host] systemd[1]: systemd-timesyncd.service: Deactivated successfully.
+Sep 23 23:24:43.142086 [host] systemd[1]: Stopped systemd-timesyncd.service - Network Time Synchronization.
+-- Boot [redacted boot id] --
+Sep 23 23:57:22.294638 [host] systemd[1]: Starting systemd-timesyncd.service - Network Time Synchronization...
+Sep 23 23:57:22.350802 [host] systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+Sep 23 23:57:22.602795 [host] systemd-timesyncd[159]: Contacted time server 185.125.190.56:123 (ntp.ubuntu.com).
+Sep 23 23:57:22.602940 [host] systemd-timesyncd[159]: Initial clock synchronization to Wed 2026-09-23 23:57:22.270428 EDT.
+Sep 23 23:58:58.748576 [host] systemd[1]: Stopping systemd-timesyncd.service - Network Time Synchronization...
+Sep 23 23:58:58.772101 [host] systemd[1]: systemd-timesyncd.service: Deactivated successfully.
+Sep 23 23:58:58.772319 [host] systemd[1]: Stopped systemd-timesyncd.service - Network Time Synchronization.
+-- Boot [redacted boot id] --
+Sep 24 00:14:59.678680 [host] systemd[1]: Starting systemd-timesyncd.service - Network Time Synchronization...
+Sep 24 00:14:59.796954 [host] systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+Sep 24 00:15:00.011214 [host] systemd-timesyncd[112]: Contacted time server 185.125.190.56:123 (ntp.ubuntu.com).
+Sep 24 00:15:00.011308 [host] systemd-timesyncd[112]: Initial clock synchronization to Thu 2026-09-24 00:14:59.676980 EDT.
+Sep 24 00:15:23.060010 [host] systemd[1]: Stopping systemd-timesyncd.service - Network Time Synchronization...
+Sep 24 00:15:23.093425 [host] systemd[1]: systemd-timesyncd.service: Deactivated successfully.
+Sep 24 00:15:23.093687 [host] systemd[1]: Stopped systemd-timesyncd.service - Network Time Synchronization.
+-- Boot [redacted boot id] --
+Sep 24 12:34:16.528415 [host] systemd[1]: Starting systemd-timesyncd.service - Network Time Synchronization...
+Sep 24 12:34:16.605243 [host] systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+Sep 24 12:34:17.944353 [host] systemd-timesyncd[167]: Contacted time server 185.125.190.58:123 (ntp.ubuntu.com).
+Sep 24 12:34:17.944436 [host] systemd-timesyncd[167]: Initial clock synchronization to Thu 2026-09-24 12:34:17.944101 EDT.
+Sep 24 12:40:57.533854 [host] systemd[1]: Stopping systemd-timesyncd.service - Network Time Synchronization...
+Sep 24 12:40:57.560964 [host] systemd[1]: systemd-timesyncd.service: Deactivated successfully.
+Sep 24 12:40:57.561172 [host] systemd[1]: Stopped systemd-timesyncd.service - Network Time Synchronization.
+-- Boot [redacted boot id] --
+Sep 24 12:43:24.363983 [host] systemd[1]: Starting systemd-timesyncd.service - Network Time Synchronization...
+Sep 24 12:43:24.428158 [host] systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+Sep 24 12:43:25.684450 [host] systemd-timesyncd[139]: Contacted time server 91.189.91.157:123 (ntp.ubuntu.com).
+Sep 24 12:43:25.684551 [host] systemd-timesyncd[139]: Initial clock synchronization to Thu 2026-09-24 12:43:25.684204 EDT.
+--- kernel journal: time-related lines ---
+Sep 24 12:43:24 [host] kernel: Command line: initrd=\initrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=16 hv_utils.timesync_implicit=1 console=hvc0 debug pty.legacy_count=0 WSL_ENABLE_CRASH_DUMP=1
+Sep 24 12:43:24 [host] kernel: Hypervisor detected: Microsoft Hyper-V
+Sep 24 12:43:24 [host] kernel: Hyper-V: LAPIC Timer Frequency: 0xc3500
+Sep 24 12:43:24 [host] kernel: clocksource: hyperv_clocksource_tsc_page: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: 440795202120 ns
+Sep 24 12:43:24 [host] kernel: clocksource: hyperv_clocksource_msr: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: 440795202120 ns
+Sep 24 12:43:24 [host] kernel: tsc: Detected 1996.207 MHz processor
+Sep 24 12:43:24 [host] kernel: ACPI: PM-Timer IO Port: 0x408
+Sep 24 12:43:24 [host] kernel: clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645519600211568 ns
+Sep 24 12:43:24 [host] kernel: Kernel command line: initrd=\initrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=16 hv_utils.timesync_implicit=1 console=hvc0 debug pty.legacy_count=0 WSL_ENABLE_CRASH_DUMP=1
+Sep 24 12:43:24 [host] kernel: Failed to register legacy timer interrupt
+Sep 24 12:43:24 [host] kernel: clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x398c5dcd9ab, max_idle_ns: 881590463713 ns
+Sep 24 12:43:24 [host] kernel: Calibrating delay loop (skipped), value calculated using timer frequency.. 3992.41 BogoMIPS (lpj=7984828)
+Sep 24 12:43:24 [host] kernel: Timer migration: 2 hierarchy levels; 8 children per group; 2 crossnode level
+Sep 24 12:43:24 [host] kernel: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+Sep 24 12:43:24 [host] kernel: posixtimers hash table entries: 8192 (order: 5, 131072 bytes, linear)
+Sep 24 12:43:24 [host] kernel: PTP clock support registered
+Sep 24 12:43:24 [host] kernel: clocksource: Switched to clocksource tsc-early
+Sep 24 12:43:24 [host] kernel: clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+Sep 24 12:43:24 [host] kernel: clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x398c5dcd9ab, max_idle_ns: 881590463713 ns
+Sep 24 12:43:24 [host] kernel: clocksource: Switched to clocksource tsc
+Sep 24 12:43:24 [host] kernel: workingset: timestamp_bits=36 max_order=22 bucket_order=0
+Sep 24 12:43:24 [host] kernel: SGI XFS with ACLs, security attributes, realtime, verbose warnings, quota, no debug enabled
+Sep 24 12:43:24 [host] kernel: hv_vmbus: registering driver hyperv_keyboard
+Sep 24 12:43:24 [host] kernel: hv_utils: Registering HyperV Utility Driver
+Sep 24 12:43:24 [host] kernel: hv_vmbus: registering driver hv_utils
+Sep 24 12:43:24 [host] kernel: hv_utils: TimeSync IC version 4.0
+Sep 24 12:43:24 [host] systemd-journald[39]: Received client request to flush runtime journal.
+Sep 24 12:43:24 [host] kernel: kvm_amd: TSC scaling supported
+--- independent two-clock check over 20 s (python, no CLI) ---
+RAW elapsed 20.000196 s | MONOTONIC 20.000199 s | REALTIME 20.000200 s | BOOTTIME 20.000201 s
+MONOTONIC vs RAW: +0.1 ppm | REALTIME vs RAW: +0.2 ppm | BOOTTIME vs RAW: +0.2 ppm
+--- adjtimex now ---
+tick 10000 freq 0 freq_ppm 0.0 status 8192 offset 0 maxerror 11000 esterror 0
+--- second probe 60 s ---
+followup 60 s: OUTSIDE full [-20444.396921003037, -20444.304651824164] [('WITHIN', [433.1, 433.3], [-633174, -627954]), ('OUTSIDE', [-41320.2, -41320.0], [-16603264, -16596962])]
+--- adjtimex after ---
+tick 9969 freq 1958529 freq_ppm 29.884780883789062 status 8192
+=== end 16:44:49Z ===

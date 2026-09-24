@@ -110,3 +110,5 @@ For timing-sensitive work:
 5. treat service state and clock-settling evidence as separate questions.
 
 See the detailed [`systemd-timesyncd` investigation](timesyncd-investigation.md).
+
+A later, directly measured screen of the *enabled* state on a different host, with committed raw evidence, is recorded in [Same-host screens, 2026-09-24](same-host-screens-2026-09-24.md).

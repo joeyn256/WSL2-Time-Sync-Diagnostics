@@ -1,0 +1,35 @@
+=== tickseries 2026-09-24T16:57:25Z uptime_s=3.50 pretty=Ubuntu 26.04.1 LTS ===
+timesyncd_active=inactive chrony_active=active chronyd_args=/usr/sbin/chronyd -n -F 1 -x
+--- /etc/wsl.conf ---
+[boot]
+systemd=true
+
+[user]
+default=[redacted user]
+settle ok
+probe ok
+analyze ok
+150 s probe: WITHIN full [-0.8, -0.7]
+    0- 10 s       -0.6..      +0.3 ppm  rt -0.000..+0.000 s
+   10- 20 s       -0.3..      +0.3 ppm  rt -0.000..+0.000 s
+   20- 30 s       -5.6..      -5.1 ppm  rt -0.000..-0.000 s
+   30- 40 s       -1.8..      +0.8 ppm  rt -0.000..+0.000 s
+   40- 50 s       -3.3..      -0.7 ppm  rt -0.000..-0.000 s
+   50- 60 s       -0.3..      +0.3 ppm  rt -0.000..+0.000 s
+   60- 70 s       +0.5..      +1.0 ppm  rt +0.000..+0.000 s
+   70- 80 s       -0.3..      +0.2 ppm  rt -0.000..+0.000 s
+   80- 90 s       -1.8..      -1.3 ppm  rt -0.000..-0.000 s
+   90-100 s       -0.8..      -0.3 ppm  rt -0.000..-0.000 s
+  100-110 s       -0.8..      -0.3 ppm  rt -0.000..-0.000 s
+  110-120 s       -0.8..      -0.2 ppm  rt -0.000..-0.000 s
+  120-130 s       +0.6..      +1.2 ppm  rt +0.000..+0.000 s
+  130-140 s       -1.5..      -0.9 ppm  rt -0.000..-0.000 s
+  140-150 s       -0.7..      -0.1 ppm  rt -0.000..-0.000 s
+large events: []
+classification: WITHIN_CONFIGURED_BAND collected 751 of 751 complete True anomalies 0
+tick transitions (elapsed s, tick): [(0.0, 10000)] ... total 1
+tick value histogram: [(10000, 751)]
+freq range: -2421348 320265
+status values: [(0, 648), (64, 103)]
+wrote tick-series-compact.json 751 rows
+=== end 16:59:55Z uptime_s=154.29 ===

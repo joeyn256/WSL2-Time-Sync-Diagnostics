@@ -1,0 +1,35 @@
+=== tickseries 2026-09-24T16:54:37Z uptime_s=3.23 pretty=Ubuntu 24.04.4 LTS ===
+timesyncd_active=active chrony_active=inactive chronyd_args=
+--- /etc/wsl.conf ---
+[boot]
+systemd=true
+
+[user]
+default=[redacted user]
+settle ok
+probe ok
+analyze ok
+150 s probe: OUTSIDE full [-32000.5, -32000.4]
+    0- 10 s       -0.3..      +0.2 ppm  rt -0.000..+0.000 s
+   10- 20 s       -0.4..      +0.4 ppm  rt -0.000..+0.000 s
+   20- 30 s       -0.4..      +0.4 ppm  rt +0.001..+0.001 s
+   30- 40 s       -0.3..      +0.4 ppm  rt +0.002..+0.002 s
+   40- 50 s       -0.4..      +0.4 ppm  rt -0.002..-0.002 s
+   50- 60 s   -59325.8..  -59325.0 ppm  rt -0.598..-0.598 s
+   60- 70 s   -83333.7..  -83332.9 ppm  rt -0.833..-0.833 s
+   70- 80 s   -15180.4..  -15176.3 ppm  rt +1.411..+1.412 s
+   80- 90 s   -29670.3..  -29666.3 ppm  rt -0.299..-0.299 s
+   90-100 s   -83333.7..  -83332.8 ppm  rt -0.833..-0.833 s
+  100-110 s   -34542.1..  -34541.1 ppm  rt -0.343..-0.343 s
+  110-120 s    -2585.8..   -2585.1 ppm  rt +1.503..+1.503 s
+  120-130 s   -82292.3..  -82291.8 ppm  rt -0.830..-0.830 s
+  130-140 s   -65694.3..  -65693.7 ppm  rt -0.654..-0.654 s
+  140-150 s   -23344.2..  -23343.6 ppm  rt +1.508..+1.508 s
+large events: [(78, 1.554), (112, 1.529), (146, 1.75)]
+classification: ANOMALY_OBSERVED collected 751 of 751 complete True anomalies 476
+tick transitions (elapsed s, tick): [(0.0, 10000), (53.0, 9167), (69.0, 9848), (77.0, 9992), (85.0, 9167), (100.0, 10000), (101.0, 9828), (109.2, 10013), (117.2, 9167), (132.2, 10000), (133.2, 9539), (141.2, 10094), (149.2, 9167)] ... total 13
+tick value histogram: [(10000, 275), (9167, 235), (9828, 41), (9848, 40), (9992, 40), (10013, 40), (9539, 40), (10094, 40)]
+freq range: -2184533 2908401
+status values: [(8192, 751)]
+wrote tick-series-compact.json 751 rows
+=== end 16:57:12Z uptime_s=154.03 ===

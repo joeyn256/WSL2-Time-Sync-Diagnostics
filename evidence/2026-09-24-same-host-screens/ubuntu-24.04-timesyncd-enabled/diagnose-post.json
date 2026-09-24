@@ -1,0 +1,162 @@
+{
+  "adjtimex": {
+    "abi": {
+      "actual": {
+        "byteorder": "little",
+        "field_offsets": {
+          "_padding": 164,
+          "calcnt": 136,
+          "constant": 48,
+          "errcnt": 144,
+          "esterror": 32,
+          "freq": 16,
+          "jitcnt": 128,
+          "jitter": 104,
+          "maxerror": 24,
+          "modes": 0,
+          "offset": 8,
+          "ppsfreq": 96,
+          "precision": 56,
+          "shift": 112,
+          "stabil": 120,
+          "status": 40,
+          "stbcnt": 152,
+          "tai": 160,
+          "tick": 88,
+          "time": 72,
+          "tolerance": 64
+        },
+        "int_size": 4,
+        "long_size": 8,
+        "machine": "x86_64",
+        "pointer_size": 8,
+        "system": "Linux",
+        "timeval_alignment": 8,
+        "timeval_offsets": {
+          "tv_sec": 0,
+          "tv_usec": 8
+        },
+        "timeval_size": 16,
+        "timex_alignment": 8,
+        "timex_size": 208,
+        "uint_size": 4
+      },
+      "failed_checks": [],
+      "name": "linux-x86_64-lp64-le",
+      "validated": true
+    },
+    "available": true,
+    "freq_ppm": 40.52003479003906,
+    "mode": "read_only",
+    "modes": 0,
+    "notes": [
+      "A snapshot cannot prove that a pending slew is absent.",
+      "Kernel state does not identify the active clock writer or host agreement."
+    ],
+    "raw": {
+      "calcnt": 0,
+      "constant": 2,
+      "errcnt": 0,
+      "esterror": 259891,
+      "freq": 2655521,
+      "jitcnt": 0,
+      "jitter": 0,
+      "maxerror": 3218623,
+      "modes": 0,
+      "offset": 0,
+      "ppsfreq": 0,
+      "precision": 1,
+      "shift": 0,
+      "stabil": 0,
+      "status": 8192,
+      "stbcnt": 0,
+      "tai": 37,
+      "tick": 9437,
+      "time": {
+        "tv_sec": 1790268040,
+        "tv_usec": 558791507
+      },
+      "tolerance": 32768000
+    },
+    "return_state": {
+      "code": 0,
+      "name": "TIME_OK"
+    },
+    "units": {
+      "esterror": "microseconds",
+      "freq": "scaled_ppm_65536",
+      "jitter": "nanoseconds",
+      "maxerror": "microseconds",
+      "offset": "nanoseconds",
+      "ppsfreq": "scaled_ppm_65536",
+      "precision": "microseconds",
+      "stabil": "scaled_ppm_65536",
+      "tai": "seconds",
+      "tick": "microseconds",
+      "time.tv_sec": "seconds",
+      "time.tv_usec": "nanoseconds"
+    }
+  },
+  "available_clocksources": "tsc hyperv_clocksource_tsc_page hyperv_clocksource_msr acpi_pm",
+  "boot_id": "[redacted: boot identifier]",
+  "clocksource": "tsc",
+  "mode": "read_only",
+  "notes": [
+    "Presence of a service or PTP device does not identify the active clock writer.",
+    "This command performs no service mutation, package installation, or elevation.",
+    "boot_id and python_executable were redacted before publication; the SHA-256 of the unredacted file is recorded in HASHES.md."
+  ],
+  "platform": {
+    "machine": "x86_64",
+    "python": "3.12.3",
+    "release": "6.18.33.2-microsoft-standard-WSL2",
+    "system": "Linux"
+  },
+  "ptp": [
+    {
+      "clock_name": "hyperv",
+      "dev_path": "/dev/ptp0",
+      "name": "ptp0"
+    }
+  ],
+  "python_executable": "[redacted: local path]",
+  "schema_version": 1,
+  "services": [
+    {
+      "active": "active",
+      "enabled": "enabled",
+      "unit": "systemd-timesyncd.service"
+    },
+    {
+      "active": "inactive",
+      "enabled": "not-found",
+      "unit": "chrony.service"
+    },
+    {
+      "active": "inactive",
+      "enabled": "not-found",
+      "unit": "chronyd.service"
+    }
+  ],
+  "ubuntu": {
+    "BUG_REPORT_URL": "https://bugs.launchpad.net/ubuntu/",
+    "HOME_URL": "https://www.ubuntu.com/",
+    "ID": "ubuntu",
+    "ID_LIKE": "debian",
+    "LOGO": "ubuntu-logo",
+    "NAME": "Ubuntu",
+    "PRETTY_NAME": "Ubuntu 24.04.4 LTS",
+    "PRIVACY_POLICY_URL": "https://www.ubuntu.com/legal/terms-and-policies/privacy-policy",
+    "SUPPORT_URL": "https://help.ubuntu.com/",
+    "UBUNTU_CODENAME": "noble",
+    "VERSION": "24.04.4 LTS (Noble Numbat)",
+    "VERSION_CODENAME": "noble",
+    "VERSION_ID": "24.04"
+  },
+  "wsl": {
+    "distro_name_env": "Ubuntu-24.04",
+    "interop_present": true,
+    "proc_version": "Linux version 6.18.33.2-microsoft-standard-WSL2 (root@f1bbfb02316b) (gcc (GCC) 13.2.0, GNU ld (GNU Binutils) 2.41) #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026"
+  },
+  "wsl_detected": true
+}

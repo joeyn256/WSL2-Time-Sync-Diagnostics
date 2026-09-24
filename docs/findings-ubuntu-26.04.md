@@ -86,4 +86,6 @@ For a timing-sensitive workload, one clean 300-second run should be treated as a
 
 Treat the reported 26.04 result as a **promising guest-side screen**. Test your own dependencies and timing requirements before committing to a long workload.
 
+A second 300 s screen on another host on 2026-09-24, with committed raw evidence, agreed with this one (full run −0.535 to −0.511 ppm); see [Same-host screens, 2026-09-24](same-host-screens-2026-09-24.md).
+
 See the [read-only diagnostic core and clock caveats](../README.md#the-read-only-diagnostic-core).

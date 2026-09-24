@@ -1,7 +1,7 @@
 {
-  "release": "0.5.0",
-  "status": "visual-storytelling-branch",
-  "branch": "feature/v0.5.0-visual-storytelling",
+  "release": "0.6.0",
+  "status": "measured-comparison-branch",
+  "branch": "feature/v0.6.0-measured-comparison",
   "base_release": "v0.1.1",
   "base_commit": "830a142d57e8f785016ef07952a5340b4eb94ab3",
   "repository": "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics",
@@ -13,9 +13,10 @@
     "first_visual_pass": "6f529bd15cda2dc91af223fb51f8aaacc626317c",
     "reviewed_presentation": "162e78001819842266fa984d66ad940aa6e15a46",
     "final_v0_3_1_viewer": "4e7a64a5c08e4c893602e1a44e3804f4f67de419",
-    "v0_4_0_preview_on_main": "94574ba4f8ee0b6749be68cba4d7f457e5e38e64"
+    "v0_4_0_preview_on_main": "94574ba4f8ee0b6749be68cba4d7f457e5e38e64",
+    "v0_5_0_visual_storytelling": "f36795859e16097d08cd6adcd7a83280683d42b6"
   },
-  "versioning_note": "0.2.0, 0.3.0, and 0.3.1 were development-branch identifiers and were not tagged public releases. v0.4.0 is the public pre-1.0 preview on main. v0.5.0 is the visual-storytelling branch built on that preview; it is not a tag, does not advance main, and changes no runtime behavior. v1.0.0 remains deferred.",
+  "versioning_note": "0.2.0, 0.3.0, and 0.3.1 were development-branch identifiers and were not tagged public releases. v0.4.0 is the public pre-1.0 preview on main. v0.5.0 is the visual-storytelling branch and v0.6.0 is the measured-comparison branch built on it; neither is a tag, neither advances main, and neither changes runtime behavior. v1.0.0 remains deferred.",
   "cli_behavior_change": false,
   "runtime_dependencies": "Python standard library only",
   "changes": [
@@ -28,9 +29,8 @@
     "Evidence-tiered README, D4R2 animated viewer, WSL host/kernel/guest architecture diagram, and dated upstream timeline.",
     "Release-neutral documentation naming, preview security/support policy, and repository/package branding cleanup.",
     "v0.4.0 preview: publish the current diagnostic core and reviewed presentation baseline to main without declaring the stable v1.0.0 contract final.",
-    "v0.5.0: new docs/assets/clock-steering-story.svg (first hero, now in the 'What is actually unique here?' section): three architecture-state cards (24.04 default, 24.04 after systemctl stop as measured in D4R2, 26.04 fresh default) with evidence badges, over a synchronized replay of the D4R2 rate windows, 120 s averages, RAW/QPC channel and checkpoint cards; CSS-only, reduced-motion aware, complete static state.",
-    "v0.5.0: README opening gains a 'How to read the figure' note; sections reordered problem -> finding -> architecture -> diagnostic tool -> guidance -> upstream story; the step-by-step D4R2 replay moved next to the full table in docs/timesyncd-investigation.md.",
-    "v0.5.0: new README hero docs/assets/three-model-timing-comparison.svg: three side-by-side panels (24.04 timesyncd enabled, 24.04 after the stop, 26.04 fresh default) on one 0-120 s axis with synchronized cursors and checkpoint summaries at 30/60/90/120 s; the clock-steering story moves to the 'What is actually unique here?' section."
+    "v0.5.0: docs/assets/clock-steering-story.svg (three architecture-state cards over a synchronized D4R2 replay) and docs/assets/three-model-timing-comparison.svg (three panels on one 0-120 s axis); README opening reordered with a 'How to read the figure' note; the step-by-step D4R2 replay moved next to the full table in docs/timesyncd-investigation.md.",
+    "v0.6.0: the three-model comparison's outer panels are now measured. Two read-only guest-side screens were taken on one Windows host on 2026-09-24 from fresh WSL boots with the project CLI: Ubuntu 24.04 with systemd-timesyncd active (about 4.8 % slow with +1.6 s REALTIME jumps every 34 s, tick 10000 -> 9437) and Ubuntu 26.04 fresh default (within +/-0.73 ppm, tick 10000). Raw probe/analysis/settle JSON, redacted environment snapshots, logs, hashes and the verbatim protocol are committed under evidence/2026-09-24-same-host-screens/ and described in docs/same-host-screens-2026-09-24.md."
   ],
   "validation": {
     "durable_github_ci": {
@@ -55,25 +55,40 @@
         "tests_passed_per_interpreter": 271,
         "semantic_smoke": "Passed in both jobs: strict JSON, RAW completion/coverage, two complete windows, zero partial windows, cumulative REALTIME evidence, and method-aware comparison."
       },
+      "v0_5_0_visual_storytelling": {
+        "commit": "f36795859e16097d08cd6adcd7a83280683d42b6",
+        "run_url": "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/actions/runs/35967653978",
+        "tests_passed_per_interpreter": 271,
+        "semantic_smoke": "Passed in both jobs."
+      },
       "preview_candidate": "Exact-head CI on release/v0.4.0-preview must be green before main is advanced.",
-      "visual_storytelling_branch": "Exact-head CI on feature/v0.5.0-visual-storytelling runs the same gate (tests, 0.5.0 wheel metadata, semantic smoke); consult the checks on the branch commits."
+      "measured_comparison_branch": "Exact-head CI on feature/v0.6.0-measured-comparison runs the same gate (tests, 0.6.0 wheel metadata, semantic smoke); consult the checks on the branch commits."
     },
     "local_wsl_review": {
       "ubuntu_24_04_python_3_12_3": "271-test final-core review passed; software validation only.",
       "ubuntu_26_04_python_3_14_4": "271-test final-core review passed; software validation only.",
       "provenance_limit": "No durable raw logs or hashes for the local review runs are committed."
     },
-    "host_referenced_timing_qualification": "Unavailable for a current machine; CI and local software tests do not establish it."
+    "committed_evidence": {
+      "same_host_screens_2026_09_24": {
+        "page": "docs/same-host-screens-2026-09-24.md",
+        "folder": "evidence/2026-09-24-same-host-screens/",
+        "tooling_commit": "f36795859e16097d08cd6adcd7a83280683d42b6",
+        "scope": "Guest-side MONOTONIC versus MONOTONIC_RAW screens on one Windows host, fresh WSL boot per run, one distro at a time, read-only; not host-referenced and not a controlled ranking.",
+        "redaction": "boot_id and python_executable removed from diagnose JSON; hostname, boot identifiers, local paths and the WSL default user name removed from logs; SHA-256 of every unredacted file listed in each folder's HASHES.md."
+      }
+    },
+    "host_referenced_timing_qualification": "Unavailable for a current machine; CI, local software tests and the committed guest-side screens do not establish it."
   },
   "presentation_assets": {
-    "three-model-timing-comparison.svg": "README hero. Three panels share one 0-120 s axis and one symmetric-log ppm scale with the +/-1000 ppm screen; cursors move together at ten times real time. Left panel (24.04, timesyncd enabled): documented two-writer default drawn as an architecture-risk band with no measured trace, plus the C1 A0 observation of four REALTIME steps of about +0.59 to +0.63 s (events, not a rate series); its only summary is qualitative. Middle panel (24.04 after the stop, D4R2, Windows QPC reference): t = 0 is the window opening about 60 s after the confirmed stop with the unit still enabled; the four published 30 s enclosures appear as each window closes, the 120 s enclosure +6,661.607 to +6,676.217 ppm appears at 120 s, PRE tick 10833 and POST tick 10000 are marked, and the 0-60 s and 0-90 s running means are labelled as derived from the published windows assuming equal 30 s windows. Right panel (26.04 fresh default, guest reference): one-writer documented default; each 30 s window is marked inside the screen without a per-window value because none is published; the 300 s full-run enclosure -0.504500 to -0.463656 ppm and worst window bound -1.191303 ppm appear at the final checkpoint and are labelled 300 s and guest-side. Cursors and sampling washes are illustrative and hidden when animation is off; the static/reduced-motion state is the complete result.",
-    "clock-steering-story.svg": "Shown in the 'What is actually unique here?' section. Card A (24.04 default) and card D (26.04 fresh default) show documented control paths only, with no fabricated rate trace; card A carries the C1 A0 REALTIME-step observation and card D the 300 s guest-side screen (full run -0.504500 to -0.463656 ppm, worst window bound -1.191303 ppm, ten windows inside the +/-1000 ppm screen) on a +/-2 ppm track labelled guest-side. Card B (24.04 after systemctl stop) shows the measured D4R2 state: timesyncd stopped with the unit still enabled, PRE tick 10833 about 60 s after the stop and POST tick 10000 later, each marked 'set by ?' / 'reset by ?'. The chart replays the four published 30 s MONOTONIC/QPC enclosures, the 120 s average and the RAW/QPC full-run enclosure at ten times real time on a symmetric-log axis; the only derived figure (about +0.80 s over window 1) is labelled derived; the cursor and sampling wash are illustrative and hidden when animation is off; the static/reduced-motion state is the complete result.",
-    "d4r2-settling-animated.svg": "Step-by-step D4R2 replay, now embedded beside the full table in docs/timesyncd-investigation.md. Published D4R2 interval enclosures only; playback starts at the confirmed service-stop transition, shows the stopped timesyncd path while kernel tick/freq state persists, labels derived/inferred/not-established content, and has a coherent static/reduced-motion result.",
+    "three-model-timing-comparison.svg": "README hero. Three panels share one 0-120 s axis and one symmetric-log +/-100,000 ppm scale with the +/-1000 ppm screen; cursors move together at ten times real time. Left panel (24.04, timesyncd enabled): the four 30 s enclosures from the 2026-09-24 same-host screen (-55,088.612 to -49,693.640 ppm, printed exactly in the chips and rounded outward in the headline) drawn as deviation blocks, measured REALTIME jumps marked at 31, 65 and 99 s, the 300 s run in the final chip, tick 10000 -> 9437 in the panel summary, and the host clock offset in the caption. Middle panel (24.04 after the stop, D4R2, Windows QPC reference): t = 0 is the window opening about 60 s after the confirmed stop with the unit still enabled; the four published 30 s enclosures appear as each window closes, the 120 s enclosure appears at 120 s, PRE tick 10833 and POST tick 10000 are marked, and the 0-60 s and 0-90 s running means are labelled as derived. Right panel (26.04 fresh default, same host, same day): the four 30 s enclosures (-0.73 to -0.27 ppm) hug the zero line, the 300 s run appears at the final checkpoint. Cursors and sampling washes are illustrative and hidden when animation is off; the static/reduced-motion state is the complete result. The footer records that W32Time was stopped and the host clock about 1.06 s behind NTP, that the result is guest-side only and not a ranking, and that the tick writer is not established.",
+    "clock-steering-story.svg": "Shown in the 'What is actually unique here?' section. Card A (24.04 default) and card D (26.04 fresh default) show documented control paths; card A carries the C1 A0 REALTIME-step observation and card D the historical 300 s guest-side screen; card B (24.04 after systemctl stop) shows the measured D4R2 state with PRE tick 10833 and POST tick 10000 marked 'set by ?' / 'reset by ?'. The chart replays the four published 30 s MONOTONIC/QPC enclosures, the 120 s average and the RAW/QPC full-run enclosure; the only derived figure (about +0.80 s over window 1) is labelled derived; the static/reduced-motion state is the complete result.",
+    "d4r2-settling-animated.svg": "Step-by-step D4R2 replay embedded beside the full table in docs/timesyncd-investigation.md; published D4R2 interval enclosures only, coherent static/reduced-motion result.",
     "architecture-host-vm-guest.svg": "Microsoft/Canonical default architecture is separated from project measurement points and bounded interpretation.",
     "upstream-timeline.svg": "Vendor and project events are separate lanes; WSL 2.1.1 is identified as a prerelease and later Microsoft reports are not equated with #10006."
   },
-  "provenance": "Fresh implementations of bounded acquisition/math ideas and public Linux interfaces. No historical private raw evidence or unrelated project data is copied into the repository.",
-  "note": "v0.5.0 is a visual-storytelling feature branch on top of the v0.4.0 public preview. It is not merged, not tagged, and does not change runtime behavior or the schema-v2 contract. The official v1.0.0 tag/release remains deferred. Host-reference qualification and a Windows QPC companion remain outside the current CLI.",
+  "provenance": "Fresh implementations of bounded acquisition/math ideas and public Linux interfaces. The committed 2026-09-24 evidence was produced by the repository's own read-only CLI on the reviewing machine; no historical private raw evidence or unrelated project data is copied into the repository.",
+  "note": "v0.6.0 is a feature branch on top of the v0.5.0 branch and the v0.4.0 public preview. It is not merged, not tagged, and does not change runtime behavior or the schema-v2 contract. The official v1.0.0 tag/release remains deferred. Host-reference qualification and a Windows QPC companion remain outside the current CLI.",
   "preview_public_contract": {
     "cli": "wsl-time-sync",
     "python_import": "wsl_time_sync",

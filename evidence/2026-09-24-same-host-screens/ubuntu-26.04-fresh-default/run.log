@@ -1,0 +1,68 @@
+=== 2026-09-24T16:46:33Z start ===
+repo_rev=f36795859e16097d08cd6adcd7a83280683d42b6
+cli_version=0.5.0
+python=Python 3.14.4
+uname=6.18.33.2-microsoft-standard-WSL2
+pretty_name=Ubuntu 26.04.1 LTS
+cmdline=initrd=\initrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=16 hv_utils.timesync_implicit=1 console=hvc0 debug pty.legacy_count=0 WSL_ENABLE_CRASH_DUMP=1
+clocksource=tsc
+uptime_s=19.16
+timesyncd_active=inactive enabled=not-found
+chrony_active=active enabled=enabled
+chronyd_args=/usr/sbin/chronyd -n -F 1 -x /usr/sbin/chronyd -n -F 1 -x 
+timesyncd_args=
+ptp=/dev/ptp0 /dev/ptp_hyperv 
+--- timedatectl show (pre) ---
+Timezone=America/New_York
+LocalRTC=no
+CanNTP=yes
+NTP=yes
+NTPSynchronized=no
+TimeUSec=Thu 2026-09-24 12:46:49 EDT
+RTCTimeUSec=Thu 2026-09-24 12:46:49 EDT
+--- timedatectl timesync-status (pre, read-only property query) ---
+Command requires systemd-timesyncd.service, but it is not available: The name org.freedesktop.timesync1 was not provided by any .service files
+=== diagnose PRE 16:46:49Z ===
+ok
+=== settle 60 s ===
+=== probe 300 s / 1 s 16:47:49Z ===
+ok
+=== diagnose POST 16:52:50Z ===
+ok
+--- timedatectl show (post) ---
+Timezone=America/New_York
+LocalRTC=no
+CanNTP=yes
+NTP=yes
+NTPSynchronized=yes
+TimeUSec=Thu 2026-09-24 12:52:50 EDT
+RTCTimeUSec=Thu 2026-09-24 12:52:50 EDT
+=== analyze ===
+ok band1000
+ok band100
+probe complete: True [] samples 301
+coverage: verified True windows 10 complete 10 partial 0 issues []
+classification band1000: WITHIN | band100: WITHIN
+full_run rate_interval_ppm: [-0.5345689622982942, -0.5114890189060929] point -0.5230289907353646
+full_run realtime offset change ns: [-160290, -153366] NEGATIVE
+window 0 WITHIN [-0.5697894897580369, -0.2738950288234865] rt WITHIN [-18125, -9248]
+window 1 WITHIN [-0.6577732767838056, -0.4226710135562604] rt WITHIN [-18671, -11618]
+window 2 WITHIN [-0.6671329809759307, -0.4914998267299277] rt WITHIN [-20405, -15136]
+window 3 WITHIN [-0.4639279402328852, -0.2695969183634381] rt WITHIN [-13637, -7807]
+window 4 WITHIN [-0.6457385788184815, -0.40263670192619383] rt WITHIN [-20174, -12881]
+window 5 WITHIN [-0.7263341960488803, -0.459200668091052] rt WITHIN [-21490, -13476]
+window 6 WITHIN [-0.6813278879337438, -0.4612630816069929] rt WITHIN [-20068, -13466]
+window 7 WITHIN [-0.6464085361479242, -0.4627061952657896] rt WITHIN [-19212, -13701]
+window 8 WITHIN [-0.5692972204442743, -0.390598162730402] rt WITHIN [-17229, -11868]
+window 9 WITHIN [-0.69676005940715, -0.5020286704408393] rt WITHIN [-20643, -14801]
+backward events: 0 large changes: 0 outside rt windows: 0
+PRE adjtimex available True tick 10000 freq 0 freq_ppm 0.0 status 64 return_state {'code': 5, 'name': 'TIME_ERROR'}
+PRE services [('systemd-timesyncd.service', 'inactive', 'not-found'), ('chrony.service', 'active', 'enabled'), ('chronyd.service', 'active', 'alias')] clocksource tsc ptp ['hyperv']
+POST adjtimex available True tick 10000 freq -37221 freq_ppm -0.5679473876953125 status 0 return_state {'code': 0, 'name': 'TIME_OK'}
+POST services [('systemd-timesyncd.service', 'inactive', 'not-found'), ('chrony.service', 'active', 'enabled'), ('chronyd.service', 'active', 'alias')] clocksource tsc ptp ['hyperv']
+sha256 diagnose-pre.json 01c197a37f0a5480c64f37cd1d5bff0c19530e2fd80d7b2b6c9d523bfb778df2
+sha256 probe.json 60b5ffd1fead923ca43bfa326b347abe66ae1dc1b490ddddae8324492a59f7e5
+sha256 diagnose-post.json ca9fdec2cfc4d06d54abdff5d4f4966f9e693e2ef39a7159a6ba72833285e9ac
+sha256 analysis-window30-band1000.json 73647d358e6948d1cb2cc77d7f8bfb152054e05bf401f6c221a6b5534efda657
+sha256 analysis-window30-band100.json 35d39dbe64f98a5a27c187422243bef8d2a7d6ddcbecc134ba9842da8ea30509
+=== 2026-09-24T16:52:51Z end ===

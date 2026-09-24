@@ -17,18 +17,18 @@
 
 **What the evidence showed.**
 
-*How to read the figure:* three situations, one shared 0–120 s axis, one ppm scale. Only the **middle panel is a measured time series**: the historical D4R2 run on Ubuntu 24.04 after `systemd-timesyncd` was stopped, with `t = 0` the moment the measurement window opened, about 60 s after the confirmed stop. Each purple box is a published 30-second interval enclosure against Windows QPC and a summary pops up as each window closes. The left panel is Ubuntu 24.04's documented default with two writers; it holds no measured trace, so it shows only an architecture-risk band. The right panel is Ubuntu 26.04's fresh default with one writer, plus the project's bounded 300 s guest-side screen. With animation off, the complete result is shown.
+*How to read the figure:* three situations, one shared 0–120 s axis, one symmetric-log ppm scale, and every box is a committed interval enclosure. The **outer panels were measured on one Windows host on 2026-09-24** with this repository's read-only probe, each from a fresh WSL boot with one distro running: Ubuntu 24.04 with `systemd-timesyncd` active on the left, Ubuntu 26.04's fresh default on the right, both comparing `CLOCK_MONOTONIC` with `CLOCK_MONOTONIC_RAW` inside the guest. The **middle panel is the historical D4R2 run** against Windows QPC, with `t = 0` the moment its window opened, about 60 s after the confirmed stop. A summary pops up as each 30 s window closes; the chips carry the exact committed enclosures and the headline ranges are rounded outward. Red triangles under the left axis are measured `CLOCK_REALTIME` jumps. With animation off, the complete result is shown. Full record: [docs/same-host-screens-2026-09-24.md](docs/same-host-screens-2026-09-24.md).
 
 <p align="center">
-  <img src="docs/assets/three-model-timing-comparison.svg" alt="Three panels on one 0 to 120 second axis. Left, Ubuntu 24.04 with timesyncd enabled: two documented writers, no measured trace, an architecture-risk band, and the observation of four REALTIME steps of +0.59 to +0.63 seconds while the service was active. Middle, Ubuntu 24.04 after the timesyncd stop, measured in D4R2 against Windows QPC: t = 0 is about 60 seconds after the confirmed stop with the unit still enabled; the PRE snapshot showed tick 10833; window 1 measured +26,665.299 to +26,724.999 ppm, outside the ±1000 ppm screen and about +0.80 seconds ahead; windows 2 to 4 were within about ±33 ppm; the 120-second run was +6,661.607 to +6,676.217 ppm, still outside; the later POST snapshot showed tick 10000. Right, Ubuntu 26.04 fresh default: chrony runs with -x and reads only; the bounded 300-second guest-side screen had every 30-second window inside the screen and a full-run enclosure of -0.50 to -0.46 ppm. Who set or reset tick is not established. Motion is playback only." width="1000">
+  <img src="docs/assets/three-model-timing-comparison.svg" alt="Three panels on one 0 to 120 second axis and one symmetric-log ppm scale. Left, Ubuntu 24.04 with timesyncd enabled, measured on this host on 2026-09-24 against the guest's raw clock: every 30-second window outside the ±1000 ppm screen at about 5 percent slow, between -55,089 and -49,693 ppm rounded outward, with forward REALTIME jumps of about +1.6 seconds at 31, 65 and 99 seconds; the 300-second run was -48,010.756 to -48,010.740 ppm and the kernel tick moved from 10000 to 9437; the host clock was about 1.06 seconds behind NTP with the Windows Time service stopped. Middle, Ubuntu 24.04 after the timesyncd stop, the historical D4R2 run against Windows QPC: t = 0 is about 60 seconds after the confirmed stop; window 1 measured +26,665.299 to +26,724.999 ppm, outside the screen; windows 2 to 4 were within about ±33 ppm; the 120-second run was +6,661.607 to +6,676.217 ppm, still outside; tick 10833 before and 10000 later. Right, Ubuntu 26.04 fresh default on the same host the same day, chrony running with -x: all ten 30-second windows inside the screen between -0.73 and -0.27 ppm rounded outward, the 300-second run -0.535 to -0.511 ppm, no jumps, tick 10000 throughout. Who changes tick is not established. Motion is playback only." width="1000">
 </p>
 
 | Tier | Statement |
 |---|---|
 | **VENDOR / DOCUMENTED FACT** | Modern WSL receives time from Windows/Hyper-V. Ubuntu 24.04 also enables `systemd-timesyncd` by default, and Canonical documents that the two can disagree. A fresh Ubuntu 26.04 runs chrony with `-x` under WSL, so it does not control the clock unless opted in. |
-| **PROJECT OBSERVATION** | In the historical D4R2 run the service was confirmed stopped, the experiment waited ≈60 s (Windows QPC), and the kernel still reported `tick=10833`; the first 30 s window ran +26,665 to +26,725 ppm fast against QPC before later windows returned to within ±33 ppm. While the service was active (C1 phase A0), four REALTIME steps of about +0.59 to +0.63 s were observed. A 300 s guest-side screen on Ubuntu 26.04 showed no comparable `MONOTONIC`-vs-`RAW` slew. |
-| **INFERENCE / INTERPRETATION** | The early anomaly with a near-nominal `RAW`/QPC rate points at clock *discipline*, not the hardware counter, and is consistent with a residual kernel correction outliving the daemon. Ubuntu 26.04's fresh-install defaults remove the default guest-side competitor. |
-| **NOT ESTABLISHED / INCONCLUSIVE** | That `systemd-timesyncd` was the sole writer (the controlled A–B–A test C1 was **INCONCLUSIVE**); who set `tick=10833` or what reset it; any 24.04-vs-26.04 ranking; host-referenced qualification of any current machine. |
+| **PROJECT OBSERVATION** | On one Windows host on 2026-09-24, from fresh WSL boots, Ubuntu 24.04 with `systemd-timesyncd` active ran its guest clock about 4.8 % slow for 300 s with a +1.6 s `CLOCK_REALTIME` jump every 34 s and `tick` driven from 10000 to 9437, while Ubuntu 26.04's fresh default stayed within ±0.73 ppm with `tick` 10000 throughout; the host clock was 1.06 s behind NTP with the Windows Time service stopped. In the historical D4R2 run the service was confirmed stopped, the experiment waited ≈60 s (Windows QPC), and the kernel still reported `tick=10833`; the first 30 s window ran +26,665 to +26,725 ppm fast against QPC before later windows returned to within ±33 ppm. While the service was active in C1 phase A0, four REALTIME steps of about +0.59 to +0.63 s were observed. |
+| **INFERENCE / INTERPRETATION** | The same-host result fits two writers with references that disagreed by about a second: timesyncd jumping to NTP time every poll and an unidentified writer slewing back toward host time at up to −83,333 ppm. The D4R2 anomaly with a near-nominal `RAW`/QPC rate points at clock *discipline*, not the hardware counter, and is consistent with a residual kernel correction outliving the daemon. Ubuntu 26.04's fresh-install defaults remove the default guest-side competitor. |
+| **NOT ESTABLISHED / INCONCLUSIVE** | Which process or driver changes `tick` (9437 here, 10833 in D4R2): timesyncd's source excludes it and chrony was not running; that `systemd-timesyncd` was the sole writer (the controlled A–B–A test C1 was **INCONCLUSIVE**); whether the same-host result recurs when the host clock agrees with NTP; any 24.04-vs-26.04 ranking; host-referenced qualification of any machine. |
 
 > **Core lesson:** service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready. Measure before you trust a window.
 
@@ -48,6 +48,7 @@ Guest-side agreement between `CLOCK_MONOTONIC` and `CLOCK_MONOTONIC_RAW` is evid
 
 - **Choosing an environment** → [At a glance](#at-a-glance); Ubuntu 26.04 fresh install vs 24.04, with Python 3.12 vs 3.14 kept as a separate decision.
 - **How time reaches the guest** → [The architecture changed](#the-architecture-changed) and [docs/upstream-time-sync-status.md](docs/upstream-time-sync-status.md).
+- **The 2026-09-24 same-host screens with committed evidence** → [docs/same-host-screens-2026-09-24.md](docs/same-host-screens-2026-09-24.md) and [evidence/2026-09-24-same-host-screens/](evidence/2026-09-24-same-host-screens/).
 - **The full D4R2 record, its replay figure, and the C1 result** → [docs/timesyncd-investigation.md](docs/timesyncd-investigation.md).
 - **CLI and JSON schema** → [docs/cli-schema.md](docs/cli-schema.md); **arithmetic** → [docs/methodology.md](docs/methodology.md); **limits** → [docs/limitations.md](docs/limitations.md).
 
@@ -282,6 +283,7 @@ This repository keeps several kinds of evidence separate.
 | Evidence type | What it can support |
 |---|---|
 | Historical project observations | What happened in the investigated environment |
+| Committed same-host screens (2026-09-24) | Guest-clock behaviour on one host from fresh boots, with raw JSON in `evidence/`; not host-referenced |
 | Guest-side probe | Relationships between guest clocks during that bounded capture |
 | Windows-QPC historical evidence | Host-referenced timing for the preserved historical experiment |
 | GitHub CI | Software correctness on the CI runners, not WSL timing qualification |
@@ -299,7 +301,7 @@ The v0.4.0 preview uses the same strict software-quality gate planned for the fu
 - construction and installation of the normal `wsl2-time-sync-diagnostics` wheel, with distribution and import version checks;
 - the semantic CLI smoke: strict JSON, verified RAW acquisition completion and requested-duration coverage, two complete fixed windows with zero partial windows, cumulative REALTIME evidence, and method-aware comparison.
 
-The `release/v0.4.0-preview` candidate has passed these gates, and the v0.5.0 visual-storytelling branch runs the same gate on its own commits. v0.4.0 is intentionally pre-1.0: the visual model and a few presentation details are still being refined before the stable v1.0.0 release. Use the CI badge and the checks attached to the current commit for live status. Historical implementation and adversarial-review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
+The `release/v0.4.0-preview` candidate has passed these gates, and the v0.5.0 and v0.6.0 presentation branches run the same gate on their own commits. v0.4.0 is intentionally pre-1.0: the visual model and a few presentation details are still being refined before the stable v1.0.0 release. Use the CI badge and the checks attached to the current commit for live status. Historical implementation and adversarial-review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
 
 Local WSL software checks were also performed during review on Ubuntu 24.04 / Python 3.12.3 and Ubuntu 26.04 / Python 3.14.4. Those checks are software-validation evidence only; they are not host-referenced timing qualification, which remains unavailable.
 
@@ -342,6 +344,7 @@ See [Microsoft's WSL filesystem guidance](https://learn.microsoft.com/windows/ws
 - [Ubuntu 24.04 findings](docs/findings-ubuntu-24.04.md)
 - [Ubuntu 26.04 findings](docs/findings-ubuntu-26.04.md)
 - [`systemd-timesyncd` investigation](docs/timesyncd-investigation.md)
+- [Same-host screens, 2026-09-24](docs/same-host-screens-2026-09-24.md)
 - [Python 3.12 vs Python 3.14](docs/python-3.12-vs-3.14.md)
 - [CLI and schema reference](docs/cli-schema.md)
 - [Methodology](docs/methodology.md)

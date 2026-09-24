@@ -1,10 +1,11 @@
 {
-  "version": "public-v0.5.0",
+  "version": "public-v0.6.0",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
     "docs/findings-ubuntu-24.04.md",
     "docs/findings-ubuntu-26.04.md",
+    "docs/same-host-screens-2026-09-24.md",
     "docs/timesyncd-investigation.md",
     "docs/upstream-time-sync-status.md",
     "docs/python-3.12-vs-3.14.md",
@@ -21,6 +22,12 @@
     "docs/assets/upstream-timeline.svg",
     "docs/assets/d4r2-settling-animated.svg"
   ],
+  "public_evidence": [
+    "evidence/2026-09-24-same-host-screens/PROTOCOL.md",
+    "evidence/2026-09-24-same-host-screens/host-clock-offset.txt",
+    "evidence/2026-09-24-same-host-screens/ubuntu-24.04-timesyncd-enabled/",
+    "evidence/2026-09-24-same-host-screens/ubuntu-26.04-fresh-default/"
+  ],
   "cross_document_checks": {
     "causal limitation present": true,
     "timesyncd stop-vs-disable wording corrected": true,
@@ -34,14 +41,15 @@
     "fixed-wait lesson present": true,
     "visuals distinguish vendor facts from project observations": true,
     "README opening labels evidence tiers (vendor fact / observation / inference / not established)": true,
-    "hero uses only published D4R2, C1 and 26.04-screen values and fabricates no trace for a documented-only state": true,
-    "hero encodes evidence strength per situation (documented default / measured / bounded screen) and marks unknowns with ?": true,
+    "hero uses only committed or published enclosures and fabricates no trace for any panel": true,
+    "hero labels the outer panels as guest-side screens on one host and the middle panel as host-referenced D4R2": true,
+    "hero states that t = 0 is about 60 s after the confirmed stop and that the 300 s runs are labelled 300 s": true,
     "hero static and reduced-motion state is the complete result with no mutually exclusive states visible together": true,
+    "same-host screens page records host clock offset, stopped W32Time, redactions and unredacted-file hashes": true,
+    "tick writer is stated as not established; timesyncd excluded by its v255 source; chrony not running": true,
     "D4R2 step-by-step replay lives with the full record in docs/timesyncd-investigation.md": true,
-    "three-model comparison starts at t = 0, shares one axis and scale, fabricates no trace for the 24.04-enabled or 26.04 panels, and labels derived running means": true,
-    "three-model comparison states that t = 0 is about 60 s after the confirmed stop and that the 26.04 summary is the 300 s guest-side run": true,
     "stable CLI/schema reference uses release-neutral naming": true,
-    "package and publication metadata target the v0.5.0 visual-storytelling branch built on the v0.4.0 preview": true,
+    "package and publication metadata target the v0.6.0 measured-comparison branch built on the v0.4.0 preview": true,
     "v1.0.0 stable contract remains explicitly deferred": true
   }
 }

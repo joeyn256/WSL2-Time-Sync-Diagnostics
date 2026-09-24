@@ -1,0 +1,76 @@
+=== 2026-09-24T16:34:19Z start ===
+repo_rev=f36795859e16097d08cd6adcd7a83280683d42b6
+cli_version=0.5.0
+python=Python 3.12.3
+uname=6.18.33.2-microsoft-standard-WSL2
+pretty_name=Ubuntu 24.04.4 LTS
+cmdline=initrd=\initrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=16 hv_utils.timesync_implicit=1 console=hvc0 debug pty.legacy_count=0 WSL_ENABLE_CRASH_DUMP=1
+clocksource=tsc
+uptime_s=23.52
+timesyncd_active=active enabled=enabled
+chrony_active=inactive enabled=not-found
+chronyd_args=
+timesyncd_args=/usr/lib/systemd/systemd-timesyncd 
+ptp=/dev/ptp0 /dev/ptp_hyperv 
+--- timedatectl show (pre) ---
+Timezone=America/New_York
+LocalRTC=no
+CanNTP=yes
+NTP=yes
+NTPSynchronized=yes
+TimeUSec=Thu 2026-09-24 12:34:38 EDT
+RTCTimeUSec=Thu 2026-09-24 12:34:38 EDT
+--- timedatectl timesync-status (pre, read-only property query) ---
+FallbackNTPServers=ntp.ubuntu.com
+ServerName=ntp.ubuntu.com
+ServerAddress=185.125.190.58
+RootDistanceMaxUSec=5s
+PollIntervalMinUSec=32s
+PollIntervalMaxUSec=34min 8s
+PollIntervalUSec=32s
+NTPMessage={ Leap=0, Version=4, Mode=4, Stratum=2, Precision=-25, RootDelay=6.469ms, RootDispersion=137us, Reference=1D586304, OriginateTimestamp=Thu 2026-09-24 12:34:16 EDT, ReceiveTimestamp=Thu 2026-09-24 12:34:17 EDT, TransmitTimestamp=Thu 2026-09-24 12:34:17 EDT, DestinationTimestamp=Thu 2026-09-24 12:34:16 EDT, Ignored=no, PacketCount=1, Jitter=0 }
+Frequency=0
+=== diagnose PRE 16:34:38Z ===
+ok
+=== settle 60 s ===
+=== probe 300 s / 1 s 16:35:41Z ===
+ok
+=== diagnose POST 16:40:40Z ===
+ok
+--- timedatectl show (post) ---
+Timezone=America/New_York
+LocalRTC=no
+CanNTP=yes
+NTP=yes
+NTPSynchronized=yes
+TimeUSec=Thu 2026-09-24 12:40:40 EDT
+RTCTimeUSec=Thu 2026-09-24 12:40:42 EDT
+=== analyze ===
+ok band1000
+ok band100
+probe complete: True [] samples 301
+coverage: verified True windows 10 complete 10 partial 0 issues []
+classification band1000: OUTSIDE | band100: OUTSIDE
+full_run rate_interval_ppm: [-48010.755673874926, -48010.74025787105] point -48010.74796587305
+full_run realtime offset change ns: [-1478055541, -1478050682] NEGATIVE
+window 0 OUTSIDE [-55088.61213999473, -55088.44882400224] rt OUTSIDE [-1653895297, -1653890108]
+window 1 OUTSIDE [-54399.437838790654, -54399.233129189524] rt WITHIN [18041661, 18048164]
+window 2 OUTSIDE [-49693.79932044417, -49693.639564004814] rt WITHIN [221146022, 221151062]
+window 3 OUTSIDE [-52680.920257298654, -52680.77753541252] rt WITHIN [122392659, 122397177]
+window 4 OUTSIDE [-46915.080053339305, -46914.91387647048] rt WITHIN [232349705, 232354945]
+window 5 OUTSIDE [-43802.516869504994, -43802.3644127819] rt WITHIN [341196721, 341201500]
+window 6 OUTSIDE [-41451.94623566494, -41451.773212309636] rt WITHIN [282349923, 282355343]
+window 7 OUTSIDE [-40892.385237902185, -40892.22466051541] rt WITHIN [314065576, 314070586]
+window 8 OUTSIDE [-48810.28279130998, -48810.15802308456] rt WITHIN [36149924, 36153862]
+window 9 OUTSIDE [-46349.79238244572, -46349.63836196964] rt OUTSIDE [-1391875249, -1391870399]
+backward events: 0 large changes: 8 outside rt windows: 2
+PRE adjtimex available True tick 10000 freq 0 freq_ppm 0.0 status 8192 return_state {'code': 0, 'name': 'TIME_OK'}
+PRE services [('systemd-timesyncd.service', 'active', 'enabled'), ('chrony.service', 'inactive', 'not-found'), ('chronyd.service', 'inactive', 'not-found')] clocksource tsc ptp ['hyperv']
+POST adjtimex available True tick 9437 freq 2655521 freq_ppm 40.52003479003906 status 8192 return_state {'code': 0, 'name': 'TIME_OK'}
+POST services [('systemd-timesyncd.service', 'active', 'enabled'), ('chrony.service', 'inactive', 'not-found'), ('chronyd.service', 'inactive', 'not-found')] clocksource tsc ptp ['hyperv']
+sha256 diagnose-pre.json 37a077ab47c7b165ede6d87aaf6b7697c6b24d1e2d9b6d5fba0b824ae7dc3ad3
+sha256 probe.json f504fbaac9141bcc5a45ac0de623b201626e095cf92cb872716d244e9be337d7
+sha256 diagnose-post.json 751b1bce232857815934b41252c88fa29e0a4b90b797b2b1ef8d14c192a2120c
+sha256 analysis-window30-band1000.json 28b7cc2ff71d1c25c44e66a53f1ec868544f0fc2ae8a047a46be1c6ea099a2a6
+sha256 analysis-window30-band100.json e5d51d2ed209a36f56d6ac248e8be40f4f2785b877b0c85d7cfc8c250ec75ba0
+=== 2026-09-24T16:40:42Z end ===
