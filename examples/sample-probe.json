@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "mode": "read_only",
+  "duration_requested_s": 2.0,
+  "cadence_requested_s": 1.0,
+  "started_wall_ns": 0,
+  "samples": [
+    {
+      "index": 0,
+      "realtime_ns": 0,
+      "monotonic_ns": 0,
+      "monotonic_raw_ns": 0
+    },
+    {
+      "index": 1,
+      "realtime_ns": 1000000000,
+      "monotonic_ns": 1000000200,
+      "monotonic_raw_ns": 1000000000
+    },
+    {
+      "index": 2,
+      "realtime_ns": 2000000000,
+      "monotonic_ns": 2000000400,
+      "monotonic_raw_ns": 2000000000
+    }
+  ],
+  "notes": [
+    "Synthetic example only."
+  ]
+}
