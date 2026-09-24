@@ -17,14 +17,16 @@
 
 **What the evidence showed.**
 
+*How to read the figure:* the top row shows **who can write the clock** in three situations. The outer cards are documented defaults; the middle card is the measured state of the historical experiment, with the kernel `tick` value as read by `adjtimex`. The chart below replays that experiment at 10× real time: each purple box is a published 30-second interval enclosure, the shaded band is the historical ±1000 ppm screen, and the line that appears at 120 s is the full-run average. Solid marks are measured, dashed paths do not write the clock, and every `?` is something the evidence does not establish. With animation off, the complete result is shown.
+
 <p align="center">
-  <img src="docs/assets/d4r2-settling-animated.svg" alt="Animated D4R2 timeline beginning at the systemd-timesyncd stop transition, with an inset showing its write path stop while Hyper-V remains and kernel tick/freq state persists; after a 60-second hold, the PRE adjtimex snapshot still showed tick 10833; the first 30-second window measured +26,665 to +26,725 ppm against QPC, outside the ±1000 ppm screen; windows 2 to 4 were within ±33 ppm; the 120-second MONOTONIC/QPC average was +6,662 to +6,676 ppm while RAW/QPC was −6.3 to +8.2 ppm; the POST snapshot showed tick 10000. Who set or reset tick is not established." width="1000">
+  <img src="docs/assets/clock-steering-story.svg" alt="Who steers the WSL2 clock, and what happened when one hand let go. Top row: Ubuntu 24.04 default, where Hyper-V implicit sync and systemd-timesyncd can both write the kernel clock; Ubuntu 24.04 after systemctl stop, measured in experiment D4R2, where timesyncd is stopped but the unit stays enabled and the kernel tick was still 10833 sixty seconds later, then 10000 in a later snapshot, with who set or reset it not established; Ubuntu 26.04 fresh default, where chrony runs with -x and only reads, and a 300-second guest-side screen measured MONOTONIC against MONOTONIC_RAW at -0.50 to -0.46 ppm over the full run. Chart: after the stop and a 60-second hold, window 1 measured +26,665.299 to +26,724.999 ppm against Windows QPC, about 2.7 percent fast and outside the ±1000 ppm screen; windows 2 to 4 were within ±33 ppm; the 120-second average was +6,662 to +6,676 ppm, still outside; RAW against QPC was -6.3 to +8.2 ppm. Motion is playback only." width="1000">
 </p>
 
 | Tier | Statement |
 |---|---|
 | **VENDOR / DOCUMENTED FACT** | Modern WSL receives time from Windows/Hyper-V. Ubuntu 24.04 also enables `systemd-timesyncd` by default, and Canonical documents that the two can disagree. A fresh Ubuntu 26.04 runs chrony with `-x` under WSL, so it does not control the clock unless opted in. |
-| **PROJECT OBSERVATION** | In the historical D4R2 run the service was confirmed stopped, the experiment waited ≈60 s (Windows QPC), and the kernel still reported `tick=10833`; the first 30 s window ran +26,665 to +26,725 ppm fast against QPC before later windows returned to within ±33 ppm. A 300 s guest-side screen on Ubuntu 26.04 showed no comparable `MONOTONIC`-vs-`RAW` slew. |
+| **PROJECT OBSERVATION** | In the historical D4R2 run the service was confirmed stopped, the experiment waited ≈60 s (Windows QPC), and the kernel still reported `tick=10833`; the first 30 s window ran +26,665 to +26,725 ppm fast against QPC before later windows returned to within ±33 ppm. While the service was active (C1 phase A0), four REALTIME steps of about +0.59 to +0.63 s were observed. A 300 s guest-side screen on Ubuntu 26.04 showed no comparable `MONOTONIC`-vs-`RAW` slew. |
 | **INFERENCE / INTERPRETATION** | The early anomaly with a near-nominal `RAW`/QPC rate points at clock *discipline*, not the hardware counter, and is consistent with a residual kernel correction outliving the daemon. Ubuntu 26.04's fresh-install defaults remove the default guest-side competitor. |
 | **NOT ESTABLISHED / INCONCLUSIVE** | That `systemd-timesyncd` was the sole writer (the controlled A–B–A test C1 was **INCONCLUSIVE**); who set `tick=10833` or what reset it; any 24.04-vs-26.04 ranking; host-referenced qualification of any current machine. |
 
@@ -46,7 +48,7 @@ Guest-side agreement between `CLOCK_MONOTONIC` and `CLOCK_MONOTONIC_RAW` is evid
 
 - **Choosing an environment** → [At a glance](#at-a-glance); Ubuntu 26.04 fresh install vs 24.04, with Python 3.12 vs 3.14 kept as a separate decision.
 - **How time reaches the guest** → [The architecture changed](#the-architecture-changed) and [docs/upstream-time-sync-status.md](docs/upstream-time-sync-status.md).
-- **The full D4R2 record and the C1 result** → [docs/timesyncd-investigation.md](docs/timesyncd-investigation.md).
+- **The full D4R2 record, its replay figure, and the C1 result** → [docs/timesyncd-investigation.md](docs/timesyncd-investigation.md).
 - **CLI and JSON schema** → [docs/cli-schema.md](docs/cli-schema.md); **arithmetic** → [docs/methodology.md](docs/methodology.md); **limits** → [docs/limitations.md](docs/limitations.md).
 
 ---
@@ -76,101 +78,6 @@ Ubuntu 26.04 uses a materially different fresh-install default: chrony runs unde
 **Important limits:** this is an architecture-level default, not proof that every 24.04 machine is broken or that every 26.04 machine is timing-safe. Custom configuration, other clock writers, host errors, pauses, and unrelated timing defects remain possible.
 
 Read the sourced upstream analysis: [Upstream WSL time synchronization status](docs/upstream-time-sync-status.md).
-
----
-
-## How the upstream story evolved
-
-Microsoft closed the historical WSL sleep/resume time-of-day bug (#10006) with the **WSL 2.1.1 prerelease**, which enabled an implicit `ICTIMESYNCFLAG_SYNC` kernel path and was described as solving that issue. That does **not** mean every later WSL timing problem is the same defect.
-
-Canonical later documented the modern controller interaction directly and changed Ubuntu's default time-daemon architecture.
-
-<p align="center">
-  <img src="docs/assets/upstream-timeline.svg" alt="Three-lane timeline from 2023 to 2026: Microsoft WSL (#10006 in 2023, the WSL 2.1.1 prerelease in January 2024, #12583 in 2025, #40745 in 2026), Ubuntu/Canonical (24.04 timesyncd default, 25.10 chrony default, April 2026 26.04 WSL service exception with chrony -x and the Canonical time-sync page), and this project (2026 D4R2 finding and the public diagnostic core)." width="1000">
-</p>
-
-The dated upstream review distinguishes:
-- the historical Microsoft #10006 bug and its WSL 2.1.1 mitigation;
-- later open Microsoft timing reports such as #12583 and #40745;
-- Ubuntu 24.04's `systemd-timesyncd` default;
-- the chrony transition beginning in Ubuntu 25.10;
-- Ubuntu 26.04's WSL-aware chrony behavior;
-- this project's separate bounded observations.
-
-No public commitment or roadmap was found, as of **2026-09-24**, to retrofit the complete 26.04 time-daemon arrangement into Ubuntu 24.04.
-
----
-
-## What is actually unique here?
-
-Microsoft and Canonical provide essential upstream facts. This project adds something different: **bounded measurement of what happens around the transition**, plus tooling designed to avoid false certainty.
-
-### The project-specific contribution
-
-The historical Ubuntu 24.04 investigation established that:
-
-1. `systemd-timesyncd` was confirmed stopped while the unit remained enabled;
-2. the experiment then waited about **60 seconds measured by Windows QPC**;
-3. kernel timing state was still abnormal;
-4. the first host-referenced 30-second timing window was still dramatically abnormal;
-5. later windows returned toward nominal.
-
-That does **not** prove `systemd-timesyncd` was the sole writer, and the source of the observed `tick=10833 → 10000` transition remains unresolved.
-
-What it does establish is operationally important:
-
-> **service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready**
-
-That is the flagship lesson of this repository, and the animated figure at the top of this page is its complete published record.
-
----
-
-## Why consider Ubuntu 26.04?
-
-For a **fresh** WSL installation, Ubuntu 26.04 has a cleaner default controller architecture for timing-sensitive work:
-
-- Hyper-V implicit time synchronization remains enabled by WSL.
-- Ubuntu uses chrony rather than `systemd-timesyncd`.
-- Ubuntu's WSL startup path normally adds chrony's `-x` option, so chrony can observe/report without controlling the system clock.
-- The default guest-side competitor documented for 24.04 is therefore removed.
-
-This is one reason to **consider** Ubuntu 26.04 for new timing-sensitive WSL work.
-
-It is not proof of universal stability. The project's own 26.04 evidence remains bounded: a 300-second guest-side screen did not show a D4R2-scale `CLOCK_MONOTONIC` versus `CLOCK_MONOTONIC_RAW` slew, but it did not establish host-relative accuracy or long-term qualification.
-
-### Fresh install vs upgrade
-
-An in-place upgrade from 24.04 to 26.04 does **not** by itself prove that the active time daemon changed. Ubuntu's 26.04 release notes provide explicit migration steps for upgraded systems that want to move from timesyncd to chrony.
-
-See [Upstream WSL time synchronization status](docs/upstream-time-sync-status.md#fresh-installation-is-not-an-in-place-upgrade).
-
----
-
-## Why consider Python 3.12?
-
-Python and WSL time synchronization are separate engineering decisions.
-
-**Python 3.12 does not fix clock behavior.** It can still be the more conservative runtime baseline when you value:
-
-- mature wheel/package availability;
-- lower dependency-migration friction;
-- reproducible environments already validated on 3.12;
-- compatibility with native/compiled dependencies that have not yet fully moved to 3.14.
-
-Python 3.14 is also supported and tested by this repository. On Ubuntu 26.04 it is the natural distro-native direction.
-
-A practical way to think about it:
-
-| Priority | Consider |
-|---|---|
-| Fresh WSL timing architecture | **Ubuntu 26.04** |
-| Conservative Python package baseline | **Python 3.12** |
-| Distro-native Ubuntu 26.04 Python | **Python 3.14** |
-| Existing proven environment | Keep it until evidence justifies migration |
-
-Do not choose Python solely by version number. Test your real dependency set in an isolated environment.
-
-Read more: [Python 3.12 vs Python 3.14](docs/python-3.12-vs-3.14.md).
 
 ---
 
@@ -267,6 +174,101 @@ See the full [CLI and schema reference](docs/cli-schema.md). Keep original measu
 
 ---
 
+## Why consider Ubuntu 26.04?
+
+For a **fresh** WSL installation, Ubuntu 26.04 has a cleaner default controller architecture for timing-sensitive work:
+
+- Hyper-V implicit time synchronization remains enabled by WSL.
+- Ubuntu uses chrony rather than `systemd-timesyncd`.
+- Ubuntu's WSL startup path normally adds chrony's `-x` option, so chrony can observe/report without controlling the system clock.
+- The default guest-side competitor documented for 24.04 is therefore removed.
+
+This is one reason to **consider** Ubuntu 26.04 for new timing-sensitive WSL work.
+
+It is not proof of universal stability. The project's own 26.04 evidence remains bounded: a 300-second guest-side screen did not show a D4R2-scale `CLOCK_MONOTONIC` versus `CLOCK_MONOTONIC_RAW` slew, but it did not establish host-relative accuracy or long-term qualification.
+
+### Fresh install vs upgrade
+
+An in-place upgrade from 24.04 to 26.04 does **not** by itself prove that the active time daemon changed. Ubuntu's 26.04 release notes provide explicit migration steps for upgraded systems that want to move from timesyncd to chrony.
+
+See [Upstream WSL time synchronization status](docs/upstream-time-sync-status.md#fresh-installation-is-not-an-in-place-upgrade).
+
+---
+
+## Why consider Python 3.12?
+
+Python and WSL time synchronization are separate engineering decisions.
+
+**Python 3.12 does not fix clock behavior.** It can still be the more conservative runtime baseline when you value:
+
+- mature wheel/package availability;
+- lower dependency-migration friction;
+- reproducible environments already validated on 3.12;
+- compatibility with native/compiled dependencies that have not yet fully moved to 3.14.
+
+Python 3.14 is also supported and tested by this repository. On Ubuntu 26.04 it is the natural distro-native direction.
+
+A practical way to think about it:
+
+| Priority | Consider |
+|---|---|
+| Fresh WSL timing architecture | **Ubuntu 26.04** |
+| Conservative Python package baseline | **Python 3.12** |
+| Distro-native Ubuntu 26.04 Python | **Python 3.14** |
+| Existing proven environment | Keep it until evidence justifies migration |
+
+Do not choose Python solely by version number. Test your real dependency set in an isolated environment.
+
+Read more: [Python 3.12 vs Python 3.14](docs/python-3.12-vs-3.14.md).
+
+---
+
+## What is actually unique here?
+
+Microsoft and Canonical provide essential upstream facts. This project adds something different: **bounded measurement of what happens around the transition**, plus tooling designed to avoid false certainty.
+
+### The project-specific contribution
+
+The historical Ubuntu 24.04 investigation established that:
+
+1. `systemd-timesyncd` was confirmed stopped while the unit remained enabled;
+2. the experiment then waited about **60 seconds measured by Windows QPC**;
+3. kernel timing state was still abnormal;
+4. the first host-referenced 30-second timing window was still dramatically abnormal;
+5. later windows returned toward nominal.
+
+That does **not** prove `systemd-timesyncd` was the sole writer, and the source of the observed `tick=10833 → 10000` transition remains unresolved.
+
+What it does establish is operationally important:
+
+> **service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready**
+
+That is the flagship lesson of this repository. The figure at the top of this page shows the published record; a step-by-step replay of the same record accompanies the full table in [docs/timesyncd-investigation.md](docs/timesyncd-investigation.md).
+
+---
+
+## How the upstream story evolved
+
+Microsoft closed the historical WSL sleep/resume time-of-day bug (#10006) with the **WSL 2.1.1 prerelease**, which enabled an implicit `ICTIMESYNCFLAG_SYNC` kernel path and was described as solving that issue. That does **not** mean every later WSL timing problem is the same defect.
+
+Canonical later documented the modern controller interaction directly and changed Ubuntu's default time-daemon architecture.
+
+<p align="center">
+  <img src="docs/assets/upstream-timeline.svg" alt="Three-lane timeline from 2023 to 2026: Microsoft WSL (#10006 in 2023, the WSL 2.1.1 prerelease in January 2024, #12583 in 2025, #40745 in 2026), Ubuntu/Canonical (24.04 timesyncd default, 25.10 chrony default, April 2026 26.04 WSL service exception with chrony -x and the Canonical time-sync page), and this project (2026 D4R2 finding and the public diagnostic core)." width="1000">
+</p>
+
+The dated upstream review distinguishes:
+- the historical Microsoft #10006 bug and its WSL 2.1.1 mitigation;
+- later open Microsoft timing reports such as #12583 and #40745;
+- Ubuntu 24.04's `systemd-timesyncd` default;
+- the chrony transition beginning in Ubuntu 25.10;
+- Ubuntu 26.04's WSL-aware chrony behavior;
+- this project's separate bounded observations.
+
+No public commitment or roadmap was found, as of **2026-09-24**, to retrofit the complete 26.04 time-daemon arrangement into Ubuntu 24.04.
+
+---
+
 ## Evidence boundaries
 
 This repository keeps several kinds of evidence separate.
@@ -291,7 +293,7 @@ The v0.4.0 preview uses the same strict software-quality gate planned for the fu
 - construction and installation of the normal `wsl2-time-sync-diagnostics` wheel, with distribution and import version checks;
 - the semantic CLI smoke: strict JSON, verified RAW acquisition completion and requested-duration coverage, two complete fixed windows with zero partial windows, cumulative REALTIME evidence, and method-aware comparison.
 
-The current `release/v0.4.0-preview` candidate has passed these gates. v0.4.0 is intentionally pre-1.0: the visual model and a few presentation details are still being refined before the stable v1.0.0 release. Use the CI badge and the checks attached to the current commit for live status. Historical implementation and adversarial-review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
+The `release/v0.4.0-preview` candidate has passed these gates, and the v0.5.0 visual-storytelling branch runs the same gate on its own commits. v0.4.0 is intentionally pre-1.0: the visual model and a few presentation details are still being refined before the stable v1.0.0 release. Use the CI badge and the checks attached to the current commit for live status. Historical implementation and adversarial-review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
 
 Local WSL software checks were also performed during review on Ubuntu 24.04 / Python 3.12.3 and Ubuntu 26.04 / Python 3.14.4. Those checks are software-validation evidence only; they are not host-referenced timing qualification, which remains unavailable.
 

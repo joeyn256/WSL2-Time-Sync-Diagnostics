@@ -65,6 +65,12 @@ At that point the service was inactive, but the kernel still reported a large co
 | POST | `tick=10000`, `freq=-27187`; historical baseline calculation about **−0.415 ppm** | Near-nominal static baseline at the later snapshot |
 | Restoration | service started and confirmed active/running/enabled | Original service state restored |
 
+<p align="center">
+  <img src="assets/d4r2-settling-animated.svg" alt="Replay of the D4R2 record on a Windows QPC axis: service stop confirmed, about 60 seconds of hold, PRE snapshot tick 10833, four 30-second MONOTONIC/QPC windows of which the first was +26,665.299 to +26,724.999 ppm and the later three within about ±33 ppm, the 120-second averages for MONOTONIC/QPC and RAW/QPC, and the POST snapshot tick 10000. Motion is playback only; every box is a published interval enclosure." width="1000">
+</p>
+
+The figure replays the table above at ten times real time. Every box is a published interval enclosure; the cursor and the sampling wash are illustrative and disappear when animation is off.
+
 The historical static baseline calculation was:
 
 ```text

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="840" viewBox="0 0 1000 840" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,'Segoe UI',Ubuntu,'DejaVu Sans',Arial,sans-serif">
+<title id="title">Who steers the WSL2 clock, and what happened when one hand let go</title>
+<desc id="desc">Top row, three situations. Ubuntu 24.04 default (documented): Windows/Hyper-V implicit sync and systemd-timesyncd can both write the Linux kernel clock; the project observed four REALTIME steps of +0.59 to +0.63 s while the service was active (C1 A0). Ubuntu 24.04 after systemctl stop (measured, D4R2): timesyncd is stopped but the unit is still enabled, Hyper-V remains, and the kernel tick was 10833 in the PRE snapshot about 60 s after the stop and 10000 in the later POST snapshot; who set or reset it is not established. Ubuntu 26.04 fresh default (documented): chrony runs with -x and reads only, so Hyper-V is the single default writer; a 300 s guest-side screen measured MONOTONIC against MONOTONIC_RAW at -0.50 to -0.46 ppm over the full run with all ten windows inside the plus or minus 1000 ppm screen. Bottom, the D4R2 replay: after the stop and an approximately 60 s hold, window 1 (0 to 30 s) measured +26,665.299 to +26,724.999 ppm against Windows QPC, outside the screen, about +0.80 s gained; windows 2 to 4 were within about plus or minus 33 ppm; the 120 s average was +6,661.607 to +6,676.217 ppm, still outside; RAW against QPC over 120 s was -6.323 to +8.190 ppm. Motion is playback only at ten times real time; with animation off the complete result is shown.</desc>
+<defs>
+ <marker id="mBlue" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#58a6ff"/></marker>
+ <marker id="mAmber" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#d29922"/></marker>
+ <marker id="mViolet" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#a371f7"/></marker>
+</defs>
+<style><![CDATA[
+text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,sans-serif}
+.a{animation-duration:26.5s;animation-timing-function:linear;animation-iteration-count:infinite;animation-fill-mode:both}
+.cur{animation-name:cur}
+@keyframes cur{0%{transform:translateX(0);opacity:.9}77.36%{transform:translateX(850px);opacity:.9}78.2%{transform:translateX(850px);opacity:0}100%{transform:translateX(850px);opacity:0}}
+.ringA{animation-name:ringA}@keyframes ringA{0%,5.66%{opacity:1}6.4%,100%{opacity:0}}
+.ringB{animation-name:ringB}@keyframes ringB{0%,5.66%{opacity:0}6.4%,100%{opacity:1}}
+.r-stop{animation-name:r-stop}@keyframes r-stop{0%,5.66%{opacity:0}6.6%,100%{opacity:1}}
+.r-pre{animation-name:r-pre}@keyframes r-pre{0%,28.3%{opacity:0}29.3%,100%{opacity:1}}
+.r-w1{animation-name:r-w1}@keyframes r-w1{0%,39.62%{opacity:0}40.6%,100%{opacity:1}}
+.r-w2{animation-name:r-w2}@keyframes r-w2{0%,50.94%{opacity:0}51.9%,100%{opacity:1}}
+.r-w3{animation-name:r-w3}@keyframes r-w3{0%,62.26%{opacity:0}63.2%,100%{opacity:1}}
+.r-w4{animation-name:r-w4}@keyframes r-w4{0%,73.58%{opacity:0}74.5%,100%{opacity:1}}
+.r-avg{animation-name:r-avg}@keyframes r-avg{0%,73.9%{stroke-dasharray:497;stroke-dashoffset:497}76.2%,100%{stroke-dasharray:497;stroke-dashoffset:0}}
+.r-avgl{animation-name:r-avgl}@keyframes r-avgl{0%,75.4%{opacity:0}76.4%,100%{opacity:1}}
+.r-raw{animation-name:r-raw}@keyframes r-raw{0%,74.4%{opacity:0}75.4%,100%{opacity:1}}
+.r-post{animation-name:r-post}@keyframes r-post{0%,76.3%{opacity:0}77.3%,100%{opacity:1}}
+.s1{animation-name:s1}@keyframes s1{0%,28.3%{opacity:0}29%{opacity:1}39.2%{opacity:1}39.62%,100%{opacity:0}}
+.s2{animation-name:s2}@keyframes s2{0%,39.62%{opacity:0}40.3%{opacity:1}50.5%{opacity:1}50.94%,100%{opacity:0}}
+.s3{animation-name:s3}@keyframes s3{0%,50.94%{opacity:0}51.6%{opacity:1}61.8%{opacity:1}62.26%,100%{opacity:0}}
+.s4{animation-name:s4}@keyframes s4{0%,62.26%{opacity:0}62.9%{opacity:1}73.1%{opacity:1}73.58%,100%{opacity:0}}
+.c0{animation-name:c0}@keyframes c0{0%,5.2%{opacity:1}5.66%,100%{opacity:0}}
+.c1{animation-name:c1}@keyframes c1{0%,5.66%{opacity:0}6.2%{opacity:1}27.8%{opacity:1}28.3%,100%{opacity:0}}
+.c2{animation-name:c2}@keyframes c2{0%,28.3%{opacity:0}28.9%{opacity:1}39.1%{opacity:1}39.62%,100%{opacity:0}}
+.c3{animation-name:c3}@keyframes c3{0%,39.62%{opacity:0}40.2%{opacity:1}50.4%{opacity:1}50.94%,100%{opacity:0}}
+.c4{animation-name:c4}@keyframes c4{0%,50.94%{opacity:0}51.5%{opacity:1}73.1%{opacity:1}73.58%,100%{opacity:0}}
+.c5{animation-name:c5}@keyframes c5{0%,73.58%{opacity:0}74.1%{opacity:1}76.9%{opacity:1}77.36%,100%{opacity:0}}
+.cF{animation-name:cF}@keyframes cF{0%,77.36%{opacity:0}78%,100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.a{animation:none !important}}
+]]></style>
+<rect width="1000" height="840" rx="24" fill="#0d1117"/>
+
+<!-- ===== Header ===== -->
+<text x="40" y="40" fill="#f0f6fc" font-size="22" font-weight="700">Who steers the WSL2 clock, and what happened when one hand let go</text>
+<text x="40" y="62" fill="#c3c2b7" font-size="13">Ubuntu 24.04 · WSL2 · historical experiment D4R2 · the chart replays published measurements at 10× real time</text>
+
+<!-- ===== Band 1: who can steer the clock ===== -->
+<text x="40" y="90" fill="#898781" font-size="12" font-weight="700" letter-spacing=".08em">WHO CAN STEER THE CLOCK</text>
+<text x="656" y="90" fill="#898781" font-size="12">alternative default · different machine and reference</text>
+
+<!-- Card A: Ubuntu 24.04 default -->
+<g>
+ <rect x="40" y="96" width="280" height="240" rx="14" fill="#161b22" stroke="#30363d"/>
+ <rect class="a ringA" x="40" y="96" width="280" height="240" rx="14" fill="none" stroke="#f0f6fc" stroke-width="2" opacity="0"/>
+ <text x="54" y="118" fill="#f0f6fc" font-size="14" font-weight="700">Ubuntu 24.04 default</text>
+ <circle cx="58" cy="132" r="4" fill="#58a6ff"/>
+ <text x="68" y="136" fill="#79c0ff" font-size="12" font-weight="700">DOCUMENTED DEFAULT</text>
+ <rect x="48" y="160" width="88" height="34" rx="8" fill="#0f1a2b" stroke="#58a6ff" stroke-width="1.5"/>
+ <text x="92" y="174" text-anchor="middle" fill="#f0f6fc" font-size="12">Windows</text>
+ <text x="92" y="188" text-anchor="middle" fill="#f0f6fc" font-size="12">Hyper-V</text>
+ <line x1="136" y1="177" x2="161" y2="177" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#mBlue)"/>
+ <circle cx="180" cy="177" r="17" fill="#0d1117" stroke="#c3c2b7" stroke-width="1.5"/>
+ <line x1="180" y1="177" x2="180" y2="167" stroke="#f0f6fc" stroke-width="2"/>
+ <line x1="180" y1="177" x2="188" y2="177" stroke="#f0f6fc" stroke-width="2"/>
+ <circle cx="180" cy="177" r="1.6" fill="#f0f6fc"/>
+ <rect x="224" y="160" width="88" height="34" rx="8" fill="#2a1f0c" stroke="#d29922" stroke-width="1.5"/>
+ <text x="268" y="174" text-anchor="middle" fill="#f0f6fc" font-size="12">systemd-</text>
+ <text x="268" y="188" text-anchor="middle" fill="#f0f6fc" font-size="12">timesyncd</text>
+ <line x1="224" y1="177" x2="199" y2="177" stroke="#d29922" stroke-width="2.5" marker-end="url(#mAmber)"/>
+ <text x="92" y="210" text-anchor="middle" fill="#898781" font-size="12">implicit sync</text>
+ <text x="268" y="210" text-anchor="middle" fill="#d29922" font-size="12">writes clock</text>
+ <text x="180" y="224" text-anchor="middle" fill="#c3c2b7" font-size="12">two default writers</text>
+ <text x="54" y="246" fill="#898781" font-size="12">kernel tick (adjtimex)</text>
+ <line x1="54" y1="264" x2="306" y2="264" stroke="#30363d" stroke-width="2"/>
+ <line x1="126" y1="259" x2="126" y2="269" stroke="#6e7681" stroke-width="1.5"/>
+ <text x="126" y="281" text-anchor="middle" fill="#6e7681" font-size="12">10000 nominal</text>
+ <text x="306" y="281" text-anchor="end" fill="#6e7681" font-size="12">not sampled here</text>
+ <text x="54" y="312" fill="#c3c2b7" font-size="12">Observed while active (C1 A0): four</text>
+ <text x="54" y="326" fill="#c3c2b7" font-size="12">REALTIME steps of +0.59 to +0.63 s</text>
+</g>
+
+<!-- Card B: Ubuntu 24.04 after systemctl stop (D4R2) -->
+<g>
+ <rect x="336" y="96" width="280" height="240" rx="14" fill="#161b22" stroke="#30363d"/>
+ <rect class="a ringB" x="336" y="96" width="280" height="240" rx="14" fill="none" stroke="#f0f6fc" stroke-width="2" opacity="0"/>
+ <text x="350" y="118" fill="#f0f6fc" font-size="14" font-weight="700">24.04 after systemctl stop</text>
+ <circle cx="354" cy="132" r="4" fill="#a371f7"/>
+ <text x="364" y="136" fill="#d2a8ff" font-size="12" font-weight="700">MEASURED · D4R2 · host-referenced</text>
+ <rect x="344" y="160" width="88" height="34" rx="8" fill="#0f1a2b" stroke="#58a6ff" stroke-width="1.5"/>
+ <text x="388" y="174" text-anchor="middle" fill="#f0f6fc" font-size="12">Windows</text>
+ <text x="388" y="188" text-anchor="middle" fill="#f0f6fc" font-size="12">Hyper-V</text>
+ <line x1="432" y1="177" x2="457" y2="177" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#mBlue)"/>
+ <circle cx="476" cy="177" r="17" fill="#0d1117" stroke="#c3c2b7" stroke-width="1.5"/>
+ <line x1="476" y1="177" x2="476" y2="167" stroke="#f0f6fc" stroke-width="2"/>
+ <line x1="476" y1="177" x2="484" y2="177" stroke="#f0f6fc" stroke-width="2"/>
+ <circle cx="476" cy="177" r="1.6" fill="#f0f6fc"/>
+ <rect x="520" y="160" width="88" height="34" rx="8" fill="#161b22" stroke="#6e7681" stroke-width="1.5" stroke-dasharray="4 3"/>
+ <text x="564" y="174" text-anchor="middle" fill="#898781" font-size="12">systemd-</text>
+ <text x="564" y="188" text-anchor="middle" fill="#898781" font-size="12">timesyncd</text>
+ <line x1="520" y1="177" x2="495" y2="177" stroke="#6e7681" stroke-width="2" stroke-dasharray="4 3"/>
+ <text x="388" y="210" text-anchor="middle" fill="#898781" font-size="12">implicit sync</text>
+ <text x="564" y="210" text-anchor="middle" fill="#c3c2b7" font-size="12">stopped</text>
+ <text x="564" y="224" text-anchor="middle" fill="#898781" font-size="12">unit still enabled</text>
+ <text x="350" y="246" fill="#898781" font-size="12">kernel tick (adjtimex)</text>
+ <line x1="350" y1="264" x2="602" y2="264" stroke="#30363d" stroke-width="2"/>
+ <line x1="422" y1="259" x2="422" y2="269" stroke="#6e7681" stroke-width="1.5"/>
+ <g class="a r-pre">
+  <circle cx="572" cy="264" r="5.5" fill="#a371f7"/>
+  <text x="602" y="294" text-anchor="end" fill="#d2a8ff" font-size="12" font-weight="700">PRE (stop + 60 s): 10833 · set by ?</text>
+ </g>
+ <g class="a r-post">
+  <circle cx="422" cy="264" r="5.5" fill="#0d1117" stroke="#a371f7" stroke-width="2"/>
+  <text x="350" y="280" fill="#c3c2b7" font-size="12">POST, later: 10000 · reset by ?</text>
+ </g>
+ <text x="350" y="312" fill="#d2a8ff" font-size="12" font-weight="700">kernel still set to correct</text>
+ <text x="350" y="326" fill="#c3c2b7" font-size="12">freq: PRE 2157314 · POST −27187</text>
+</g>
+
+<!-- Divider -->
+<line x1="636" y1="104" x2="636" y2="328" stroke="#30363d" stroke-width="1.5" stroke-dasharray="3 5"/>
+
+<!-- Card D: Ubuntu 26.04 fresh default -->
+<g>
+ <rect x="656" y="96" width="304" height="240" rx="14" fill="#161b22" stroke="#30363d"/>
+ <text x="670" y="118" fill="#f0f6fc" font-size="14" font-weight="700">Ubuntu 26.04 fresh default</text>
+ <circle cx="674" cy="132" r="4" fill="#58a6ff"/>
+ <text x="684" y="136" fill="#79c0ff" font-size="12" font-weight="700">DOCUMENTED DEFAULT + BOUNDED SCREEN</text>
+ <rect x="664" y="160" width="88" height="34" rx="8" fill="#0f1a2b" stroke="#58a6ff" stroke-width="1.5"/>
+ <text x="708" y="174" text-anchor="middle" fill="#f0f6fc" font-size="12">Windows</text>
+ <text x="708" y="188" text-anchor="middle" fill="#f0f6fc" font-size="12">Hyper-V</text>
+ <line x1="752" y1="177" x2="777" y2="177" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#mBlue)"/>
+ <circle cx="796" cy="177" r="17" fill="#0d1117" stroke="#c3c2b7" stroke-width="1.5"/>
+ <line x1="796" y1="177" x2="796" y2="167" stroke="#f0f6fc" stroke-width="2"/>
+ <line x1="796" y1="177" x2="804" y2="177" stroke="#f0f6fc" stroke-width="2"/>
+ <circle cx="796" cy="177" r="1.6" fill="#f0f6fc"/>
+ <rect x="840" y="160" width="88" height="34" rx="8" fill="#0f2417" stroke="#3fb950" stroke-width="1.5"/>
+ <text x="884" y="174" text-anchor="middle" fill="#f0f6fc" font-size="12">chrony</text>
+ <text x="884" y="188" text-anchor="middle" fill="#f0f6fc" font-size="12">−x</text>
+ <line x1="840" y1="177" x2="815" y2="177" stroke="#3fb950" stroke-width="2" stroke-dasharray="4 3"/>
+ <ellipse cx="827" cy="169" rx="6" ry="3.5" fill="none" stroke="#3fb950" stroke-width="1.3"/>
+ <circle cx="827" cy="169" r="1.5" fill="#3fb950"/>
+ <text x="708" y="210" text-anchor="middle" fill="#898781" font-size="12">implicit sync</text>
+ <text x="884" y="210" text-anchor="middle" fill="#3fb950" font-size="12">reads only (−x)</text>
+ <text x="796" y="224" text-anchor="middle" fill="#c3c2b7" font-size="12">one default writer</text>
+ <text x="670" y="246" fill="#898781" font-size="12">MONOTONIC vs RAW, 300 s, guest-side</text>
+ <line x1="670" y1="264" x2="946" y2="264" stroke="#30363d" stroke-width="2"/>
+ <line x1="808" y1="259" x2="808" y2="269" stroke="#6e7681" stroke-width="1.5"/>
+ <rect x="772" y="258" width="4" height="12" fill="#a371f7"/>
+ <path d="M726 256 l4 -6 h-8 z" fill="#d2a8ff"/>
+ <text x="670" y="281" fill="#6e7681" font-size="12">−2 ppm</text>
+ <text x="808" y="281" text-anchor="middle" fill="#6e7681" font-size="12">0</text>
+ <text x="946" y="281" text-anchor="end" fill="#6e7681" font-size="12">+2 ppm</text>
+ <text x="670" y="296" fill="#c3c2b7" font-size="12">worst −1.19 ppm</text>
+ <text x="946" y="296" text-anchor="end" fill="#d2a8ff" font-size="12" font-weight="700">run −0.50…−0.46</text>
+ <text x="670" y="312" fill="#c3c2b7" font-size="12">10/10 windows inside ±1000 ppm screen</text>
+ <text x="670" y="326" fill="#c3c2b7" font-size="12">guest-side only · not host-referenced</text>
+</g>
+
+<!-- ===== Band 2: what the clock did after the stop ===== -->
+<text x="40" y="366" fill="#898781" font-size="12" font-weight="700" letter-spacing=".08em">WHAT THE CLOCK DID AFTER THE STOP</text>
+<text x="930" y="366" text-anchor="end" fill="#898781" font-size="12">CLOCK_MONOTONIC rate vs Windows QPC · measured, host-referenced · D4R2</text>
+
+<!-- Narration captions (one visible at a time; static view shows the final summary) -->
+<g font-size="13" fill="#f0f6fc">
+ <text class="a c0" x="40" y="388" opacity="0">Service active: two default writers can steer the same kernel clock.</text>
+ <text class="a c1" x="40" y="388" opacity="0">systemctl stop confirmed; the unit stays enabled. The experiment now waits ≈60 s, timed by Windows QPC.</text>
+ <text class="a c2" x="40" y="388" opacity="0">PRE snapshot: tick 10833, freq 2157314. The kernel is still set to correct. Window 1 is sampling…</text>
+ <text class="a c3" x="40" y="388" opacity="0">Window 1: +26,665 to +26,725 ppm, about 2.7 % fast; ≈ +0.80 s gained (derived). Far outside the screen.</text>
+ <text class="a c4" x="40" y="388" opacity="0">Windows 2–4: within ±33 ppm. The rate looks normal now, but the early lead is already banked.</text>
+ <text class="a c5" x="40" y="388" opacity="0">120 s average: +6,662 to +6,676 ppm, still outside. One bad window dominates the mean.</text>
+ <text class="a cF" x="40" y="388">Result: one bad window dominates the 120 s mean; RAW/QPC stayed near 0 → discipline, not hardware (inference).</text>
+</g>
+
+<!-- Plot frame: x 80..930 (t −75..130 s), y 402..582 (symmetric log ppm) -->
+<text x="30" y="492" transform="rotate(-90 30 492)" text-anchor="middle" fill="#898781" font-size="12">rate vs QPC, ppm (symmetric log)</text>
+<g stroke="#21262d" stroke-width="1">
+ <line x1="80" y1="420" x2="930" y2="420"/><line x1="80" y1="465" x2="930" y2="465"/><line x1="80" y1="486.6" x2="930" y2="486.6"/>
+ <line x1="80" y1="533.4" x2="930" y2="533.4"/><line x1="80" y1="555" x2="930" y2="555"/>
+</g>
+<rect x="80" y="442.5" width="850" height="135" fill="#ffffff" fill-opacity=".05"/>
+<line x1="80" y1="442.5" x2="930" y2="442.5" stroke="#ffffff" stroke-opacity=".22"/>
+<line x1="80" y1="577.5" x2="930" y2="577.5" stroke="#ffffff" stroke-opacity=".22"/>
+<text x="926" y="573" text-anchor="end" fill="#898781" font-size="12">±1000 ppm screen</text>
+<line x1="80" y1="510" x2="930" y2="510" stroke="#6e7681" stroke-width="1"/>
+<g fill="#898781" font-size="12" text-anchor="end">
+ <text x="72" y="424">+10k</text><text x="72" y="446.5">+1k</text><text x="72" y="469">+100</text><text x="72" y="490.6">+10</text>
+ <text x="72" y="514">0</text><text x="72" y="537.4">−10</text><text x="72" y="559">−100</text><text x="72" y="581.5">−1k</text>
+</g>
+
+<!-- Hold region and stop marker (real phases) -->
+<g class="a r-stop">
+ <rect x="142" y="402" width="249" height="180" fill="#ffffff" fill-opacity=".04"/>
+ <line x1="142" y1="402" x2="142" y2="582" stroke="#f0f6fc" stroke-width="1.5" stroke-dasharray="4 4" opacity=".8"/>
+ <text x="266" y="500" text-anchor="middle" fill="#c3c2b7" font-size="12.5">≈60 s hold, QPC-timed</text>
+ <text x="266" y="518" text-anchor="middle" fill="#898781" font-size="12">no rate measured</text>
+</g>
+<g class="a r-pre">
+ <line x1="391" y1="402" x2="391" y2="582" stroke="#f0f6fc" stroke-width="1" opacity=".55"/>
+</g>
+
+<!-- Sampling washes (illustrative; hidden in the static view) -->
+<rect class="a s1" x="393" y="402" width="120" height="180" fill="#a371f7" fill-opacity=".10" opacity="0"/>
+<rect class="a s2" x="517" y="402" width="121" height="180" fill="#a371f7" fill-opacity=".10" opacity="0"/>
+<rect class="a s3" x="642" y="402" width="120" height="180" fill="#a371f7" fill-opacity=".10" opacity="0"/>
+<rect class="a s4" x="766" y="402" width="120" height="180" fill="#a371f7" fill-opacity=".10" opacity="0"/>
+
+<!-- Measured windows -->
+<g class="a r-w1">
+ <rect x="393" y="412" width="120" height="98" fill="#a371f7" fill-opacity=".16"/>
+ <rect x="393" y="408" width="120" height="4" rx="2" fill="#a371f7"/>
+ <text x="522" y="447" fill="#f0f6fc" font-size="18" font-weight="700">≈ +26,700 ppm · 2.7 % fast</text>
+ <path d="M522 457 l6 10 h-12 z" fill="#f85149"/>
+ <text x="534" y="466" fill="#c3c2b7" font-size="12">outside the screen · +26,665.299 to +26,724.999 ppm</text>
+</g>
+<rect class="a r-w2" x="517" y="476.3" width="121" height="66.3" rx="3" fill="#a371f7" fill-opacity=".45" stroke="#a371f7" stroke-width="2"/>
+<rect class="a r-w3" x="642" y="478.1" width="120" height="66.2" rx="3" fill="#a371f7" fill-opacity=".45" stroke="#a371f7" stroke-width="2"/>
+<rect class="a r-w4" x="766" y="475.8" width="120" height="66.8" rx="3" fill="#a371f7" fill-opacity=".45" stroke="#a371f7" stroke-width="2"/>
+<g class="a r-w4">
+ <text x="640" y="562" text-anchor="middle" fill="#c3c2b7" font-size="12">windows 2–4: within ±33 ppm, each contains 0</text>
+</g>
+
+<!-- 120 s average line and label -->
+<line class="a r-avg" x1="391" y1="424" x2="888" y2="424" stroke="#a371f7" stroke-width="2"/>
+<g class="a r-avgl">
+ <text x="886" y="419" text-anchor="end" fill="#d2a8ff" font-size="12" font-weight="700">120 s average: +6,662 to +6,676 ppm</text>
+</g>
+
+<!-- X axis -->
+<line x1="80" y1="582" x2="930" y2="582" stroke="#30363d"/>
+<g fill="#898781" font-size="12" text-anchor="middle">
+ <text x="142" y="600">−60 · stop</text><text x="391" y="600">0</text><text x="515" y="600">30</text><text x="640" y="600">60</text><text x="764" y="600">90</text><text x="888" y="600">120 s</text>
+</g>
+
+<!-- RAW / QPC channel -->
+<text x="80" y="625" fill="#c3c2b7" font-size="12.5">RAW vs QPC, 120 s</text>
+<g class="a r-raw">
+ <rect x="391" y="613" width="497" height="17" rx="3" fill="#39d0d8" fill-opacity=".16" stroke="#39d0d8" stroke-width="1.5"/>
+ <text x="400" y="625" fill="#f0f6fc" font-size="12">−6.3 to +8.2 ppm · inside the screen · hardware counter near nominal</text>
+</g>
+
+<!-- Playback cursor (illustrative) -->
+<g class="a cur" opacity="0">
+ <line x1="80" y1="402" x2="80" y2="582" stroke="#f0f6fc" stroke-width="1.5"/>
+ <path d="M80 398 l-5 -8 h10 z" fill="#f0f6fc"/>
+</g>
+
+<!-- Checkpoint cards (appear when each interval completes) -->
+<g font-size="12" fill="#c3c2b7">
+ <g class="a r-w1">
+  <rect x="80" y="644" width="200" height="60" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="92" y="662" fill="#f0f6fc" font-weight="700">30 s · window 1 closes</text>
+  <text x="92" y="678">+26,665 to +26,725 ppm</text>
+  <text x="92" y="694"><tspan fill="#f85149">outside</tspan> · ≈ +0.80 s ahead</text>
+ </g>
+ <g class="a r-w2">
+  <rect x="296" y="644" width="200" height="60" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="308" y="662" fill="#f0f6fc" font-weight="700">60 s · window 2</text>
+  <text x="308" y="678">−27.2 to +30.4 ppm</text>
+  <text x="308" y="694">inside · lead unchanged</text>
+ </g>
+ <g class="a r-w3">
+  <rect x="512" y="644" width="200" height="60" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="524" y="662" fill="#f0f6fc" font-weight="700">90 s · window 3</text>
+  <text x="524" y="678">−32.6 to +25.1 ppm</text>
+  <text x="524" y="694">inside</text>
+ </g>
+ <g class="a r-w4">
+  <rect x="728" y="644" width="200" height="60" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="740" y="662" fill="#f0f6fc" font-weight="700">120 s · window 4 + run</text>
+  <text x="740" y="678">−27.2 to +32.2 ppm</text>
+  <text x="740" y="694">avg +6,662 to +6,676 · <tspan fill="#f85149">out</tspan></text>
+ </g>
+</g>
+
+<!-- ===== Band 3: how to read the marks ===== -->
+<g font-size="12" fill="#c3c2b7">
+ <rect x="40" y="716" width="12" height="12" rx="2" fill="#a371f7" fill-opacity=".45" stroke="#a371f7" stroke-width="2"/><text x="60" y="726">measured enclosure</text>
+ <circle cx="216" cy="722" r="5" fill="#a371f7"/><text x="230" y="726">measured snapshot</text>
+ <rect x="372" y="716" width="4" height="12" fill="#a371f7"/><text x="384" y="726">bounded guest-side screen</text>
+ <text x="580" y="726" fill="#f0f6fc" font-weight="700">?</text><text x="592" y="726">not established</text>
+ <line x1="40" y1="742" x2="58" y2="742" stroke="#d29922" stroke-width="2.5" marker-end="url(#mAmber)"/><text x="66" y="746">default writer (documented)</text>
+ <line x1="272" y1="742" x2="290" y2="742" stroke="#3fb950" stroke-width="2" stroke-dasharray="4 3"/><text x="298" y="746">reads only, −x (documented)</text>
+ <line x1="512" y1="742" x2="530" y2="742" stroke="#6e7681" stroke-width="2" stroke-dasharray="4 3"/><text x="538" y="746">stopped write path · unit still enabled</text>
+ <line x1="40" y1="756" x2="40" y2="768" stroke="#f0f6fc" stroke-width="1.5"/><rect x="48" y="756" width="12" height="12" fill="#a371f7" fill-opacity=".18"/><text x="66" y="766">cursor and sampling wash: illustrative, hidden when animation is off</text>
+</g>
+<g font-size="12.5" fill="#c3c2b7">
+ <text x="40" y="790"><tspan fill="#f0f6fc" font-weight="700">Not established:</tspan> who set tick 10833, what reset it, or that timesyncd was the sole writer (C1 remained INCONCLUSIVE).</text>
+ <text x="40" y="808"><tspan fill="#f0f6fc" font-weight="700">26.04 card:</tspan> different machine, guest-side reference — a bounded screen, not a qualification or a 24.04-vs-26.04 ranking.</text>
+ <text x="40" y="826" fill="#898781" font-size="12">Sources: docs/timesyncd-investigation.md · docs/findings-ubuntu-26.04.md · docs/upstream-time-sync-status.md</text>
+</g>
+</svg>

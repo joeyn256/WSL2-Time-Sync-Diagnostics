@@ -1,5 +1,5 @@
 {
-  "version": "public-v0.4.0",
+  "version": "public-v0.5.0",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
@@ -15,9 +15,10 @@
     "docs/v0.2-guest-core.md"
   ],
   "public_assets": [
-    "docs/assets/d4r2-settling-animated.svg",
+    "docs/assets/clock-steering-story.svg",
     "docs/assets/architecture-host-vm-guest.svg",
-    "docs/assets/upstream-timeline.svg"
+    "docs/assets/upstream-timeline.svg",
+    "docs/assets/d4r2-settling-animated.svg"
   ],
   "cross_document_checks": {
     "causal limitation present": true,
@@ -32,10 +33,12 @@
     "fixed-wait lesson present": true,
     "visuals distinguish vendor facts from project observations": true,
     "README opening labels evidence tiers (vendor fact / observation / inference / not established)": true,
-    "animated hero uses only published D4R2 values and has a coherent static/reduced-motion fallback": true,
-    "animated hero distinguishes the stopped user-space write path from persistent kernel state": true,
+    "hero uses only published D4R2, C1 and 26.04-screen values and fabricates no trace for a documented-only state": true,
+    "hero encodes evidence strength per situation (documented default / measured / bounded screen) and marks unknowns with ?": true,
+    "hero static and reduced-motion state is the complete result with no mutually exclusive states visible together": true,
+    "D4R2 step-by-step replay lives with the full record in docs/timesyncd-investigation.md": true,
     "stable CLI/schema reference uses release-neutral naming": true,
-    "package and publication metadata target v0.4.0 preview": true,
+    "package and publication metadata target the v0.5.0 visual-storytelling branch built on the v0.4.0 preview": true,
     "v1.0.0 stable contract remains explicitly deferred": true
   }
 }

@@ -1,7 +1,7 @@
 {
-  "release": "0.4.0",
-  "status": "public-preview-candidate",
-  "branch": "release/v0.4.0-preview",
+  "release": "0.5.0",
+  "status": "visual-storytelling-branch",
+  "branch": "feature/v0.5.0-visual-storytelling",
   "base_release": "v0.1.1",
   "base_commit": "830a142d57e8f785016ef07952a5340b4eb94ab3",
   "repository": "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics",
@@ -12,10 +12,11 @@
     "adversarial_corrections": "dd5833511d445453f2422aedb37eda6cab000efe",
     "first_visual_pass": "6f529bd15cda2dc91af223fb51f8aaacc626317c",
     "reviewed_presentation": "162e78001819842266fa984d66ad940aa6e15a46",
-    "final_v0_3_1_viewer": "4e7a64a5c08e4c893602e1a44e3804f4f67de419"
+    "final_v0_3_1_viewer": "4e7a64a5c08e4c893602e1a44e3804f4f67de419",
+    "v0_4_0_preview_on_main": "94574ba4f8ee0b6749be68cba4d7f457e5e38e64"
   },
-  "versioning_note": "0.2.0, 0.3.0, and 0.3.1 were development-branch identifiers and were not tagged public releases. v0.4.0 is the public pre-1.0 preview pushed to main while the final visual model and remaining presentation work are refined. v1.0.0 remains deferred.",
-  "cli_behavior_change": true,
+  "versioning_note": "0.2.0, 0.3.0, and 0.3.1 were development-branch identifiers and were not tagged public releases. v0.4.0 is the public pre-1.0 preview on main. v0.5.0 is the visual-storytelling branch built on that preview; it is not a tag, does not advance main, and changes no runtime behavior. v1.0.0 remains deferred.",
+  "cli_behavior_change": false,
   "runtime_dependencies": "Python standard library only",
   "changes": [
     "Read-only WSL2 diagnostic CLI with environment diagnosis, RAW-bracketed probes, offline analysis, finite kernel-state observation, comparison, and Python environment checks.",
@@ -26,7 +27,9 @@
     "Primary-source Microsoft/Canonical time-sync research with fresh-install versus upgrade caveats and no unsupported 24.04 backport claim.",
     "Evidence-tiered README, D4R2 animated viewer, WSL host/kernel/guest architecture diagram, and dated upstream timeline.",
     "Release-neutral documentation naming, preview security/support policy, and repository/package branding cleanup.",
-    "v0.4.0 preview: publish the current diagnostic core and reviewed presentation baseline to main without declaring the stable v1.0.0 contract final."
+    "v0.4.0 preview: publish the current diagnostic core and reviewed presentation baseline to main without declaring the stable v1.0.0 contract final.",
+    "v0.5.0: new hero docs/assets/clock-steering-story.svg: three architecture-state cards (24.04 default, 24.04 after systemctl stop as measured in D4R2, 26.04 fresh default) with evidence badges, over a synchronized replay of the D4R2 rate windows, 120 s averages, RAW/QPC channel and checkpoint cards; CSS-only, reduced-motion aware, complete static state.",
+    "v0.5.0: README opening gains a 'How to read the figure' note; sections reordered problem -> finding -> architecture -> diagnostic tool -> guidance -> upstream story; the step-by-step D4R2 replay moved next to the full table in docs/timesyncd-investigation.md."
   ],
   "validation": {
     "durable_github_ci": {
@@ -51,7 +54,8 @@
         "tests_passed_per_interpreter": 271,
         "semantic_smoke": "Passed in both jobs: strict JSON, RAW completion/coverage, two complete windows, zero partial windows, cumulative REALTIME evidence, and method-aware comparison."
       },
-      "preview_candidate": "Exact-head CI on release/v0.4.0-preview must be green before main is advanced."
+      "preview_candidate": "Exact-head CI on release/v0.4.0-preview must be green before main is advanced.",
+      "visual_storytelling_branch": "Exact-head CI on feature/v0.5.0-visual-storytelling runs the same gate (tests, 0.5.0 wheel metadata, semantic smoke); consult the checks on the branch commits."
     },
     "local_wsl_review": {
       "ubuntu_24_04_python_3_12_3": "271-test final-core review passed; software validation only.",
@@ -61,12 +65,13 @@
     "host_referenced_timing_qualification": "Unavailable for a current machine; CI and local software tests do not establish it."
   },
   "presentation_assets": {
-    "d4r2-settling-animated.svg": "Published D4R2 interval enclosures only; playback starts at the confirmed service-stop transition, shows the stopped timesyncd path while kernel tick/freq state persists, labels derived/inferred/not-established content, and has a coherent static/reduced-motion result.",
+    "clock-steering-story.svg": "README hero. Card A (24.04 default) and card D (26.04 fresh default) show documented control paths only, with no fabricated rate trace; card A carries the C1 A0 REALTIME-step observation and card D the 300 s guest-side screen (full run -0.504500 to -0.463656 ppm, worst window bound -1.191303 ppm, ten windows inside the +/-1000 ppm screen) on a +/-2 ppm track labelled guest-side. Card B (24.04 after systemctl stop) shows the measured D4R2 state: timesyncd stopped with the unit still enabled, PRE tick 10833 about 60 s after the stop and POST tick 10000 later, each marked 'set by ?' / 'reset by ?'. The chart replays the four published 30 s MONOTONIC/QPC enclosures, the 120 s average and the RAW/QPC full-run enclosure at ten times real time on a symmetric-log axis; the only derived figure (about +0.80 s over window 1) is labelled derived; the cursor and sampling wash are illustrative and hidden when animation is off; the static/reduced-motion state is the complete result.",
+    "d4r2-settling-animated.svg": "Step-by-step D4R2 replay, now embedded beside the full table in docs/timesyncd-investigation.md. Published D4R2 interval enclosures only; playback starts at the confirmed service-stop transition, shows the stopped timesyncd path while kernel tick/freq state persists, labels derived/inferred/not-established content, and has a coherent static/reduced-motion result.",
     "architecture-host-vm-guest.svg": "Microsoft/Canonical default architecture is separated from project measurement points and bounded interpretation.",
     "upstream-timeline.svg": "Vendor and project events are separate lanes; WSL 2.1.1 is identified as a prerelease and later Microsoft reports are not equated with #10006."
   },
   "provenance": "Fresh implementations of bounded acquisition/math ideas and public Linux interfaces. No historical private raw evidence or unrelated project data is copied into the repository.",
-  "note": "v0.4.0 is a pre-1.0 public preview intended for main. The official v1.0.0 tag/release remains deferred while the visual comparison model and additional presentation work are completed. Host-reference qualification and a Windows QPC companion remain outside the current CLI.",
+  "note": "v0.5.0 is a visual-storytelling feature branch on top of the v0.4.0 public preview. It is not merged, not tagged, and does not change runtime behavior or the schema-v2 contract. The official v1.0.0 tag/release remains deferred. Host-reference qualification and a Windows QPC companion remain outside the current CLI.",
   "preview_public_contract": {
     "cli": "wsl-time-sync",
     "python_import": "wsl_time_sync",
