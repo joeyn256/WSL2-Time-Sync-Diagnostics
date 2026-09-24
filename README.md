@@ -84,7 +84,7 @@ Read the sourced upstream analysis: [Upstream WSL time synchronization status](d
 
 ## The read-only diagnostic core
 
-The CLI is standard-library-only at runtime and does **not** modify time services, firewall state, WSL configuration, or system Python. **v0.4.0 is a public preview of the read-only CLI, schema-v2 report format, and documented fail-closed analysis behavior planned for the future stable v1 line.**
+The CLI is standard-library-only at runtime and does **not** modify time services, firewall state, WSL configuration, or system Python. **v0.6.0 is the current public pre-1.0 release of the read-only CLI, schema-v2 report format, measured comparison evidence, and documented fail-closed analysis behavior. The stable v1 contract remains deferred.**
 
 ### Install
 
@@ -295,13 +295,13 @@ A result in one category is not automatically evidence for another.
 
 ### Current software-validation status
 
-The v0.4.0 preview uses the same strict software-quality gate planned for the future stable v1 release on **both Python 3.12 and Python 3.14**:
+The v0.6.0 release uses the same strict software-quality gate planned for the future stable v1 release on **both Python 3.12 and Python 3.14**:
 
 - the complete **271-test** suite;
 - construction and installation of the normal `wsl2-time-sync-diagnostics` wheel, with distribution and import version checks;
 - the semantic CLI smoke: strict JSON, verified RAW acquisition completion and requested-duration coverage, two complete fixed windows with zero partial windows, cumulative REALTIME evidence, and method-aware comparison.
 
-The `release/v0.4.0-preview` candidate has passed these gates, and the v0.5.0 and v0.6.0 presentation branches run the same gate on their own commits. v0.4.0 is intentionally pre-1.0: the visual model and a few presentation details are still being refined before the stable v1.0.0 release. Use the CI badge and the checks attached to the current commit for live status. Historical implementation and adversarial-review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
+Every v0.6.0 release candidate must pass these gates at the exact release commit before `main` advances and the tag is created. The package remains semantically pre-1.0, and the stable v1.0.0 contract is intentionally deferred. Use the CI badge and the checks attached to the current/tagged commit for live status. Historical implementation and adversarial-review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
 
 Local WSL software checks were also performed during review on Ubuntu 24.04 / Python 3.12.3 and Ubuntu 26.04 / Python 3.14.4. Those checks are software-validation evidence only; they are not host-referenced timing qualification, which remains unavailable.
 

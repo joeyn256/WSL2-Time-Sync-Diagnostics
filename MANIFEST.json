@@ -49,7 +49,8 @@
     "tick writer is stated as not established; timesyncd excluded by its v255 source; chrony not running": true,
     "D4R2 step-by-step replay lives with the full record in docs/timesyncd-investigation.md": true,
     "stable CLI/schema reference uses release-neutral naming": true,
-    "package and publication metadata target the v0.6.0 measured-comparison branch built on the v0.4.0 preview": true,
-    "v1.0.0 stable contract remains explicitly deferred": true
+    "v1.0.0 stable contract remains explicitly deferred": true,
+    "package and publication metadata target v0.6.0 public release": true,
+    "hero architecture labels say control paths, not proven writer count": true
   }
 }

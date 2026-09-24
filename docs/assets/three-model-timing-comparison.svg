@@ -49,8 +49,8 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
  <text x="280" y="178" text-anchor="middle" fill="#f0f6fc" font-size="12">systemd-</text>
  <text x="280" y="191" text-anchor="middle" fill="#f0f6fc" font-size="12">timesyncd</text>
  <line x1="242" y1="181" x2="200" y2="181" stroke="#d29922" stroke-width="2.2" marker-end="url(#mAmber)"/>
- <text x="185" y="212" text-anchor="middle" fill="#c3c2b7" font-size="12">two default writers (documented)</text>
- <text x="185" y="226" text-anchor="middle" fill="#898781" font-size="12">host 1.06 s behind NTP · tick → 9437</text>
+ <text x="185" y="212" text-anchor="middle" fill="#c3c2b7" font-size="12">two default control paths (documented)</text>
+ <text x="185" y="226" text-anchor="middle" fill="#898781" font-size="12">environment: host ≈1.06 s behind NTP</text>
  <!-- plot frame -->
  <rect x="80" y="272" width="238" height="120" fill="#ffffff" fill-opacity=".05"/>
  <line x1="80" y1="272" x2="318" y2="272" stroke="#ffffff" stroke-opacity=".22"/>
@@ -207,7 +207,7 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
  <line x1="872" y1="181" x2="830" y2="181" stroke="#3fb950" stroke-width="2" stroke-dasharray="4 3"/>
  <ellipse cx="851" cy="174" rx="5.5" ry="3.2" fill="none" stroke="#3fb950" stroke-width="1.2"/>
  <circle cx="851" cy="174" r="1.3" fill="#3fb950"/>
- <text x="815" y="212" text-anchor="middle" fill="#c3c2b7" font-size="12">one writer · chrony reads only (−x)</text>
+ <text x="815" y="212" text-anchor="middle" fill="#c3c2b7" font-size="12">one default control path · chrony reads only (−x)</text>
  <text x="815" y="226" text-anchor="middle" fill="#898781" font-size="12">same host, same day as the left panel</text>
  <!-- plot frame -->
  <rect x="710" y="272" width="238" height="120" fill="#ffffff" fill-opacity=".05"/>

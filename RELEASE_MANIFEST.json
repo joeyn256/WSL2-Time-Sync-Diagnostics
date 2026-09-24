@@ -1,9 +1,9 @@
 {
   "release": "0.6.0",
-  "status": "measured-comparison-branch",
-  "branch": "feature/v0.6.0-measured-comparison",
-  "base_release": "v0.1.1",
-  "base_commit": "830a142d57e8f785016ef07952a5340b4eb94ab3",
+  "status": "public-release",
+  "branch": "main",
+  "base_release": "v0.4.0",
+  "base_commit": "94574ba4f8ee0b6749be68cba4d7f457e5e38e64",
   "repository": "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics",
   "scope_issue": "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/issues/2",
   "development_lineage": {
@@ -16,7 +16,7 @@
     "v0_4_0_preview_on_main": "94574ba4f8ee0b6749be68cba4d7f457e5e38e64",
     "v0_5_0_visual_storytelling": "f36795859e16097d08cd6adcd7a83280683d42b6"
   },
-  "versioning_note": "0.2.0, 0.3.0, and 0.3.1 were development-branch identifiers and were not tagged public releases. v0.4.0 is the public pre-1.0 preview on main. v0.5.0 is the visual-storytelling branch and v0.6.0 is the measured-comparison branch built on it; neither is a tag, neither advances main, and neither changes runtime behavior. v1.0.0 remains deferred.",
+  "versioning_note": "v0.4.0 is a normal public GitHub Release. v0.5.0 was an unpublished visual-storytelling development branch. v0.6.0 is the next normal public release, incorporating the measured same-host comparison and refined visual model. The stable v1.0.0 contract remains deferred.",
   "cli_behavior_change": false,
   "runtime_dependencies": "Python standard library only",
   "changes": [
@@ -61,8 +61,7 @@
         "tests_passed_per_interpreter": 271,
         "semantic_smoke": "Passed in both jobs."
       },
-      "preview_candidate": "Exact-head CI on release/v0.4.0-preview must be green before main is advanced.",
-      "measured_comparison_branch": "Exact-head CI on feature/v0.6.0-measured-comparison runs the same gate (tests, 0.6.0 wheel metadata, semantic smoke); consult the checks on the branch commits."
+      "v0_6_0_release_gate": "The exact v0.6.0 release commit must pass the complete Python 3.12/3.14 gate, 0.6.0 wheel metadata/import verification, and semantic CLI smoke before main advances and the tag is created; consult the checks attached to the release commit."
     },
     "local_wsl_review": {
       "ubuntu_24_04_python_3_12_3": "271-test final-core review passed; software validation only.",
@@ -88,7 +87,7 @@
     "upstream-timeline.svg": "Vendor and project events are separate lanes; WSL 2.1.1 is identified as a prerelease and later Microsoft reports are not equated with #10006."
   },
   "provenance": "Fresh implementations of bounded acquisition/math ideas and public Linux interfaces. The committed 2026-09-24 evidence was produced by the repository's own read-only CLI on the reviewing machine; no historical private raw evidence or unrelated project data is copied into the repository.",
-  "note": "v0.6.0 is a feature branch on top of the v0.5.0 branch and the v0.4.0 public preview. It is not merged, not tagged, and does not change runtime behavior or the schema-v2 contract. The official v1.0.0 tag/release remains deferred. Host-reference qualification and a Windows QPC companion remain outside the current CLI.",
+  "note": "v0.6.0 is a normal pre-1.0 GitHub Release. It advances main with the measured same-host comparison, committed redacted evidence, and the three-model visual. Runtime behavior and the schema-v2 contract are unchanged from the diagnostic core. The official stable v1.0.0 release remains deferred. Host-reference qualification and a Windows QPC companion remain outside the current CLI.",
   "preview_public_contract": {
     "cli": "wsl-time-sync",
     "python_import": "wsl_time_sync",
