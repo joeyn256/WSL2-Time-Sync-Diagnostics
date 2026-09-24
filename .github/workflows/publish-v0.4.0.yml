@@ -1,0 +1,74 @@
+name: Publish v0.4.0
+
+on:
+  push:
+    branches:
+      - release/publish-v0.4.0
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create v0.4.0 GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_SHA: 94574ba4f8ee0b6749be68cba4d7f457e5e38e64
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if gh release view v0.4.0 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "v0.4.0 release already exists; leaving it unchanged."
+            exit 0
+          fi
+
+          cat > "$RUNNER_TEMP/release-notes.md" <<'EOF'
+          ## WSL2 Time Sync Diagnostics v0.4.0 — Public Preview
+
+          This is the first substantial public preview of the diagnostic core and evidence-backed WSL2 timing investigation that is being refined toward v1.0.0.
+
+          ### Highlights
+          - Read-only WSL2 timing diagnostic CLI with no runtime dependencies beyond the Python standard library.
+          - RAW-bracketed sampling and fail-closed schema-v2 completion verification.
+          - Fixed-window uncertainty-aware analysis with WITHIN, OUTSIDE, and INDETERMINATE classifications.
+          - Read-only adjtimex(modes=0) observation with explicit ABI validation.
+          - Method-aware run comparison and synthetic adversarial regression coverage.
+          - Primary-source Microsoft and Canonical research on WSL / Ubuntu time synchronization.
+          - Animated D4R2 visualization showing the key lesson:
+            **service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready**.
+          - Fresh Ubuntu 24.04 / 26.04 environment guidance with Python 3.12 / 3.14 kept as a separate engineering decision.
+
+          ### Validation
+          The exact release commit passed:
+          - 271 tests on Python 3.12
+          - 271 tests on Python 3.14
+          - normal wheel build/install as wsl2-time-sync-diagnostics==0.4.0
+          - import/package version verification
+          - strict JSON checks
+          - RAW completion/coverage checks
+          - cumulative REALTIME evidence checks
+          - method-aware comparison smoke tests
+
+          ### Important limits
+          This is intentionally a **pre-1.0 preview**, not the final stable contract.
+          The project does **not** claim that:
+          - Ubuntu 26.04 universally fixes WSL timing;
+          - Ubuntu 24.04 is broken for every user;
+          - systemd-timesyncd was proven to be the sole writer/root cause;
+          - Python version fixes WSL clock behavior;
+          - passing CI proves host-referenced benchmark readiness.
+
+          The visual model and a few presentation details are still being refined before the official v1.0.0 release.
+          EOF
+
+          gh release create v0.4.0 \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$TARGET_SHA" \
+            --title "v0.4.0 — Public Preview" \
+            --notes-file "$RUNNER_TEMP/release-notes.md" \
+            --prerelease
+
+          gh release view v0.4.0 --repo "$GITHUB_REPOSITORY"
