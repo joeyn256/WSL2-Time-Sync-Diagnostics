@@ -1,0 +1,115 @@
+name: Finalize audited v0.6.0 release
+
+on:
+  push:
+    branches:
+      - release/finalize-v0.6.0-audit
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Retarget v0.6.0 and refresh release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_SHA: d210a0ec8f1e28637e796ee18f5c1f402ef0fff2
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test "$(git rev-parse "$TARGET_SHA^{commit}")" = "$TARGET_SHA"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -f v0.6.0 "$TARGET_SHA"
+          git push origin refs/tags/v0.6.0 --force
+
+          cat > "$RUNNER_TEMP/release-notes.md" <<'EOF'
+          ## WSL2 Time Sync Diagnostics v0.6.0 — Measured Comparison Release
+
+          v0.6.0 advances the public pre-1.0 line with a measured three-model timing comparison, committed same-host evidence, and release-time regression checks that bind the public visual back to the underlying JSON evidence.
+
+          ### Three situations, one visual
+          The README hero compares three timing situations on one synchronized 0–120 s axis and one symmetric-log ppm scale:
+
+          1. **Ubuntu 24.04 with systemd-timesyncd active** — measured guest-side on one Windows host.
+          2. **Ubuntu 24.04 after the historical timesyncd stop** — D4R2 against Windows QPC.
+          3. **Ubuntu 26.04 fresh default with chrony -x** — measured guest-side on the same Windows host and day as panel 1.
+
+          The animation begins at t = 0, explicitly shows the first 30 s collection interval, and reveals checkpoint results at 30, 60, 90, and 120 seconds. Derived running means appear as evidence accumulates. The static/reduced-motion state shows the complete result.
+
+          ### Same-host project observation
+          On this host and on this day:
+
+          - **Ubuntu 24.04 + timesyncd active:** every 30 s window was outside the ±1000 ppm historical screen; the 300 s run measured **-48,010.756 to -48,010.740 ppm** (about 4.8% slow), with eight forward REALTIME jumps of +1.47 to +1.69 s and kernel tick moving from 10000 to 9437.
+          - **Ubuntu 26.04 fresh default:** every 30 s window remained inside the screen; the 300 s run measured **-0.535 to -0.511 ppm**, with no large jumps and tick 10000 throughout.
+          - During these screens the Windows host clock was about **1.06 s behind NTP** with W32Time stopped.
+
+          These outer-panel results are guest-side MONOTONIC-versus-RAW observations. They are not host-referenced accuracy measurements and are not a controlled distro ranking.
+
+          Raw/redacted evidence, analysis JSON, kernel-state series, logs, SHA-256 provenance records, and the verbatim read-only protocol are committed under:
+
+          `evidence/2026-09-24-same-host-screens/`
+
+          The human-readable record is:
+
+          `docs/same-host-screens-2026-09-24.md`
+
+          ### Historical D4R2 panel
+          The middle panel remains the historical Windows-QPC-referenced result:
+
+          - first 30 s MONOTONIC/QPC enclosure: **+26,665.299 to +26,724.999 ppm**;
+          - later 30 s windows near nominal;
+          - full 120 s MONOTONIC/QPC enclosure: **+6,661.607 to +6,676.217 ppm**;
+          - PRE tick 10833 and later POST tick 10000.
+
+          The core lesson remains:
+
+          **service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready**
+
+          ### Release validation
+          The final audited release commit passed on both Python 3.12 and Python 3.14:
+
+          - **275 tests per interpreter**;
+          - normal wheel build/install as `wsl2-time-sync-diagnostics==0.6.0`;
+          - distribution/import version verification;
+          - strict JSON checks;
+          - RAW completion/coverage checks;
+          - cumulative REALTIME evidence checks;
+          - method-aware comparison smoke checks.
+
+          Four release-time evidence regression tests additionally verify:
+          - the published Ubuntu 24.04 interval values against the committed analysis JSON;
+          - the published Ubuntu 26.04 interval values against the committed analysis JSON;
+          - redaction of sensitive environment fields/paths;
+          - the public hero's critical labels, values, timing checkpoints, and reduced-motion behavior.
+
+          The SVG was rendered and visually inspected at deterministic t=0, 30, 60, 90, and 120 s states and in its reduced-motion/static state before the tag was finalized.
+
+          ### Evidence limits
+          v0.6.0 does **not** establish:
+          - that every Ubuntu 24.04 installation behaves like this host;
+          - that Ubuntu 26.04 universally fixes WSL timing;
+          - which process or driver changes kernel `tick`;
+          - that systemd-timesyncd was the sole writer/root cause;
+          - that the same-host episode and D4R2 share one cause;
+          - host-referenced accuracy for the same-host outer panels;
+          - a controlled Ubuntu 24.04-vs-26.04 ranking.
+
+          C1 remains **INCONCLUSIVE**. The package remains semantically pre-1.0 and the stable v1.0.0 contract is still deferred.
+          EOF
+
+          gh release edit v0.6.0 \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$TARGET_SHA" \
+            --title "v0.6.0 — Measured Comparison Release" \
+            --notes-file "$RUNNER_TEMP/release-notes.md"
+
+          echo "tag_sha=$(git ls-remote "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git" refs/tags/v0.6.0 | cut -f1)"
+          gh release view v0.6.0 --repo "$GITHUB_REPOSITORY"
