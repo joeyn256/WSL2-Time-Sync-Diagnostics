@@ -17,7 +17,10 @@ def trace(*, duration_s: int = 30, cadence_s: int = 1, bracket_width_ns: int = 2
           common_mode_ppm: int = 0) -> dict[str, Any]:
     """Build clocks algebraically; segment times and steps are synthetic seconds."""
     samples = []
-    for index, second in enumerate(range(0, duration_s + 1, cadence_s)):
+    seconds = list(range(0, duration_s + 1, cadence_s))
+    if seconds[-1] != duration_s:
+        seconds.append(duration_s)
+    for index, second in enumerate(seconds):
         raw = second * (NS + common_mode_ppm * 1_000)
         relative_offset = Fraction(0)
         for segment, (start, ppm) in enumerate(rate_segments):
@@ -32,11 +35,26 @@ def trace(*, duration_s: int = 30, cadence_s: int = 1, bracket_width_ns: int = 2
                         "bracket_width_ns": bracket_width_ns,
                         "monotonic_ns": mono, "realtime_ns": mono + realtime_offset,
                         "boottime_ns": mono, "errors": {}})
+    duration_ns, cadence_ns = duration_s * NS, cadence_s * NS
+    for row in samples:
+        row["target_raw_ns"] = min(row["index"] * cadence_ns, duration_ns)
+        row["schedule_lateness_ns"] = row["raw_before_ns"] - row["target_raw_ns"]
+        row["observation_elapsed_ns"] = row["raw_after_ns"]
     return {"schema_version": 2, "acquisition": "raw_bracket_v1",
             "reference": "CLOCK_MONOTONIC_RAW",
             "clock_pair": "CLOCK_MONOTONIC/CLOCK_MONOTONIC_RAW",
             "duration_requested_s": duration_s, "cadence_requested_s": cadence_s,
-            "continuity_label": "synthetic_uninterrupted", "samples": samples}
+            "continuity_label": "synthetic_uninterrupted", "samples": samples,
+            "collection_complete": True, "collection_errors": [],
+            "observations_planned": (duration_ns + cadence_ns - 1) // cadence_ns + 1,
+            "observation_clock": "perf_counter_ns",
+            "elapsed_observation_ns": samples[-1]["observation_elapsed_ns"],
+            "schedule": {"method": "raw_origin_v1", "clock": "CLOCK_MONOTONIC_RAW",
+                         "origin_raw_ns": samples[0]["raw_before_ns"],
+                         "duration_ns": duration_ns, "cadence_ns": cadence_ns,
+                         "guard_clock": "perf_counter_ns",
+                         "guard_budget_ns": duration_ns + max(NS, duration_ns // 10),
+                         "max_wait_iterations_per_target": 64}}
 
 
 def early_slew(*, early_ppm: int = 1_000, early_s: int = 10,

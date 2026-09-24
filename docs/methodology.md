@@ -157,9 +157,21 @@ An interval touching a boundary from the outside remains indeterminate; an inter
 
 Signed REALTIME changes are reported with their own enclosure against RAW elapsed time. For REALTIME delta `R`, the change interval is `[R - U, R - L]`. Positive and negative events remain distinguishable. A backward REALTIME read is recorded separately. Neither an event nor an interval rate identifies the component that changed the clock.
 
+The adjacent-sample detector and the cumulative change over each valid complete fixed analysis window use the configured inclusive REALTIME change band. The window calculation uses its bracketed endpoints and the same `[R - U, R - L]` enclosure. An outside-band cumulative window prevents aggregate `WITHIN`, even if every adjacent change is individually within-band. For example, repeated +400 ms changes each second can remain inside a ±500 ms adjacent band while accumulating about +4 seconds over a 10-second window. Enclosures crossing a band boundary remain indeterminate.
+
+The full-run cumulative REALTIME-minus-RAW change is also reported descriptively, without applying the same fixed nanosecond threshold to an arbitrarily long run as if it were one event. The configured window length therefore defines the timescale of the cumulative check. This evidence supplements MONOTONIC-versus-RAW rate analysis; it does not replace it.
+
 ## Window coverage and legacy inputs
 
-Fixed boundaries are anchored to the first usable RAW-before sample. Each boundary selects the first sample at or after it; adjoining windows share that endpoint. Reports preserve the nominal boundaries, actual sampled span, and endpoint displacement, so scheduling delays are visible. The measured rate applies to the actual endpoint span. Coverage also carries requested cadence/duration and capture completion when supplied. The recorded scheduling clock differs from RAW, so a small RAW-duration shortfall is reported without treating it as a missing scheduled sample when explicit capture-completion metadata is available. Without that metadata, a requested-duration shortfall conservatively leaves coverage incomplete.
+Fixed boundaries are anchored to the first usable RAW-before sample. Each boundary selects the first sample at or after it; adjoining windows share that endpoint. Reports preserve the nominal boundaries, actual sampled span, and endpoint displacement, so scheduling delays are visible. The measured rate applies to the actual endpoint span.
+
+Acquisition targets now share that RAW origin: sample `i` targets `origin + min(i * cadence, duration)`, in integer nanoseconds. The terminal sample must cover the requested RAW duration, including when cadence exceeds duration. MONOTONIC/perf-counter origin offsets and modest clock-rate differences therefore do not silently shorten the analysis interval. Actual timestamps and target lateness remain visible; an overshoot is not moved back onto the nominal grid.
+
+Waiting has a finite guard measured by `perf_counter_ns`: the requested duration plus the larger of one second or 10% of that duration, beginning before the initial acquisition, with at most 64 RAW progress checks per target. Missing or regressing RAW, an exhausted guard/check limit, or an acquisition that misses the next target leaves collection incomplete. Missed samples are not backfilled in a burst. Scheduler/read delays can overrun the guard; the actual elapsed time is recorded and cannot verify completion if it exceeds the budget. The guard never substitutes its clock for RAW coverage.
+
+Schema-2 completion requires consistent duration/cadence, origin/target/guard metadata, planned and actual counts, zero-based sequential indexes, lateness and elapsed observations, no collection errors, and observed RAW-before coverage of at least the requested duration. A completion flag cannot override a RAW-duration shortfall or contradictory context. Older schema-2 files without this schedule evidence remain readable, but cannot certify complete acquisition or aggregate `WITHIN`.
+
+`full_run.span_complete` describes valid geometry for the observed span; `full_run.acquisition_complete` describes verified completion of the requested acquisition, and `full_run.complete` requires both. The full-run rate classification continues to describe its local observed span. Incomplete acquisition does not erase an established outside-band window or event; aggregate `WITHIN` still requires complete coverage.
 
 A final short window with a distinct endpoint is retained as partial and indeterminate. A boundary-closing overshoot sample is not duplicated as an additional zero-span tail. Missing or duplicate samples, invalid order, and unavailable endpoints cannot be converted into a clean full-coverage result. Fixed-window analysis can expose an early anomaly, but finite sampling can still miss events between reads or hide a transient that cancels within a window.
 
@@ -178,6 +190,10 @@ Its vocabulary is `WITHIN_CONFIGURED_BAND`, `ANOMALY_OBSERVED`, or `INDETERMINAT
 ## Method-aware comparison
 
 Comparison carries schema, clock pair/reference, acquisition and analysis methods, window geometry, coverage, and configured thresholds. It distinguishes `COMPARABLE`, `DIFFERENT_METHOD`, and `INSUFFICIENT_CONTEXT`. Only compatible, sufficiently described results support a numerical comparison under that method.
+
+Method names must belong to the recognized vocabulary; two identical invented methods do not provide context. The corrected analyzer emits `fixed_window_interval_v2` to distinguish its cumulative window check from `fixed_window_interval_v1`; both are recognized, and different versions remain different methods. Required full-run numeric evidence includes a finite point estimate, finite positive RAW duration, and, for RAW-bracket reports, valid finite rate and positive elapsed-RAW enclosures. Missing evidence cannot leave the comparison `COMPARABLE`.
+
+Comparison also preserves each side's aggregate classification and anomaly counts. A numeric comparison of compatible methods can include an `OUTSIDE` result, such as an early slew with a milder full-run average; comparability is not a claim that either run was anomaly-free.
 
 The optional `continuity_label` is caller-supplied acquisition context, not a guest or host boot identifier. The probe emits `null`. If supplied labels differ, comparison conservatively reports different methods; a label on only one side leaves insufficient context. Equal labels do not prove continuous observation, the same boot, or unchanged host state.
 
@@ -273,7 +289,7 @@ A useful timing record should include enough context to reproduce or interpret i
 - calculation method;
 - raw or sealed evidence where appropriate.
 
-Public regression fixtures are parameterized synthetic traces, including an early slew followed by normal-looking windows, periodic sawtooth changes, signed steps, missing/duplicate samples, threshold straddles, and common-mode guest behavior. They test analysis behavior and uncertainty handling. They are not copies of private historical evidence, new live reproductions of C1/D4R2, or evidence about how frequently an anomaly occurs.
+Public regression fixtures are parameterized synthetic traces, including an early slew followed by normal-looking windows, periodic sawtooth changes, signed steps, missing/duplicate samples, threshold straddles, and common-mode guest behavior. Scheduled fixtures carry consistent acquisition metadata. Controlled-clock tests also exercise acquisition scheduling with origin offsets, RAW/guard rate differences, overshoot, long cadence, and failed RAW progress. These test algorithm behavior and uncertainty handling. They are not copies of private historical evidence, new live reproductions of C1/D4R2, or evidence about how frequently an anomaly occurs.
 
 ## Interpretation hierarchy
 

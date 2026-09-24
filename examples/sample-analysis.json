@@ -1,17 +1,122 @@
 {
-  "schema_version": 1,
-  "source_schema_version": 1,
-  "sample_count": 3,
+  "classification": "INDETERMINATE",
+  "continuity_label": null,
+  "coverage": {
+    "cadence_requested_s": 1.0,
+    "collection_complete": null,
+    "collection_completion_verified": false,
+    "complete": false,
+    "complete_window_count": 0,
+    "duration_requested_s": 2.0,
+    "elapsed_observation_ns": null,
+    "invalid_sample_count": 0,
+    "invalid_window_count": 0,
+    "issues": [],
+    "observations_expected_from_schedule": 3,
+    "observations_planned": null,
+    "observed_duration_ns": 2000000000,
+    "partial_window_count": 1,
+    "requested_duration_fraction": 1.0,
+    "requested_raw_duration_covered": true,
+    "sample_count": 3,
+    "valid_sample_count": 3,
+    "window_count": 1
+  },
   "first_index": 0,
-  "last_index": 2,
-  "realtime_backward_events": 0,
-  "large_realtime_minus_raw_changes": 0,
   "full_run": {
+    "acquisition_complete": false,
+    "classification": "INDETERMINATE",
+    "complete": false,
+    "issues": [],
     "monotonic_vs_raw_ppm": 0.2,
-    "raw_duration_ns": 2000000000
+    "rate_interval_ppm": null,
+    "raw_duration_interval_ns": null,
+    "raw_duration_ns": 2000000000,
+    "realtime_offset_change_interval_ns": null,
+    "realtime_offset_direction": "UNRESOLVED",
+    "span_complete": true
+  },
+  "large_realtime_minus_raw_changes": 0,
+  "last_index": 2,
+  "method": {
+    "acquisition": "legacy_sequential",
+    "analysis": "fixed_window_interval_v2",
+    "clock_pair": "CLOCK_MONOTONIC/CLOCK_MONOTONIC_RAW",
+    "reference": "CLOCK_MONOTONIC_RAW",
+    "uncertainty": "unbounded_legacy"
   },
   "notes": [
-    "Synthetic example only.",
-    "A guest-relative result does not establish host-referenced accuracy."
+    "Analysis describes configured guest-relative observations, not universal health or readiness.",
+    "MONOTONIC-vs-RAW agreement does not prove absolute accuracy against Windows or an external clock.",
+    "Point ppm estimates are descriptive only; classifications use exact rational intervals and decimal settings before outward JSON rounding.",
+    "Schema-2 completion requires consistent RAW-origin scheduling, count, indexes, bounded guard metadata, and requested RAW-duration coverage; a completion claim never overrides a shortfall.",
+    "Full-run rate classification describes the observed span; span_complete and acquisition_complete distinguish valid local geometry from a finished requested acquisition.",
+    "Fixed-window cumulative REALTIME-minus-RAW changes use the configured event band; full-run cumulative change is descriptive and is not thresholded as one event.",
+    "Legacy sequential acquisition has unbounded timing uncertainty and cannot establish WITHIN.",
+    "Fixed nominal RAW boundaries use the first sample at/after each boundary; partial windows remain indeterminate."
+  ],
+  "outside_realtime_offset_windows": 0,
+  "realtime_backward_events": 0,
+  "realtime_events": [
+    {
+      "classification": "INDETERMINATE",
+      "direction": "UNRESOLVED",
+      "first_index": 0,
+      "first_position": 0,
+      "issues": [],
+      "last_index": 1,
+      "last_position": 1,
+      "offset_change_interval_ns": null,
+      "realtime_backward": false
+    },
+    {
+      "classification": "INDETERMINATE",
+      "direction": "UNRESOLVED",
+      "first_index": 1,
+      "first_position": 1,
+      "issues": [],
+      "last_index": 2,
+      "last_position": 2,
+      "offset_change_interval_ns": null,
+      "realtime_backward": false
+    }
+  ],
+  "sample_count": 3,
+  "schema_version": 2,
+  "settings": {
+    "cadence_requested_s": 1.0,
+    "duration_requested_s": 2.0,
+    "event_threshold_ns": 500000000,
+    "rate_band_ppm": 100.0,
+    "window_s": 10.0
+  },
+  "source_schema_version": 1,
+  "windows": [
+    {
+      "boundary_coverage": false,
+      "classification": "INDETERMINATE",
+      "complete": false,
+      "end_displacement_ns": -8000000000,
+      "first_index": 0,
+      "first_position": 0,
+      "issues": [
+        "incomplete_window_boundaries"
+      ],
+      "last_index": 2,
+      "last_position": 2,
+      "monotonic_vs_raw_ppm": 0.2,
+      "nominal_end_ns": 10000000000,
+      "nominal_start_ns": 0,
+      "partial": true,
+      "rate_interval_ppm": null,
+      "raw_duration_interval_ns": null,
+      "raw_duration_ns": 2000000000,
+      "realtime_offset_change_interval_ns": null,
+      "realtime_offset_classification": "INDETERMINATE",
+      "realtime_offset_direction": "UNRESOLVED",
+      "sample_count": 3,
+      "start_displacement_ns": 0,
+      "window_index": 0
+    }
   ]
 }

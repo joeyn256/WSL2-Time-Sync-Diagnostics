@@ -222,9 +222,13 @@ Current high-level status:
 | Ubuntu 26.04 guest-side default observation | Promising 300-second screen; no D4R2-scale MONOTONIC-vs-RAW slew observed |
 | Ubuntu 24.04 vs 26.04 timing ranking | Not established |
 | Full host/runtime qualification | Unavailable |
-| v0.2 guest-core software checks | 193 tests passed on Python 3.12.3 and 3.14.4; installed CLI smoke passed on both WSL environments |
+| Durable GitHub CI for the initial v0.2 implementation | [Run 35946297095](https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35946297095), commit `de2375d`: `ubuntu-latest`, CPython 3.12.14 and 3.14.7; 193 tests and installed CLI smoke passed in each job |
+| Durable GitHub CI for the upstream docs-only update | [Run 35949003144](https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35949003144), commit `cb01ad24`: both Python 3.12/3.14 test and installed CLI smoke jobs passed |
+| Local WSL implementation/review software checks | The implementer reported 193 tests and installed CLI smoke passing on Python 3.12.3 / Ubuntu 24.04 WSL2 and Python 3.14.4 / Ubuntu 26.04 WSL2; Fable independently reproduced those checks |
 | Historical administrator-branch runtime qualification | Not established by these guest-core software tests |
 | Python 3.14 universally preferable to 3.12 | Not claimed |
+
+The linked CI counts describe those exact earlier commits; consult the checks for the current commit for its results. The local WSL checks are reported implementation/review evidence: no durable raw logs or hashes for those local runs are committed here. Neither category is a formal host-referenced timing qualification, which remains unavailable.
 
 ---
 

@@ -14,10 +14,29 @@
     "Method-aware comparison and parameterized synthetic failure-shape regressions."
   ],
   "validation": {
-    "python_3_12_3": "Complete pytest suite and installed CLI smoke passed on Ubuntu 24.04 WSL2.",
-    "python_3_14_4": "Complete pytest suite and installed CLI smoke passed on Ubuntu 26.04 WSL2.",
-    "ci": "Python 3.12/3.14 test and installed CLI smoke matrix; consult checks for the exact commit.",
-    "tests_per_interpreter": 193
+    "durable_github_ci": {
+      "initial_implementation": {
+        "commit": "de2375d31dcd049c8895808f9dc9a16143968274",
+        "run_url": "https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35946297095",
+        "runner": "ubuntu-latest",
+        "interpreters": ["CPython 3.12.14", "CPython 3.14.7"],
+        "tests_passed_per_interpreter": 193,
+        "installed_cli_smoke": "Passed in both jobs."
+      },
+      "upstream_docs_only": {
+        "commit": "cb01ad24e71b278910899fa264dfe5e4b176b4e8",
+        "run_url": "https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35949003144",
+        "result": "Both Python 3.12/3.14 test and installed CLI smoke jobs passed."
+      },
+      "current_commit": "Consult checks for the exact commit; the linked counts above describe the earlier commits only."
+    },
+    "local_wsl_implementation_review_checks": {
+      "scope": "Initial v0.2 implementation; reported by the implementer and independently reproduced by Fable.",
+      "python_3_12_3": "193 tests and installed CLI smoke passed on Ubuntu 24.04 WSL2.",
+      "python_3_14_4": "193 tests and installed CLI smoke passed on Ubuntu 26.04 WSL2.",
+      "provenance_limit": "No durable raw logs or hashes for these local runs are committed here. These are software checks, not formal timing qualification."
+    },
+    "host_referenced_timing_qualification": "Unavailable; neither GitHub CI nor local WSL software checks establish host-referenced timing qualification."
   },
   "provenance": "Fresh implementations of small acquisition/math ideas from the bounded issue and audit descriptions; kernel ABI from public Linux interface documentation. No historical source or private raw evidence copied.",
   "note": "No merge, release tag, host-reference qualification, service intervention, or universal readiness claim. Optional per-probe adjtimex snapshots and the separately scoped Windows companion are not included."

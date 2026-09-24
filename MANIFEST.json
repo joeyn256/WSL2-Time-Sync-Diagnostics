@@ -6,6 +6,7 @@
     "docs/findings-ubuntu-24.04.md",
     "docs/findings-ubuntu-26.04.md",
     "docs/timesyncd-investigation.md",
+    "docs/upstream-time-sync-status.md",
     "docs/python-3.12-vs-3.14.md",
     "docs/methodology.md",
     "docs/limitations.md",

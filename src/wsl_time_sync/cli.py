@@ -76,6 +76,8 @@ def main() -> int:
         else:
             payload = check_python(args.requirements)
         _emit(payload, args.output)
+    except OverflowError:
+        parser.error("numeric input is outside the supported finite range")
     except (ValueError, OSError) as exc:
         parser.error(str(exc))
     return 0

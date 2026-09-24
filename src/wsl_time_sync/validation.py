@@ -3,6 +3,18 @@ from __future__ import annotations
 import math
 
 
+def finite_json_integer(value: str) -> int:
+    """Reject JSON integers that cannot enter finite numeric calculations."""
+    number = int(value)
+    try:
+        finite = math.isfinite(number)
+    except OverflowError:
+        finite = False
+    if not finite:
+        raise ValueError("JSON integer is outside the supported finite numeric range")
+    return number
+
+
 def positive_seconds(value: float, name: str) -> int:
     """Convert finite positive seconds to integer ns, rejecting sub-ns values."""
     if isinstance(value, bool) or not isinstance(value, (int, float)):

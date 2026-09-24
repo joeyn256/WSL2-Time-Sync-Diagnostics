@@ -29,8 +29,35 @@ jobs:
         run: |
           wsl-time-sync --help
           wsl-time-sync analyze examples/sample-probe.json --output "$RUNNER_TEMP/legacy-analysis.json"
-          wsl-time-sync probe --duration 0.1 --cadence 0.02 --output "$RUNNER_TEMP/probe.json"
-          wsl-time-sync analyze "$RUNNER_TEMP/probe.json" --window 0.05 --output "$RUNNER_TEMP/analysis.json"
-          wsl-time-sync compare "$RUNNER_TEMP/analysis.json" "$RUNNER_TEMP/analysis.json"
+          wsl-time-sync probe --duration 0.2 --cadence 0.02 --output "$RUNNER_TEMP/probe.json"
+          wsl-time-sync analyze "$RUNNER_TEMP/probe.json" --window 0.1 --output "$RUNNER_TEMP/analysis.json"
+          wsl-time-sync compare "$RUNNER_TEMP/analysis.json" "$RUNNER_TEMP/analysis.json" --output "$RUNNER_TEMP/comparison.json"
           wsl-time-sync diagnose --output "$RUNNER_TEMP/diagnose.json"
           wsl-time-sync settle-check --duration 0.02 --cadence 0.01 --output "$RUNNER_TEMP/settle.json"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          def reject_constant(value):
+              raise ValueError(f"non-finite JSON constant: {value}")
+
+          folder = Path(os.environ["RUNNER_TEMP"])
+          reports = {}
+          for name in ("probe", "analysis", "comparison", "legacy-analysis", "diagnose", "settle"):
+              reports[name] = json.loads((folder / f"{name}.json").read_text(), parse_constant=reject_constant)
+              json.dumps(reports[name], allow_nan=False)
+          probe, analysis = reports["probe"], reports["analysis"]
+          assert probe["collection_complete"] and not probe["collection_errors"]
+          assert analysis["method"]["analysis"] == "fixed_window_interval_v2"
+          coverage = analysis["coverage"]
+          assert coverage["collection_completion_verified"]
+          assert coverage["requested_raw_duration_covered"]
+          assert coverage["complete"] and coverage["partial_window_count"] == 0
+          assert coverage["complete_window_count"] == 2
+          assert all(window["rate_interval_ppm"] is not None for window in analysis["windows"])
+          assert all(window["realtime_offset_change_interval_ns"] is not None for window in analysis["windows"])
+          assert reports["comparison"]["comparability"] == "COMPARABLE"
+          assert reports["comparison"]["left_classification"] == analysis["classification"]
+          print("Strict JSON, RAW completion, two complete windows, cumulative evidence, and comparison verified.")
+          PY

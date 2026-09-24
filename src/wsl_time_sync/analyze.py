@@ -6,6 +6,8 @@ from fractions import Fraction
 from pathlib import Path
 from typing import Any
 
+from .validation import finite_json_integer
+
 WITHIN = "WITHIN"
 OUTSIDE = "OUTSIDE"
 INDETERMINATE = "INDETERMINATE"
@@ -224,7 +226,8 @@ def _span(first: dict[str, Any], last: dict[str, Any], *, bounded: bool,
     elapsed = raw_delta_interval(first, last)
     if elapsed:
         # A point estimate is retained for v0.1 readers, never used for classification.
-        result["raw_duration_ns"] = (elapsed[0] + elapsed[1]) / 2
+        total = elapsed[0] + elapsed[1]
+        result["raw_duration_ns"] = total // 2 if total % 2 == 0 else total / 2
         if bounded:
             result["raw_duration_interval_ns"] = list(elapsed)
     if (elapsed and _integer(first.get("monotonic_ns")) and _integer(last.get("monotonic_ns"))):
@@ -269,7 +272,7 @@ def analyze_probe(payload: dict[str, Any], *, window_s: float = 10.0,
         "acquisition": payload.get("acquisition") if bracketed else "legacy_sequential",
         "reference": payload.get("reference") if bracketed else "CLOCK_MONOTONIC_RAW",
         "clock_pair": payload.get("clock_pair") if bracketed else "CLOCK_MONOTONIC/CLOCK_MONOTONIC_RAW",
-        "analysis": "fixed_window_interval_v1",
+        "analysis": "fixed_window_interval_v2",
         "uncertainty": "raw_bracket" if bracketed else "unbounded_legacy",
     }
     known_method = (not bracketed or (context["acquisition"] == "raw_bracket_v1" and
@@ -280,6 +283,12 @@ def analyze_probe(payload: dict[str, Any], *, window_s: float = 10.0,
     bounded = bracketed and known_method
     full_run = _span(rows[0], rows[-1], bounded=bounded, band=rate_band_ppm,
                      issues=all_issues, complete=True)
+    full_change = realtime_event(rows[0], rows[-1], event_threshold_ns) if bounded and not all_issues else None
+    # The full-run change is descriptive: a fixed event threshold is not a
+    # duration-independent limit on an arbitrarily long accumulated offset.
+    full_run["realtime_offset_change_interval_ns"] = (
+        full_change["offset_change_interval_ns"] if full_change else None)
+    full_run["realtime_offset_direction"] = full_change["direction"] if full_change else "UNRESOLVED"
     windows = fixed_windows([row.get("raw_before_ns") for row in rows], int(window_s * 1_000_000_000))
     for window in windows:
         first, last = window["first_position"], window["last_position"]
@@ -290,6 +299,12 @@ def analyze_probe(payload: dict[str, Any], *, window_s: float = 10.0,
             window_issues.append("incomplete_window_boundaries")
         window.update(_span(rows[first], rows[last], bounded=bounded, band=rate_band_ppm,
                             issues=window_issues, complete=not window["partial"]))
+        change = (realtime_event(rows[first], rows[last], event_threshold_ns)
+                  if bounded and window["complete"] else None)
+        window["realtime_offset_change_interval_ns"] = (
+            change["offset_change_interval_ns"] if change else None)
+        window["realtime_offset_classification"] = change["classification"] if change else INDETERMINATE
+        window["realtime_offset_direction"] = change["direction"] if change else "UNRESOLVED"
         window["sample_count"] = last - first + 1
         window["first_index"] = rows[first].get("index")
         window["last_index"] = rows[last].get("index")
@@ -330,8 +345,8 @@ def analyze_probe(payload: dict[str, Any], *, window_s: float = 10.0,
     collection_complete = payload.get("collection_complete")
     completion_issues = []
     if not isinstance(collection_complete, bool):
-        if bracketed and "collection_complete" in payload:
-            completion_issues.append("invalid_collection_complete")
+        if bracketed:
+            completion_issues.append("missing_or_invalid_collection_complete")
         collection_complete = None
     planned = payload.get("observations_planned")
     valid_planned = _integer(planned) and planned > 0
@@ -341,26 +356,76 @@ def analyze_probe(payload: dict[str, Any], *, window_s: float = 10.0,
     expected_planned = ((requested_ns + cadence_ns - 1) // cadence_ns + 1
                         if requested_ns and cadence_ns else None)
     if bracketed:
+        if not requested_ns:
+            completion_issues.append("missing_or_invalid_requested_duration")
+        if not cadence_ns:
+            completion_issues.append("missing_or_invalid_requested_cadence")
         if rows[0].get("index") != 0:
             completion_issues.append("missing_initial_sample_index")
-        if "observations_planned" in payload or collection_complete is True:
-            if not valid_planned:
-                completion_issues.append("missing_or_invalid_observations_planned")
-            else:
-                if len(rows) != planned:
-                    completion_issues.append("planned_observation_count_mismatch")
-                if expected_planned is not None and planned != expected_planned:
-                    completion_issues.append("planned_observation_schedule_mismatch")
-                if any(row.get("index") != position for position, row in enumerate(rows)):
-                    completion_issues.append("observation_index_sequence_mismatch")
+        if not valid_planned:
+            completion_issues.append("missing_or_invalid_observations_planned")
+        else:
+            if len(rows) != planned:
+                completion_issues.append("planned_observation_count_mismatch")
+            if expected_planned is not None and planned != expected_planned:
+                completion_issues.append("planned_observation_schedule_mismatch")
+        if any(row.get("index") != position for position, row in enumerate(rows)):
+            completion_issues.append("observation_index_sequence_mismatch")
+        schedule = payload.get("schedule")
+        if not isinstance(schedule, dict):
+            schedule = {}
+        origin = schedule.get("origin_raw_ns")
+        if (schedule.get("method") != "raw_origin_v1" or
+                schedule.get("clock") != "CLOCK_MONOTONIC_RAW" or
+                not _integer(origin) or origin != rows[0].get("raw_before_ns") or
+                not _integer(schedule.get("duration_ns")) or schedule["duration_ns"] != requested_ns or
+                not _integer(schedule.get("cadence_ns")) or schedule["cadence_ns"] != cadence_ns):
+            completion_issues.append("missing_or_inconsistent_raw_schedule")
+        elapsed_observation = payload.get("elapsed_observation_ns")
+        guard_budget = schedule.get("guard_budget_ns")
+        if (schedule.get("guard_clock") != "perf_counter_ns" or
+                not _integer(guard_budget) or not requested_ns or
+                guard_budget != requested_ns + max(1_000_000_000, requested_ns // 10) or
+                not _integer(schedule.get("max_wait_iterations_per_target")) or
+                schedule["max_wait_iterations_per_target"] != 64 or
+                payload.get("observation_clock") != "perf_counter_ns" or
+                not _integer(elapsed_observation) or elapsed_observation < 0 or
+                (_integer(guard_budget) and _integer(elapsed_observation) and elapsed_observation > guard_budget)):
+            completion_issues.append("missing_or_inconsistent_schedule_guard")
+        if payload.get("collection_errors") != []:
+            completion_issues.append("missing_or_nonempty_collection_errors")
+        if _integer(origin) and requested_ns and cadence_ns:
+            previous_elapsed = -1
+            for position, row in enumerate(rows):
+                target = origin + min(position * cadence_ns, requested_ns)
+                before, after = row.get("raw_before_ns"), row.get("raw_after_ns")
+                lateness = row.get("schedule_lateness_ns")
+                observed = row.get("observation_elapsed_ns")
+                if (not _integer(row.get("target_raw_ns")) or row["target_raw_ns"] != target or
+                        not _integer(before) or before < target or
+                        not _integer(lateness) or not _integer(before) or lateness != before - target):
+                    completion_issues.append("sample_raw_schedule_mismatch")
+                if (not _integer(observed) or observed < 0 or observed < previous_elapsed or
+                        not _integer(elapsed_observation) or observed > elapsed_observation):
+                    completion_issues.append("sample_observation_elapsed_mismatch")
+                if _integer(observed):
+                    previous_elapsed = observed
+                if (expected_planned and position < expected_planned - 1 and _integer(after) and
+                        after >= origin + min((position + 1) * cadence_ns, requested_ns)):
+                    completion_issues.append("sample_raw_next_target_missed")
     if collection_complete is False:
         completion_issues.append("collection_incomplete")
-    # Acquisition metadata is a claim, not sufficient proof of complete serialized
-    # evidence. Only a consistent count/index/schedule permits its RAW-clock caveat.
-    completion_verified = collection_complete is True and not completion_issues
+    if requested_covered is False:
+        completion_issues.append("requested_raw_duration_shortfall")
+    # Claims cannot override observed geometry, missing schedule context, or a
+    # requested RAW-duration shortfall. Old schema-2 captures remain readable,
+    # but lack the evidence needed to verify the corrected acquisition policy.
+    completion_verified = (bracketed and known_method and collection_complete is True and
+                           requested_covered is True and not completion_issues and not all_issues)
     all_issues.extend(completion_issues)
-    if requested_covered is False and not completion_verified:
-        all_issues.append("requested_raw_duration_shortfall")
+    full_run["span_complete"] = full_run["complete"]
+    full_run["acquisition_complete"] = completion_verified
+    full_run["complete"] = full_run["span_complete"] and completion_verified
     coverage = {"sample_count": len(rows), "valid_sample_count": len(rows) - invalid_samples,
                 "invalid_sample_count": invalid_samples,
                 "complete_window_count": complete_windows, "partial_window_count": partial_windows,
@@ -378,12 +443,15 @@ def analyze_probe(payload: dict[str, Any], *, window_s: float = 10.0,
                 "requested_duration_fraction": (max(0, duration) / requested_ns
                                                 if duration is not None and requested_ns else None),
                 "complete": bool(windows) and complete_windows == len(windows) and
-                            not all_issues and full_run["complete"],
+                            not all_issues and full_run["span_complete"] and
+                            (not bracketed or completion_verified),
                 "issues": sorted(set(all_issues))}
-    if any(event["realtime_backward"] and not event["issues"] and known_method for event in events) or any(item["classification"] == OUTSIDE for item in windows + events):
+    if any(event["realtime_backward"] and not event["issues"] and known_method for event in events) or any(item["classification"] == OUTSIDE for item in windows + events) or any(
+            window["realtime_offset_classification"] == OUTSIDE for window in windows):
         classification = OUTSIDE
     elif (bounded and coverage["complete"] and
-          all(item["classification"] == WITHIN for item in windows + events)):
+          all(item["classification"] == WITHIN for item in windows + events) and
+          all(window["realtime_offset_classification"] == WITHIN for window in windows)):
         classification = WITHIN
     else:
         classification = INDETERMINATE
@@ -400,11 +468,15 @@ def analyze_probe(payload: dict[str, Any], *, window_s: float = 10.0,
         "realtime_events": events, "realtime_backward_events": backward,
         "large_realtime_minus_raw_changes": (sum(event["classification"] == OUTSIDE for event in events)
                                                if bracketed else legacy_large_changes),
+        "outside_realtime_offset_windows": sum(
+            window["realtime_offset_classification"] == OUTSIDE for window in windows),
         "notes": [
             "Analysis describes configured guest-relative observations, not universal health or readiness.",
             "MONOTONIC-vs-RAW agreement does not prove absolute accuracy against Windows or an external clock.",
             "Point ppm estimates are descriptive only; classifications use exact rational intervals and decimal settings before outward JSON rounding.",
-            "Requested RAW-duration coverage is descriptive when acquisition completion is verified against count, indexes, and schedule; otherwise RAW-duration shortfall makes coverage incomplete. Scheduling clocks and acquisition offsets can cause small differences.",
+            "Schema-2 completion requires consistent RAW-origin scheduling, count, indexes, bounded guard metadata, and requested RAW-duration coverage; a completion claim never overrides a shortfall.",
+            "Full-run rate classification describes the observed span; span_complete and acquisition_complete distinguish valid local geometry from a finished requested acquisition.",
+            "Fixed-window cumulative REALTIME-minus-RAW changes use the configured event band; full-run cumulative change is descriptive and is not thresholded as one event.",
             "Legacy sequential acquisition has unbounded timing uncertainty and cannot establish WITHIN.",
             "Fixed nominal RAW boundaries use the first sample at/after each boundary; partial windows remain indeterminate.",
         ],
@@ -412,4 +484,4 @@ def analyze_probe(payload: dict[str, Any], *, window_s: float = 10.0,
 
 
 def load_json(path: str | Path) -> dict[str, Any]:
-    return json.loads(Path(path).read_text(encoding="utf-8"))
+    return json.loads(Path(path).read_text(encoding="utf-8"), parse_int=finite_json_integer)

@@ -267,6 +267,9 @@ def test_sampling_overshoot_does_not_invent_single_sample_partial_tail():
     for row in payload["samples"][1:]:
         for key in ("raw_before_ns", "raw_after_ns", "monotonic_ns", "realtime_ns"):
             row[key] += 10_000
+        row["schedule_lateness_ns"] += 10_000
+        row["observation_elapsed_ns"] += 10_000
+    payload["elapsed_observation_ns"] += 10_000
     result = analyze_probe(payload)
     assert len(result["windows"]) == 3
     assert result["coverage"]["complete"]
@@ -274,17 +277,17 @@ def test_sampling_overshoot_does_not_invent_single_sample_partial_tail():
     assert result["windows"][-1]["end_displacement_ns"] == 10_000
 
 
-def test_sampling_completion_preserves_raw_duration_difference_as_context():
+def test_sampling_completion_never_overrides_raw_duration_shortfall():
     payload = trace(common_mode_ppm=-1)
     payload["collection_complete"] = True
     payload["observations_planned"] = 31
     payload["elapsed_observation_ns"] = 30_000_000_000
     result = analyze_probe(payload, window_s=9)
-    # Completion of acquisition and coverage of the requested RAW span are
-    # separate facts. The true partial analysis tail remains incomplete.
+    # A completed-collection claim cannot excuse contradictory RAW coverage.
     assert result["coverage"]["collection_complete"] is True
     assert result["coverage"]["requested_raw_duration_covered"] is False
-    assert "requested_raw_duration_shortfall" not in result["coverage"]["issues"]
+    assert "requested_raw_duration_shortfall" in result["coverage"]["issues"]
+    assert not result["coverage"]["collection_completion_verified"]
     assert result["coverage"]["partial_window_count"] == 1
     assert result["settings"]["duration_requested_s"] == 30
     assert result["settings"]["cadence_requested_s"] == 1
@@ -322,8 +325,8 @@ def test_nonobject_probe_is_rejected(payload):
 
 
 def _complete_probe_metadata(payload):
-    payload.update(collection_complete=True, observations_planned=31,
-                   elapsed_observation_ns=30_000_000_000, observation_clock="perf_counter_ns")
+    # trace() already supplies the complete, internally consistent schedule.
+    payload["collection_complete"] = True
     return payload
 
 
@@ -403,3 +406,116 @@ def test_truncated_capture_keeps_confirmed_local_anomaly():
     assert not result["coverage"]["complete"]
     assert result["windows"][0]["classification"] == "OUTSIDE"
     assert result["classification"] == "OUTSIDE"
+
+
+@pytest.mark.parametrize("field", ["cadence_requested_s", "duration_requested_s", "schedule",
+                                   "collection_complete", "collection_errors", "elapsed_observation_ns"])
+def test_missing_completion_context_fails_closed(field):
+    payload = trace()
+    del payload[field]
+    result = analyze_probe(payload)
+    assert not result["coverage"]["collection_completion_verified"]
+    assert result["classification"] == "INDETERMINATE"
+
+
+def test_rewritten_cadence_and_count_cannot_certify_one_third_duration():
+    payload = trace()
+    payload["samples"] = payload["samples"][:11]
+    payload["observations_planned"] = 11
+    payload["cadence_requested_s"] = 3
+    payload["schedule"]["cadence_ns"] = 3_000_000_000
+    result = analyze_probe(payload)
+    assert result["coverage"]["observations_expected_from_schedule"] == 11
+    assert result["coverage"]["requested_duration_fraction"] == pytest.approx(1 / 3)
+    assert "requested_raw_duration_shortfall" in result["coverage"]["issues"]
+    assert "sample_raw_schedule_mismatch" in result["coverage"]["issues"]
+    assert not result["coverage"]["collection_completion_verified"]
+    assert result["classification"] == "INDETERMINATE"
+
+
+def test_renumbered_removed_prefix_still_contradicts_raw_origin_and_targets():
+    payload = trace(duration_s=40)
+    payload["samples"] = payload["samples"][10:]
+    for index, row in enumerate(payload["samples"]):
+        row["index"] = index
+    payload["observations_planned"] = 31
+    payload["duration_requested_s"] = 30
+    payload["schedule"]["duration_ns"] = 30_000_000_000
+    result = analyze_probe(payload)
+    assert result["coverage"]["requested_raw_duration_covered"]
+    assert "missing_or_inconsistent_raw_schedule" in result["coverage"]["issues"]
+    assert "sample_raw_schedule_mismatch" in result["coverage"]["issues"]
+    assert not result["coverage"]["collection_completion_verified"]
+    assert result["classification"] == "INDETERMINATE"
+
+
+def test_truncated_full_run_distinguishes_geometry_from_acquisition():
+    payload = trace(rate_segments=((0, 1000),))
+    payload["samples"] = payload["samples"][:11]
+    result = analyze_probe(payload)
+    assert result["full_run"]["span_complete"]
+    assert not result["full_run"]["acquisition_complete"]
+    assert not result["full_run"]["complete"]
+    assert result["full_run"]["classification"] == "OUTSIDE"
+    assert result["classification"] == "OUTSIDE"
+
+
+@pytest.mark.parametrize("sign,direction", [(1, "POSITIVE"), (-1, "NEGATIVE")])
+def test_subthreshold_adjacent_changes_accumulate_outside_fixed_windows(sign, direction):
+    payload = trace(realtime_steps=tuple((second, sign * 400_000_000) for second in range(1, 31)))
+    result = analyze_probe(payload)
+    assert all(event["classification"] == "WITHIN" for event in result["realtime_events"])
+    assert all(window["classification"] == "WITHIN" for window in result["windows"])
+    assert all(window["realtime_offset_classification"] == "OUTSIDE" for window in result["windows"])
+    assert all(window["realtime_offset_direction"] == direction for window in result["windows"])
+    for window in result["windows"]:
+        lo, hi = window["realtime_offset_change_interval_ns"]
+        assert lo < sign * 4_000_000_000 < hi
+    lo, hi = result["full_run"]["realtime_offset_change_interval_ns"]
+    assert lo < sign * 12_000_000_000 < hi
+    assert result["outside_realtime_offset_windows"] == 3
+    assert result["classification"] == "OUTSIDE"
+
+
+@pytest.mark.parametrize("sign", [1, -1])
+def test_fixed_window_cumulative_change_preserves_threshold_uncertainty(sign):
+    payload = trace(duration_s=10, realtime_steps=tuple((second, sign * 50_000_000) for second in range(1, 11)))
+    result = analyze_probe(payload)
+    window = result["windows"][0]
+    lo, hi = window["realtime_offset_change_interval_ns"]
+    assert lo < sign * 500_000_000 < hi
+    assert window["realtime_offset_classification"] == "INDETERMINATE"
+    assert result["classification"] == "INDETERMINATE"
+
+
+def test_full_run_cumulative_change_is_descriptive_not_a_fixed_threshold_event():
+    payload = trace(duration_s=100, realtime_steps=tuple((second, 10_000_000) for second in range(1, 101)))
+    result = analyze_probe(payload)
+    assert result["full_run"]["realtime_offset_change_interval_ns"][0] > 500_000_000
+    assert "realtime_offset_classification" not in result["full_run"]
+    assert all(window["realtime_offset_classification"] == "WITHIN" for window in result["windows"])
+    assert result["classification"] == "WITHIN"
+
+
+def test_legacy_exact_duration_keeps_integer_json_type():
+    payload = trace()
+    payload["schema_version"] = 1
+    for row in payload["samples"]:
+        row["monotonic_raw_ns"] = row["raw_before_ns"]
+    result = analyze_probe(payload)
+    assert type(result["full_run"]["raw_duration_ns"]) is int
+    assert result["full_run"]["raw_duration_ns"] == 30_000_000_000
+
+
+@pytest.mark.parametrize("field,value,issue", [
+    ("target_raw_ns", 1, "sample_raw_schedule_mismatch"),
+    ("schedule_lateness_ns", -1, "sample_raw_schedule_mismatch"),
+    ("observation_elapsed_ns", -1, "sample_observation_elapsed_mismatch"),
+])
+def test_contradictory_sample_schedule_context_prevents_completion(field, value, issue):
+    payload = trace()
+    payload["samples"][0][field] = value
+    result = analyze_probe(payload)
+    assert issue in result["coverage"]["issues"]
+    assert not result["coverage"]["collection_completion_verified"]
+    assert result["classification"] == "INDETERMINATE"
