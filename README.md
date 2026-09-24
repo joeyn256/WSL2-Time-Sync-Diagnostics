@@ -307,6 +307,7 @@ before interpreting timing results.
 
 ## Further reading
 
+- [Dated upstream time-sync status, defaults, and upgrade caveats](docs/upstream-time-sync-status.md)
 - [Ubuntu 24.04 findings](docs/findings-ubuntu-24.04.md)
 - [Ubuntu 26.04 findings](docs/findings-ubuntu-26.04.md)
 - [`systemd-timesyncd` investigation](docs/timesyncd-investigation.md)

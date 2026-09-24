@@ -89,6 +89,8 @@ benchmark ready
 
 The early anomaly and later return toward nominal behavior are consistent with a residual kernel slew continuing after the service transition. The experiment did not trace the initiating adjustment syscall and did not prove that every other possible clock writer was absent.
 
+That rate shape does not explain who set or later reset `tick`: it is not a phase-offset field that simply decays. The [upstream review](upstream-time-sync-status.md#connection-to-this-projects-d4r2-evidence) separates persistent kernel discipline from writer attribution and documents Canonical's current default-controller guidance.
+
 ## An instrumentation lesson
 
 One earlier D3 attempt also exposed a narrower measurement hazard: in that experiment, querying `timedatectl show-timesync` could activate the stopped service through its query path.
