@@ -20,7 +20,8 @@
     "v0.3.0: README opening rewritten around problem, difficulty, tool, and evidence, with explicit evidence tiers and an install/quickstart block.",
     "v0.3.0: Animated D4R2 hero (docs/assets/d4r2-settling-animated.svg) built only from published D4R2 values, CSS keyframes, no scripts, reduced-motion aware, complete static fallback.",
     "v0.3.0: Merged host -> WSL2 kernel -> guest architecture diagram (docs/assets/architecture-host-vm-guest.svg) replacing two near-duplicate architecture assets.",
-    "v0.3.0: Timeline corrections (2.1.1 marked prerelease, maintainer closure wording, year ticks, D4R2 marker inside 2026, Canonical page dated as its own April-2026 fact); superseded assets removed; broken README anchor in docs/findings-ubuntu-26.04.md fixed; validation wording rescoped by commit.",\n    "v0.3.1: D4R2 animated viewer starts the stop transition almost immediately, shortens playback to 21 seconds, and adds a clearly labelled architecture inset showing systemd-timesyncd STOPPED while Hyper-V remains and kernel discipline state is not automatically proven settled. The inset is explanatory only and does not claim timesyncd was disabled, the sole writer, or the root cause."
+    "v0.3.0: Timeline corrections (2.1.1 marked prerelease, maintainer closure wording, year ticks, D4R2 marker inside 2026, Canonical page dated as its own April-2026 fact); superseded assets removed; broken README anchor in docs/findings-ubuntu-26.04.md fixed; validation wording rescoped by commit.",
+    "v0.3.1: D4R2 animated viewer starts the stop transition almost immediately, shortens playback to 21 seconds, and adds a clearly labelled architecture inset showing systemd-timesyncd STOPPED while Hyper-V remains and kernel discipline state is not automatically proven settled. The inset is explanatory only and does not claim timesyncd was disabled, the sole writer, or the root cause."
   ],
   "validation": {
     "durable_github_ci": {
@@ -28,7 +29,10 @@
         "commit": "de2375d31dcd049c8895808f9dc9a16143968274",
         "run_url": "https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35946297095",
         "runner": "ubuntu-latest",
-        "interpreters": ["CPython 3.12.14", "CPython 3.14.7"],
+        "interpreters": [
+          "CPython 3.12.14",
+          "CPython 3.14.7"
+        ],
         "tests_passed_per_interpreter": 193,
         "installed_cli_smoke": "Passed in both jobs."
       },
@@ -41,7 +45,10 @@
         "commit": "dd5833511d445453f2422aedb37eda6cab000efe",
         "run_url": "https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35951407913",
         "runner": "ubuntu-latest",
-        "interpreters": ["CPython 3.12.14", "CPython 3.14.7"],
+        "interpreters": [
+          "CPython 3.12.14",
+          "CPython 3.14.7"
+        ],
         "tests_passed_per_interpreter": 271,
         "installed_cli_smoke": "Semantic smoke passed in both jobs."
       },
@@ -49,7 +56,10 @@
         "commit": "6f529bd15cda2dc91af223fb51f8aaacc626317c",
         "run_url": "https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35953104105",
         "runner": "ubuntu-latest",
-        "interpreters": ["CPython 3.12.14", "CPython 3.14.7"],
+        "interpreters": [
+          "CPython 3.12.14",
+          "CPython 3.14.7"
+        ],
         "tests_passed_per_interpreter": 271,
         "installed_cli_smoke": "Semantic smoke passed in both jobs (strict JSON, RAW completion and coverage, two complete windows, zero partial windows, cumulative REALTIME evidence, method-aware comparison)."
       },
