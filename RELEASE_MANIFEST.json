@@ -12,7 +12,7 @@
     {"path":".gitignore","bytes":136,"sha256":"49a4d088e9a38c6105d231b1387973d24510bdf6ef6fbed9d54832de0bb8f13e"},
     {"path":"CONTRIBUTING.md","bytes":2164,"sha256":"db28203c6f135e27bf74592876f1c28660f40d4565ec3a5b2f48f39e28ce9302"},
     {"path":"LICENSE","bytes":1088,"sha256":"d71e190e72f3dbb5ef3a9403e3784ab3a90451afbc5a71b0f07286b4ec3a8976"},
-    {"path":"MANIFEST.json","bytes":1583,"sha256":"8abfcb7f64b6166c8d48cb89396e8bb3b3fdcfd6c87747babdee125478e635ae"},
+    {"path":"MANIFEST.json","bytes":1599,"sha256":"8debb299a17da3a4fa2a35488a135aac923a81a69a78c84ce636e9f891e6cf99"},
     {"path":"README.md","bytes":15230,"sha256":"98209316ea61b8b9f5af59ab3ebd5bcf549293441924fb091697caa8906e6070"},
     {"path":"RELEASE_CHECKLIST.md","bytes":692,"sha256":"4afb2fcc7c1a7873422564e2896a78d56b79020ef5750d4525d19058e19bd6e2"},
     {"path":"SECURITY.md","bytes":1412,"sha256":"7df6ced40b407c7e7a83ce8fdfca1be057b04ed69b5b47a45834ef40823d813b"},
