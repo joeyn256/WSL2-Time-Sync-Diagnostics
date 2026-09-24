@@ -2,55 +2,93 @@
 
 <p align="center">
   <a href="https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/actions/workflows/ci.yml"><img alt="CI status" src="https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/actions/workflows/ci.yml/badge.svg"></a>
+  <img alt="Latest release" src="https://img.shields.io/github/v/release/joeyn256/WSL2-Time-Sync-Diagnostics?sort=semver">
   <img alt="Python 3.12 and 3.14" src="https://img.shields.io/badge/python-3.12%20%7C%203.14-3776ab">
   <img alt="Runtime: standard library only" src="https://img.shields.io/badge/runtime-stdlib%20only-555">
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green">
 </p>
 
-<p align="center"><strong>A read-only timing diagnostic for WSL2, and the bounded investigation that made it necessary.</strong></p>
+<p align="center"><strong>Read-only WSL2 clock diagnostics, reproducible timing experiments, and evidence-backed analysis for Windows + Ubuntu engineers.</strong></p>
+
+> ### Start here — three timing situations, one clock story
+> The animated comparison below is the fastest way to understand the project. All three panels share one 0–120 s timeline and one ppm scale. The **outer panels are same-host guest-side measurements from 2026-09-24**; the **middle panel is the historical D4R2 Windows-QPC-referenced experiment**. Results appear as each 30 s window closes, and reduced-motion/static rendering shows the complete result.
+
+<p align="center">
+  <img src="docs/assets/three-model-timing-comparison.svg" alt="Three panels on one 0 to 120 second axis and one symmetric-log ppm scale. Left, Ubuntu 24.04 with timesyncd enabled, measured on one Windows host on 2026-09-24 against the guest's raw clock: every 30-second window outside the ±1000 ppm screen at about 5 percent slow, with forward REALTIME jumps of about +1.6 seconds and the 300-second run at -48,010.756 to -48,010.740 ppm. Middle, Ubuntu 24.04 after the historical timesyncd stop, D4R2 against Windows QPC: the first 30-second window was +26,665.299 to +26,724.999 ppm, later windows returned near nominal, and the 120-second run remained +6,661.607 to +6,676.217 ppm. Right, Ubuntu 26.04 fresh default on the same host and day, chrony running with -x: all ten 30-second windows stayed inside the screen, the 300-second run was -0.535 to -0.511 ppm, and no large jumps were observed. The outer panels are guest-side observations rather than host-referenced accuracy measurements, and the unidentified tick writer is not established." width="1000">
+</p>
+
+### What jumps out
+
+- **Ubuntu 24.04 + `systemd-timesyncd` active, same-host screen:** the guest ran about **4.8% slow over 300 s**, with repeated ≈+1.6 s `CLOCK_REALTIME` jumps and kernel `tick` moving away from 10000.
+- **Historical D4R2 after the service stop:** even after a ≈60 s QPC-measured wait, the next 30 s window was still about **+26,700 ppm fast**; later windows looked near nominal, but the full 120 s average was still badly biased.
+- **Fresh Ubuntu 26.04 default on the same host/day:** the guest-side screen stayed around **−0.52 ppm over 300 s**, with no large jumps and `tick=10000` throughout.
+
+> **Evidence boundary:** the outer panels compare guest `CLOCK_MONOTONIC` with `CLOCK_MONOTONIC_RAW`; they do **not** establish host-referenced accuracy or a controlled distro ranking. The historical middle panel uses Windows QPC. The process/driver that changed `tick` is still not identified, and C1 remains **INCONCLUSIVE**.
+
+## Why this project exists
 
 **The problem.** A long-running benchmark under WSL2 on Ubuntu 24.04 was invalidated by clock behaviour: `CLOCK_REALTIME` was being corrected in large steps, and after the suspected user-space time service was stopped, the kernel clock was *still* running fast enough to spoil the next measurement window.
 
-**Why it is hard.** Inside a WSL2 guest several things shape one kernel clock: the Hyper-V host integration, the guest's own NTP daemon, and the kernel's persistent discipline state (`tick`, `freq`) that outlives whichever process set it. None of them announce what they did, a service being "stopped" says nothing about corrections already in flight, and a guest cannot measure its own accuracy without an outside reference.
+**Why it is hard.** WSL2 combines host-driven Hyper-V time integration, guest time daemons, Linux kernel clock discipline, and multiple clock APIs with different semantics. A service transition does not prove that the kernel is settled, and a guest cannot prove its own host-relative accuracy using only guest clocks.
 
-**What was built.** `wsl-time-sync`: a standard-library-only CLI that reads clocks inside `CLOCK_MONOTONIC_RAW` brackets, analyses fixed windows with exact interval arithmetic, reports `WITHIN` / `OUTSIDE` / `INDETERMINATE` with the uncertainty attached, and fails closed whenever a capture is incomplete. It never writes the clock, touches services, or asks for privileges.
+**What was built.** `wsl-time-sync` is a standard-library-only Python CLI that brackets measurements with `CLOCK_MONOTONIC_RAW`, performs fixed-window interval analysis, reports `WITHIN` / `OUTSIDE` / `INDETERMINATE` without hiding uncertainty, observes `adjtimex` state read-only, and fails closed when capture geometry or completion evidence is insufficient.
 
-**What the evidence showed.**
+## Engineering depth at a glance
 
-*How to read the figure:* three situations, one shared 0–120 s axis, one symmetric-log ppm scale, and every box is a committed interval enclosure. The **outer panels were measured on one Windows host on 2026-09-24** with this repository's read-only probe, each from a fresh WSL boot with one distro running: Ubuntu 24.04 with `systemd-timesyncd` active on the left, Ubuntu 26.04's fresh default on the right, both comparing `CLOCK_MONOTONIC` with `CLOCK_MONOTONIC_RAW` inside the guest. The **middle panel is the historical D4R2 run** against Windows QPC, with `t = 0` the moment its window opened, about 60 s after the confirmed stop. A summary pops up as each 30 s window closes; the chips carry the exact committed enclosures and the headline ranges are rounded outward. Red triangles under the left axis are measured `CLOCK_REALTIME` jumps. With animation off, the complete result is shown. Full record: [docs/same-host-screens-2026-09-24.md](docs/same-host-screens-2026-09-24.md).
-
-<p align="center">
-  <img src="docs/assets/three-model-timing-comparison.svg" alt="Three panels on one 0 to 120 second axis and one symmetric-log ppm scale. Left, Ubuntu 24.04 with timesyncd enabled, measured on this host on 2026-09-24 against the guest's raw clock: every 30-second window outside the ±1000 ppm screen at about 5 percent slow, between -55,089 and -49,693 ppm rounded outward, with forward REALTIME jumps of about +1.6 seconds at 31, 65 and 99 seconds; the 300-second run was -48,010.756 to -48,010.740 ppm and the kernel tick moved from 10000 to 9437; the host clock was about 1.06 seconds behind NTP with the Windows Time service stopped. Middle, Ubuntu 24.04 after the timesyncd stop, the historical D4R2 run against Windows QPC: t = 0 is about 60 seconds after the confirmed stop; window 1 measured +26,665.299 to +26,724.999 ppm, outside the screen; windows 2 to 4 were within about ±33 ppm; the 120-second run was +6,661.607 to +6,676.217 ppm, still outside; tick 10833 before and 10000 later. Right, Ubuntu 26.04 fresh default on the same host the same day, chrony running with -x: all ten 30-second windows inside the screen between -0.73 and -0.27 ppm rounded outward, the 300-second run -0.535 to -0.511 ppm, no jumps, tick 10000 throughout. Who changes tick is not established. Motion is playback only." width="1000">
-</p>
-
-| Tier | Statement |
+| Area | What this repository demonstrates |
 |---|---|
-| **VENDOR / DOCUMENTED FACT** | Modern WSL receives time from Windows/Hyper-V. Ubuntu 24.04 also enables `systemd-timesyncd` by default, and Canonical documents that the two can disagree. A fresh Ubuntu 26.04 runs chrony with `-x` under WSL, so it does not control the clock unless opted in. |
-| **PROJECT OBSERVATION** | On one Windows host on 2026-09-24, from fresh WSL boots, Ubuntu 24.04 with `systemd-timesyncd` active ran its guest clock about 4.8 % slow for 300 s with a +1.6 s `CLOCK_REALTIME` jump every 34 s and `tick` driven from 10000 to 9437, while Ubuntu 26.04's fresh default stayed within ±0.73 ppm with `tick` 10000 throughout; the host clock was 1.06 s behind NTP with the Windows Time service stopped. In the historical D4R2 run the service was confirmed stopped, the experiment waited ≈60 s (Windows QPC), and the kernel still reported `tick=10833`; the first 30 s window ran +26,665 to +26,725 ppm fast against QPC before later windows returned to within ±33 ppm. While the service was active in C1 phase A0, four REALTIME steps of about +0.59 to +0.63 s were observed. |
-| **INFERENCE / INTERPRETATION** | The same-host result fits two writers with references that disagreed by about a second: timesyncd jumping to NTP time every poll and an unidentified writer slewing back toward host time at up to −83,333 ppm. The D4R2 anomaly with a near-nominal `RAW`/QPC rate points at clock *discipline*, not the hardware counter, and is consistent with a residual kernel correction outliving the daemon. Ubuntu 26.04's fresh-install defaults remove the default guest-side competitor. |
-| **NOT ESTABLISHED / INCONCLUSIVE** | Which process or driver changes `tick` (9437 here, 10833 in D4R2): timesyncd's source excludes it and chrony was not running; that `systemd-timesyncd` was the sole writer (the controlled A–B–A test C1 was **INCONCLUSIVE**); whether the same-host result recurs when the host clock agrees with NTP; any 24.04-vs-26.04 ranking; host-referenced qualification of any machine. |
+| **Systems debugging** | WSL2/Hyper-V time integration, Linux `CLOCK_*` semantics, `adjtimex`, `systemd-timesyncd`, chrony `-x`, kernel `tick` / `freq` state |
+| **Measurement design** | RAW-bracketed acquisition, fixed windows, interval enclosures, signed REALTIME events, cumulative offset evidence, explicit uncertainty |
+| **Software design** | Python 3.12/3.14, standard-library-only runtime, CLI design, schema versioning, offline analysis, fail-closed validation |
+| **Testing / CI** | **276 tests per interpreter**, release-wheel build/install checks, semantic CLI smoke tests, public-evidence/README regression checks |
+| **Reproducibility** | Raw JSON evidence, SHA-256 provenance, verbatim protocols, redacted environment snapshots, source-linked methodology |
+| **Technical communication** | Animated evidence-backed diagrams, architecture documentation, upstream Microsoft/Canonical research, explicit fact/inference/unknown boundaries |
 
-> **Core lesson:** service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready. Measure before you trust a window.
+## For Windows / Ubuntu engineers
+
+If you are trying to reproduce, diagnose, or fix this class of timing problem:
+
+1. **Inspect the guest before changing anything:** run `wsl-time-sync diagnose` and record the active clocksource, time services, WSL environment, and read-only kernel discipline state.
+2. **Measure guest clock discipline:** run a bounded `probe`, then `analyze` it in fixed windows instead of trusting a long-run average.
+3. **Check the controller architecture:** compare the 24.04 `systemd-timesyncd` default with the 26.04 chrony `-x` behavior in [the upstream review](docs/upstream-time-sync-status.md).
+4. **Reproduce the published same-host screen:** use the exact read-only protocol in [`evidence/2026-09-24-same-host-screens/PROTOCOL.md`](evidence/2026-09-24-same-host-screens/PROTOCOL.md).
+5. **Follow the unresolved mechanism:** the repo records what is observed, what vendor source code rules out, and what remains unknown rather than assigning a root cause without tracing evidence.
+
+The diagnostic CLI does **not** stop services, change the clock, alter firewall/WSL settings, or require elevated privileges.
 
 ### Try it in two minutes
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
 python -m pip install -e .
+wsl-time-sync diagnose --output diagnose.json
 wsl-time-sync probe --duration 30 --cadence 1 --output probe.json
-wsl-time-sync analyze probe.json --window 10 --output analysis.json   # WITHIN / OUTSIDE / INDETERMINATE + intervals
-wsl-time-sync diagnose --output diagnose.json                          # read-only environment + adjtimex snapshot
+wsl-time-sync analyze probe.json --window 10 --output analysis.json
 ```
 
 Guest-side agreement between `CLOCK_MONOTONIC` and `CLOCK_MONOTONIC_RAW` is evidence about clock discipline inside the guest; it is not accuracy against Windows or an external reference.
 
+## Evidence discipline
+
+| Tier | Statement |
+|---|---|
+| **VENDOR / DOCUMENTED FACT** | Modern WSL receives time from Windows/Hyper-V. Ubuntu 24.04 also enables `systemd-timesyncd` by default, and Canonical documents that the two can disagree. A fresh Ubuntu 26.04 runs chrony with `-x` under WSL, so chrony does not control the system clock unless explicitly opted in. |
+| **PROJECT OBSERVATION** | On one Windows host on 2026-09-24, from fresh WSL boots, Ubuntu 24.04 with `systemd-timesyncd` active ran its guest clock about 4.8% slow for 300 s with repeated ≈+1.6 s REALTIME jumps, while Ubuntu 26.04's fresh default stayed within ±0.73 ppm. In historical D4R2, the service was confirmed stopped, the experiment waited ≈60 s using Windows QPC, and the first 30 s host-referenced window was still +26,665 to +26,725 ppm fast. |
+| **INFERENCE / INTERPRETATION** | The same-host result fits two control paths with references that disagreed by about a second. The D4R2 pattern is consistent with persistent kernel clock discipline outliving a daemon transition. |
+| **NOT ESTABLISHED / INCONCLUSIVE** | Which process/driver changes `tick`; whether the same-host result recurs when the host agrees with NTP; whether the newer episode and D4R2 share one mechanism; any controlled 24.04-vs-26.04 ranking; host-referenced qualification of the outer-panel measurements. |
+
+> **Core lesson:** **service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready.** Measure before you trust a window.
+
 ### Where to go next
 
-- **Choosing an environment** → [At a glance](#at-a-glance); Ubuntu 26.04 fresh install vs 24.04, with Python 3.12 vs 3.14 kept as a separate decision.
-- **How time reaches the guest** → [The architecture changed](#the-architecture-changed) and [docs/upstream-time-sync-status.md](docs/upstream-time-sync-status.md).
-- **The 2026-09-24 same-host screens with committed evidence** → [docs/same-host-screens-2026-09-24.md](docs/same-host-screens-2026-09-24.md) and [evidence/2026-09-24-same-host-screens/](evidence/2026-09-24-same-host-screens/).
-- **The full D4R2 record, its replay figure, and the C1 result** → [docs/timesyncd-investigation.md](docs/timesyncd-investigation.md).
-- **CLI and JSON schema** → [docs/cli-schema.md](docs/cli-schema.md); **arithmetic** → [docs/methodology.md](docs/methodology.md); **limits** → [docs/limitations.md](docs/limitations.md).
+- **Raw same-host evidence + exact protocol** → [evidence/2026-09-24-same-host-screens/](evidence/2026-09-24-same-host-screens/) and [docs/same-host-screens-2026-09-24.md](docs/same-host-screens-2026-09-24.md)
+- **WSL / Ubuntu control-path research** → [docs/upstream-time-sync-status.md](docs/upstream-time-sync-status.md)
+- **Historical D4R2 record + C1 result** → [docs/timesyncd-investigation.md](docs/timesyncd-investigation.md)
+- **CLI / schema** → [docs/cli-schema.md](docs/cli-schema.md)
+- **Math / uncertainty model** → [docs/methodology.md](docs/methodology.md)
+- **Limits / non-claims** → [docs/limitations.md](docs/limitations.md)
+- **Implementation** → [src/wsl_time_sync/](src/wsl_time_sync/)
+- **Tests** → [tests/](tests/)
 
 ---
 
@@ -84,7 +122,7 @@ Read the sourced upstream analysis: [Upstream WSL time synchronization status](d
 
 ## The read-only diagnostic core
 
-The CLI is standard-library-only at runtime and does **not** modify time services, firewall state, WSL configuration, or system Python. **v0.6.0 is the current public pre-1.0 release of the read-only CLI, schema-v2 report format, measured comparison evidence, and documented fail-closed analysis behavior. The stable v1 contract remains deferred.**
+The CLI is standard-library-only at runtime and does **not** modify time services, firewall state, WSL configuration, or system Python. **v0.6.1 is the current public pre-1.0 release of the read-only CLI, schema-v2 report format, measured comparison evidence, and documented fail-closed analysis behavior. The stable v1 contract remains deferred.**
 
 ### Install
 
@@ -297,7 +335,7 @@ A result in one category is not automatically evidence for another.
 
 The v0.6.0 release uses the same strict software-quality gate planned for the future stable v1 release on **both Python 3.12 and Python 3.14**:
 
-- the complete **275-test** suite, including four public-evidence/visual integrity checks;
+- the complete **276-test** suite, including four public-evidence/visual integrity checks;
 - construction and installation of the normal `wsl2-time-sync-diagnostics` wheel, with distribution and import version checks;
 - the semantic CLI smoke: strict JSON, verified RAW acquisition completion and requested-duration coverage, two complete fixed windows with zero partial windows, cumulative REALTIME evidence, and method-aware comparison.
 
