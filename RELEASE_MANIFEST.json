@@ -1,17 +1,26 @@
 {
-  "release": "0.2.0",
-  "status": "feature-branch-implementation",
-  "branch": "feature/v0.2-guest-core",
+  "release": "0.3.0",
+  "status": "feature-branch-presentation-refresh",
+  "branch": "feature/v0.3.0-presentation",
   "base_release": "v0.1.1",
   "base_commit": "830a142d57e8f785016ef07952a5340b4eb94ab3",
-  "scope_issue": "https://github.com/joeyn256/wsl2-time-sync-guide/issues/2",
-  "cli_behavior_change": true,
+  "builds_on": {
+    "v0_2_candidate_branch": "feature/v0.2-guest-core",
+    "v0_2_candidate_head": "6f529bd15cda2dc91af223fb51f8aaacc626317c",
+    "scope_issue": "https://github.com/joeyn256/wsl2-time-sync-guide/issues/2"
+  },
+  "cli_behavior_change": false,
   "runtime_dependencies": "Python standard library only",
   "changes": [
-    "Schema-v2 RAW-bracketed guest sampling with explicit missing clocks and collection completeness.",
-    "Fixed-window interval analysis, three-way classification, and legacy probe input support.",
-    "Verified Linux x86-64 LP64 read-only adjtimex snapshots and finite non-certifying settling observation.",
-    "Method-aware comparison and parameterized synthetic failure-shape regressions."
+    "v0.2: Schema-v2 RAW-bracketed guest sampling with explicit missing clocks and collection completeness.",
+    "v0.2: Fixed-window interval analysis, three-way classification, and legacy probe input support.",
+    "v0.2: Verified Linux x86-64 LP64 read-only adjtimex snapshots and finite non-certifying settling observation.",
+    "v0.2: Method-aware comparison and parameterized synthetic failure-shape regressions.",
+    "v0.2 correction: RAW-origin acquisition targets, finite perf-counter guard, fail-closed schema-v2 completion verification, fixed-window cumulative REALTIME-minus-RAW evidence (analysis method fixed_window_interval_v2).",
+    "v0.3.0: README opening rewritten around problem, difficulty, tool, and evidence, with explicit evidence tiers and an install/quickstart block.",
+    "v0.3.0: Animated D4R2 hero (docs/assets/d4r2-settling-animated.svg) built only from published D4R2 values, CSS keyframes, no scripts, reduced-motion aware, complete static fallback.",
+    "v0.3.0: Merged host -> WSL2 kernel -> guest architecture diagram (docs/assets/architecture-host-vm-guest.svg) replacing two near-duplicate architecture assets.",
+    "v0.3.0: Timeline corrections (2.1.1 marked prerelease, maintainer closure wording, year ticks, D4R2 marker inside 2026, Canonical page dated as its own April-2026 fact); superseded assets removed; broken README anchor in docs/findings-ubuntu-26.04.md fixed; validation wording rescoped by commit."
   ],
   "validation": {
     "durable_github_ci": {
@@ -28,15 +37,43 @@
         "run_url": "https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35949003144",
         "result": "Both Python 3.12/3.14 test and installed CLI smoke jobs passed."
       },
-      "current_commit": "Consult checks for the exact commit; the linked counts above describe the earlier commits only."
+      "runtime_correction": {
+        "commit": "dd5833511d445453f2422aedb37eda6cab000efe",
+        "run_url": "https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35951407913",
+        "runner": "ubuntu-latest",
+        "interpreters": ["CPython 3.12.14", "CPython 3.14.7"],
+        "tests_passed_per_interpreter": 271,
+        "installed_cli_smoke": "Semantic smoke passed in both jobs."
+      },
+      "v0_2_candidate_head": {
+        "commit": "6f529bd15cda2dc91af223fb51f8aaacc626317c",
+        "run_url": "https://github.com/joeyn256/wsl2-time-sync-guide/actions/runs/35953104105",
+        "runner": "ubuntu-latest",
+        "interpreters": ["CPython 3.12.14", "CPython 3.14.7"],
+        "tests_passed_per_interpreter": 271,
+        "installed_cli_smoke": "Semantic smoke passed in both jobs (strict JSON, RAW completion and coverage, two complete windows, zero partial windows, cumulative REALTIME evidence, method-aware comparison)."
+      },
+      "current_commit": "Consult the checks for the exact commit; the linked counts describe the listed commits only."
     },
     "local_wsl_implementation_review_checks": {
-      "scope": "Initial v0.2 implementation; reported by the implementer and independently reproduced by Fable.",
-      "python_3_12_3": "193 tests and installed CLI smoke passed on Ubuntu 24.04 WSL2.",
-      "python_3_14_4": "193 tests and installed CLI smoke passed on Ubuntu 26.04 WSL2.",
+      "initial_implementation": {
+        "scope": "de2375d3; reported by the implementer and independently reproduced by the reviewer.",
+        "python_3_12_3": "193 tests and installed CLI smoke passed on Ubuntu 24.04 WSL2.",
+        "python_3_14_4": "193 tests and installed CLI smoke passed on Ubuntu 26.04 WSL2."
+      },
+      "v0_2_candidate_head": {
+        "scope": "6f529bd1; reproduced by the reviewer on 2026-09-24 during the final v0.2 review.",
+        "python_3_12_3": "271 tests passed on Ubuntu 24.04.4 WSL2.",
+        "python_3_14_4": "271 tests passed on Ubuntu 26.04.1 WSL2."
+      },
       "provenance_limit": "No durable raw logs or hashes for these local runs are committed here. These are software checks, not formal timing qualification."
     },
     "host_referenced_timing_qualification": "Unavailable; neither GitHub CI nor local WSL software checks establish host-referenced timing qualification."
+  },
+  "presentation_assets": {
+    "d4r2-settling-animated.svg": "Values taken verbatim from docs/timesyncd-investigation.md (D4R2 table). Measured intervals are drawn at their published bounds; the only derived figure (about +0.80 s over window 1) is labelled derived; the playback cursor and sampling wash are labelled illustrative and are hidden when animation is off; the tick writer/reset question and the C1 result are printed as not established.",
+    "architecture-host-vm-guest.svg": "Defaults from Microsoft kernel/WSL sources and Canonical documentation as summarized in docs/upstream-time-sync-status.md; the two project measurement points are marked separately from vendor facts.",
+    "upstream-timeline.svg": "Dates checked against the GitHub API on 2026-09-24: #10006 opened 2023-04-21 and closed 2024-01-22; WSL 2.1.1 published 2024-01-22 as a prerelease; #12583 opened 2025-02-13; #40745 opened 2026-06-08."
   },
   "provenance": "Fresh implementations of small acquisition/math ideas from the bounded issue and audit descriptions; kernel ABI from public Linux interface documentation. No historical source or private raw evidence copied.",
   "note": "No merge, release tag, host-reference qualification, service intervention, or universal readiness claim. Optional per-probe adjtimex snapshots and the separately scoped Windows companion are not included."

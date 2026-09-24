@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,'Segoe UI',Ubuntu,'DejaVu Sans',Arial,sans-serif">
+<title id="title">How time reaches a WSL2 guest, and where this project measures</title>
+<desc id="desc">Three layers: the Windows host with its system clock and Hyper-V time-sync integration; the WSL2 virtual machine's Linux kernel with the hv_utils time-sync driver (timesync_implicit=1 supplied by WSL), NTP discipline state (tick and freq) and three clocks (REALTIME and MONOTONIC disciplined, MONOTONIC_RAW undisciplined); and guest user space, where Ubuntu 24.04 enables systemd-timesyncd by default (it can write the clock) while a fresh Ubuntu 26.04 runs chrony with -x (tracks, does not control the clock). The project's v0.2 CLI measures MONOTONIC against MONOTONIC_RAW inside the guest; the historical D4R2 experiment measured MONOTONIC and RAW against Windows QPC.</desc>
+<style><![CDATA[text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,sans-serif}]]></style>
+<defs>
+ <marker id="mBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3987e5"/></marker>
+ <marker id="mOrange" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#d95926"/></marker>
+ <marker id="mViolet" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#9085e9"/></marker>
+</defs>
+<rect width="1400" height="760" rx="28" fill="#0d1117"/>
+<text x="700" y="52" text-anchor="middle" fill="#f0f6fc" font-size="28" font-weight="700">How time reaches a WSL2 guest — and where this project measures</text>
+<text x="700" y="80" text-anchor="middle" fill="#c3c2b7" font-size="15">Documented default architecture (Microsoft / Canonical sources) with the project's two measurement points marked in violet</text>
+
+<!-- Layer 1: Windows host -->
+<rect x="60" y="112" width="360" height="430" rx="22" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<text x="90" y="150" fill="#f0f6fc" font-size="21" font-weight="700">Windows host</text>
+<text x="90" y="172" fill="#898781" font-size="12.5">VENDOR / DOCUMENTED FACT</text>
+<rect x="90" y="196" width="300" height="70" rx="14" fill="#111827" stroke="#3987e5" stroke-width="1.5"/>
+<text x="240" y="224" text-anchor="middle" fill="#f0f6fc" font-size="15" font-weight="700">Windows system clock</text>
+<text x="240" y="246" text-anchor="middle" fill="#c3c2b7" font-size="12.5">host time discipline (w32time or other)</text>
+<rect x="90" y="292" width="300" height="88" rx="14" fill="#111827" stroke="#3987e5" stroke-width="1.5"/>
+<text x="240" y="318" text-anchor="middle" fill="#f0f6fc" font-size="15" font-weight="700">Hyper-V time-sync integration</text>
+<text x="240" y="340" text-anchor="middle" fill="#c3c2b7" font-size="12.5">SAMPLE messages carry host time;</text>
+<text x="240" y="358" text-anchor="middle" fill="#c3c2b7" font-size="12.5">SYNC requests a time-of-day set</text>
+<rect x="90" y="406" width="300" height="106" rx="14" fill="#1b1630" stroke="#9085e9" stroke-width="1.5"/>
+<text x="240" y="432" text-anchor="middle" fill="#f0f6fc" font-size="14" font-weight="700">QueryPerformanceCounter (QPC)</text>
+<text x="240" y="453" text-anchor="middle" fill="#c3c2b7" font-size="12.5">host elapsed-time reference used by the</text>
+<text x="240" y="471" text-anchor="middle" fill="#c3c2b7" font-size="12.5">historical D4R2 experiment (2 of 2)</text>
+<text x="240" y="494" text-anchor="middle" fill="#9085e9" font-size="11.5" font-weight="700">MEASUREMENT POINT 2 (historical only)</text>
+
+<!-- Layer 2: WSL2 VM kernel -->
+<rect x="470" y="112" width="470" height="430" rx="22" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<text x="500" y="150" fill="#f0f6fc" font-size="21" font-weight="700">WSL2 utility VM · Linux kernel</text>
+<text x="500" y="172" fill="#898781" font-size="12.5">VENDOR / DOCUMENTED FACT (kernel source, WSL source)</text>
+<rect x="500" y="196" width="410" height="70" rx="14" fill="#111827" stroke="#3987e5" stroke-width="1.5"/>
+<text x="705" y="222" text-anchor="middle" fill="#f0f6fc" font-size="15" font-weight="700">hv_utils time-sync driver</text>
+<text x="705" y="244" text-anchor="middle" fill="#c3c2b7" font-size="12.5">WSL boots the kernel with hv_utils.timesync_implicit=1</text>
+<rect x="500" y="292" width="410" height="88" rx="14" fill="#111827" stroke="#39d0d8" stroke-width="1.5"/>
+<text x="705" y="318" text-anchor="middle" fill="#f0f6fc" font-size="15" font-weight="700">kernel timekeeping / NTP discipline state</text>
+<text x="705" y="340" text-anchor="middle" fill="#c3c2b7" font-size="12.5">tick, freq, status persist after a daemon stops;</text>
+<text x="705" y="358" text-anchor="middle" fill="#c3c2b7" font-size="12.5">any privileged writer can set them (adjtimex)</text>
+<rect x="500" y="406" width="126" height="106" rx="14" fill="#111827" stroke="#39d0d8" stroke-width="1.5"/>
+<text x="563" y="432" text-anchor="middle" fill="#f0f6fc" font-size="13" font-weight="700">REALTIME</text>
+<text x="563" y="452" text-anchor="middle" fill="#c3c2b7" font-size="12">disciplined;</text>
+<text x="563" y="470" text-anchor="middle" fill="#c3c2b7" font-size="12">can be stepped</text>
+<rect x="642" y="406" width="126" height="106" rx="14" fill="#111827" stroke="#39d0d8" stroke-width="1.5"/>
+<text x="705" y="432" text-anchor="middle" fill="#f0f6fc" font-size="13" font-weight="700">MONOTONIC</text>
+<text x="705" y="452" text-anchor="middle" fill="#c3c2b7" font-size="12">disciplined rate;</text>
+<text x="705" y="470" text-anchor="middle" fill="#c3c2b7" font-size="12">never stepped</text>
+<rect x="784" y="406" width="126" height="106" rx="14" fill="#111827" stroke="#39d0d8" stroke-width="1.5"/>
+<text x="847" y="432" text-anchor="middle" fill="#f0f6fc" font-size="13" font-weight="700">MONOTONIC_RAW</text>
+<text x="847" y="452" text-anchor="middle" fill="#c3c2b7" font-size="12">hardware rate;</text>
+<text x="847" y="470" text-anchor="middle" fill="#c3c2b7" font-size="12">not disciplined</text>
+<!-- arrows inside kernel -->
+<line x1="705" y1="266" x2="705" y2="286" stroke="#3987e5" stroke-width="3" marker-end="url(#mBlue)"/>
+<line x1="563" y1="380" x2="563" y2="400" stroke="#39d0d8" stroke-width="2" marker-end="url(#mBlue)"/>
+<line x1="705" y1="380" x2="705" y2="400" stroke="#39d0d8" stroke-width="2" marker-end="url(#mBlue)"/>
+<!-- host -> kernel arrow -->
+<path d="M390 336 C430 336, 440 231, 494 231" fill="none" stroke="#3987e5" stroke-width="3" marker-end="url(#mBlue)"/>
+
+<!-- Layer 3: guest user space -->
+<rect x="990" y="112" width="350" height="430" rx="22" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<text x="1020" y="150" fill="#f0f6fc" font-size="21" font-weight="700">Guest user space</text>
+<text x="1020" y="172" fill="#898781" font-size="12.5">VENDOR / DOCUMENTED DEFAULTS</text>
+<rect x="1020" y="196" width="290" height="140" rx="14" fill="#111827" stroke="#d95926" stroke-width="1.5"/>
+<text x="1165" y="222" text-anchor="middle" fill="#f0f6fc" font-size="15" font-weight="700">Ubuntu 24.04 default</text>
+<text x="1165" y="244" text-anchor="middle" fill="#c3c2b7" font-size="12.5">systemd-timesyncd enabled by default</text>
+<text x="1165" y="262" text-anchor="middle" fill="#c3c2b7" font-size="12.5">external NTP client; writes the clock</text>
+<text x="1165" y="280" text-anchor="middle" fill="#c3c2b7" font-size="12">via clock_adjtime (ADJ_OFFSET, SETOFFSET)</text>
+<text x="1165" y="306" text-anchor="middle" fill="#ffd580" font-size="12.5" font-weight="700">second default clock writer</text>
+<text x="1165" y="324" text-anchor="middle" fill="#898781" font-size="11.5">→ potential competition (per Canonical)</text>
+<rect x="1020" y="362" width="290" height="150" rx="14" fill="#111827" stroke="#3fb950" stroke-width="1.5"/>
+<text x="1165" y="388" text-anchor="middle" fill="#f0f6fc" font-size="15" font-weight="700">Ubuntu 26.04 fresh default</text>
+<text x="1165" y="410" text-anchor="middle" fill="#c3c2b7" font-size="12.5">chrony started with -x under WSL</text>
+<text x="1165" y="428" text-anchor="middle" fill="#c3c2b7" font-size="12">tracks offset/frequency; no clock writes</text>
+<text x="1165" y="446" text-anchor="middle" fill="#c3c2b7" font-size="12">unless SYNC_IN_CONTAINER=yes is opted in</text>
+<text x="1165" y="470" text-anchor="middle" fill="#88e0a0" font-size="12.5" font-weight="700">Hyper-V remains the one default</text>
+<text x="1165" y="488" text-anchor="middle" fill="#88e0a0" font-size="12.5" font-weight="700">clock-control path</text>
+<text x="1165" y="505" text-anchor="middle" fill="#898781" font-size="11.5">in-place upgrades may keep timesyncd</text>
+<!-- guest -> kernel arrows -->
+<path d="M1020 300 C980 300, 960 336, 914 336" fill="none" stroke="#d95926" stroke-width="3" marker-end="url(#mOrange)"/>
+<text x="964" y="292" text-anchor="middle" fill="#d95926" font-size="11.5">writes</text>
+<path d="M1020 430 C985 430, 960 360, 914 350" fill="none" stroke="#3fb950" stroke-width="2.5" stroke-dasharray="7 6"/>
+<text x="964" y="404" text-anchor="middle" fill="#3fb950" font-size="11.5">reads only</text>
+
+<!-- Project measurement band -->
+<rect x="60" y="566" width="1280" height="96" rx="18" fill="#1b1630" stroke="#9085e9" stroke-width="1.5"/>
+<text x="90" y="596" fill="#f0f6fc" font-size="15" font-weight="700">Where this project measures</text>
+<text x="90" y="620" fill="#c3c2b7" font-size="13"><tspan fill="#9085e9" font-weight="700">1 · Guest-side (v0.2 CLI, read-only):</tspan> CLOCK_MONOTONIC vs CLOCK_MONOTONIC_RAW inside RAW brackets — disciplined clock vs hardware rate; no Windows reference.</text>
+<text x="90" y="642" fill="#c3c2b7" font-size="13"><tspan fill="#9085e9" font-weight="700">2 · Historical D4R2 (Windows harness):</tspan> MONOTONIC and RAW each vs QPC; RAW/QPC stayed near nominal while MONOTONIC/QPC was far off (anomaly in discipline).</text>
+<path d="M776 512 C776 540, 700 540, 700 566" fill="none" stroke="#9085e9" stroke-width="2" marker-end="url(#mViolet)"/>
+<path d="M240 512 C240 540, 400 540, 400 566" fill="none" stroke="#9085e9" stroke-width="2" marker-end="url(#mViolet)"/>
+
+<text x="700" y="696" text-anchor="middle" fill="#898781" font-size="12.5">Defaults only. Other privileged writers, custom configuration, host errors, pauses and clocksource problems remain possible.</text>
+<text x="700" y="716" text-anchor="middle" fill="#898781" font-size="12.5">Nothing here proves which component wrote the clock in the historical failure (the controlled C1 test remained INCONCLUSIVE).</text>
+<text x="700" y="736" text-anchor="middle" fill="#898781" font-size="12.5">Sources: Microsoft WSL2-Linux-Kernel hv_util.c and WslCoreVm.cpp; Canonical time-sync documentation; Ubuntu chrony packaging (26.04); docs/upstream-time-sync-status.md.</text>
+</svg>

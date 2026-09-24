@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="920" viewBox="0 0 1200 920" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,'Segoe UI',Ubuntu,'DejaVu Sans',Arial,sans-serif">
+<title id="title">Service stopped is not clock settled: the D4R2 measurement</title>
+<desc id="desc">Historical Ubuntu 24.04 WSL2 experiment D4R2, on a Windows QPC time axis. The systemd-timesyncd stop was confirmed, the experiment held about 60 seconds, a PRE adjtimex snapshot still showed tick 10833 and freq 2157314, then four 30-second windows measured the CLOCK_MONOTONIC rate against QPC. Window 1 was +26,665.299 to +26,724.999 ppm, outside the plus or minus 1000 ppm screen; windows 2 to 4 were within about plus or minus 33 ppm. The 120-second MONOTONIC/QPC average was +6,661.607 to +6,676.217 ppm, while RAW/QPC over 120 seconds was -6.323 to +8.190 ppm. The POST snapshot showed tick 10000 and freq -27187. Who set or reset tick is not established. Motion is playback only; every box is a published interval enclosure.</desc>
+<style><![CDATA[
+text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,sans-serif}
+.a{animation-duration:26s;animation-timing-function:linear;animation-iteration-count:infinite;animation-fill-mode:both}
+.cur{animation-name:cur}
+@keyframes cur{0%{transform:translateX(0);opacity:.9}80.77%{transform:translateX(750px);opacity:.9}81.6%{transform:translateX(750px);opacity:0}100%{transform:translateX(750px);opacity:0}}
+.r-stop{animation-name:r-stop}@keyframes r-stop{0%,5.77%{opacity:0}6.9%,100%{opacity:1}}
+.r-pre{animation-name:r-pre}@keyframes r-pre{0%,28.85%{opacity:0}30%,100%{opacity:1}}
+.r-w1{animation-name:r-w1}@keyframes r-w1{0%,40.38%{opacity:0}41.5%,100%{opacity:1}}
+.r-w2{animation-name:r-w2}@keyframes r-w2{0%,51.92%{opacity:0}53%,100%{opacity:1}}
+.r-w3{animation-name:r-w3}@keyframes r-w3{0%,63.46%{opacity:0}64.6%,100%{opacity:1}}
+.r-w4{animation-name:r-w4}@keyframes r-w4{0%,75%{opacity:0}76.2%,100%{opacity:1}}
+.r-avg{animation-name:r-avg}@keyframes r-avg{0%,75.4%{opacity:0}76.8%,100%{opacity:1}}
+.r-post{animation-name:r-post}@keyframes r-post{0%,78.08%{opacity:0}79.2%,100%{opacity:1}}
+.s1{animation-name:s1}@keyframes s1{0%,28.85%{opacity:0}29.6%{opacity:1}39.9%{opacity:1}40.38%,100%{opacity:0}}
+.s2{animation-name:s2}@keyframes s2{0%,40.38%{opacity:0}41.1%{opacity:1}51.4%{opacity:1}51.92%,100%{opacity:0}}
+.s3{animation-name:s3}@keyframes s3{0%,51.92%{opacity:0}52.6%{opacity:1}63%{opacity:1}63.46%,100%{opacity:0}}
+.s4{animation-name:s4}@keyframes s4{0%,63.46%{opacity:0}64.2%{opacity:1}74.5%{opacity:1}75%,100%{opacity:0}}
+.c1{animation-name:c1}@keyframes c1{0%,5.77%{opacity:.35}6.5%{opacity:1}10%{opacity:1}11%,100%{opacity:.35}}
+.c2{animation-name:c2}@keyframes c2{0%,10%{opacity:.35}11%{opacity:1}28.85%{opacity:1}29.8%,100%{opacity:.35}}
+.c3{animation-name:c3}@keyframes c3{0%,28.85%{opacity:.35}29.6%{opacity:1}31.5%{opacity:1}32.5%,100%{opacity:.35}}
+.c4{animation-name:c4}@keyframes c4{0%,31.5%{opacity:.35}32.5%{opacity:1}75%{opacity:1}76%,100%{opacity:.35}}
+.c5{animation-name:c5}@keyframes c5{0%,78.08%{opacity:.35}79.2%{opacity:1}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.a{animation:none !important}}
+]]></style>
+<rect width="1200" height="920" rx="26" fill="#0d1117"/>
+
+<!-- Title block -->
+<text x="600" y="52" text-anchor="middle" fill="#f0f6fc" font-size="30" font-weight="700">Service stopped ≠ clock settled: the D4R2 measurement</text>
+<text x="600" y="80" text-anchor="middle" fill="#c3c2b7" font-size="15.5">Ubuntu 24.04 · WSL2 · historical experiment D4R2 · MONOTONIC and RAW rates measured against Windows QPC</text>
+<text x="600" y="100" text-anchor="middle" fill="#898781" font-size="14">playback at 10× real time · every box is a published interval enclosure</text>
+
+<!-- Phase chips (labelled state transitions) -->
+<g font-size="13.5" font-weight="700" fill="#f0f6fc">
+ <g class="a c1"><rect x="100" y="116" width="200" height="32" rx="16" fill="#161b22" stroke="#30363d"/><text x="200" y="137" text-anchor="middle">1 · stop confirmed</text></g>
+ <g class="a c2"><rect x="315" y="116" width="200" height="32" rx="16" fill="#161b22" stroke="#30363d"/><text x="415" y="137" text-anchor="middle">2 · ≈60 s hold</text></g>
+ <g class="a c3"><rect x="530" y="116" width="200" height="32" rx="16" fill="#161b22" stroke="#30363d"/><text x="630" y="137" text-anchor="middle">3 · PRE snapshot</text></g>
+ <g class="a c4"><rect x="745" y="116" width="200" height="32" rx="16" fill="#161b22" stroke="#30363d"/><text x="845" y="137" text-anchor="middle">4 · four 30 s windows</text></g>
+ <g class="a c5"><rect x="960" y="116" width="200" height="32" rx="16" fill="#161b22" stroke="#30363d"/><text x="1060" y="137" text-anchor="middle">5 · POST snapshot</text></g>
+</g>
+
+<!-- Service-state track -->
+<text x="100" y="172" fill="#898781" font-size="13">systemd-timesyncd service state (historical record; restored after POST) · ◆ = read-only adjtimex snapshot</text>
+<rect x="100" y="180" width="54" height="18" rx="3" fill="#4d5561"/>
+<text x="127" y="193" text-anchor="middle" fill="#f0f6fc" font-size="11.5" font-weight="700">active</text>
+<g class="a r-stop">
+ <rect x="156" y="180" width="674" height="18" rx="3" fill="#21262d" stroke="#30363d"/>
+ <text x="168" y="193" fill="#c3c2b7" font-size="12.5">stopped · inactive/dead · unit still enabled (not disabled or masked)</text>
+ <line x1="154" y1="165" x2="154" y2="647" stroke="#f0f6fc" stroke-width="1.5" stroke-dasharray="4 4" opacity=".8"/>
+ <text x="158" y="272" fill="#c3c2b7" font-size="13">stop confirmed</text>
+</g>
+<g class="a r-pre">
+ <path d="M366 202 l7 7 -7 7 -7 -7 z" fill="#f0f6fc"/>
+ <text x="366" y="232" text-anchor="middle" fill="#c3c2b7" font-size="13.5">PRE adjtimex: tick 10833 · freq 2157314</text>
+</g>
+<g class="a r-post">
+ <text x="835" y="193" fill="#898781" font-size="12">//</text>
+ <path d="M848 202 l7 7 -7 7 -7 -7 z" fill="#f0f6fc"/>
+ <text x="850" y="232" text-anchor="end" fill="#c3c2b7" font-size="13.5">POST adjtimex: tick 10000 · freq −27187</text>
+ <text x="850" y="250" text-anchor="end" fill="#898781" font-size="12.5">≈ −0.415 ppm · later snapshot; time not published</text>
+</g>
+
+<!-- Y axis title, ticks and grid (main plot x 100..850, summary x 890..1160) -->
+<text x="40" y="465" transform="rotate(-90 40 465)" text-anchor="middle" fill="#898781" font-size="13.5">rate vs Windows QPC, ppm (symmetric log scale)</text>
+<g stroke="#21262d" stroke-width="1">
+ <line x1="100" y1="321" x2="850" y2="321"/><line x1="890" y1="321" x2="1160" y2="321"/>
+ <line x1="100" y1="411" x2="850" y2="411"/><line x1="890" y1="411" x2="1160" y2="411"/>
+ <line x1="100" y1="454" x2="850" y2="454"/><line x1="890" y1="454" x2="1160" y2="454"/>
+ <line x1="100" y1="548" x2="850" y2="548"/><line x1="890" y1="548" x2="1160" y2="548"/>
+ <line x1="100" y1="591" x2="850" y2="591"/><line x1="890" y1="591" x2="1160" y2="591"/>
+</g>
+<!-- ±1000 ppm screen band -->
+<rect x="100" y="366" width="750" height="270" fill="#ffffff" fill-opacity=".05"/>
+<rect x="890" y="366" width="270" height="270" fill="#ffffff" fill-opacity=".05"/>
+<g stroke="#ffffff" stroke-opacity=".22" stroke-width="1">
+ <line x1="100" y1="366" x2="850" y2="366"/><line x1="890" y1="366" x2="1160" y2="366"/>
+ <line x1="100" y1="636" x2="850" y2="636"/><line x1="890" y1="636" x2="1160" y2="636"/>
+</g>
+<text x="846" y="380" text-anchor="end" fill="#898781" font-size="13">±1000 ppm historical screen</text>
+<!-- zero line -->
+<line x1="100" y1="501" x2="850" y2="501" stroke="#6e7681" stroke-width="1"/>
+<line x1="890" y1="501" x2="1160" y2="501" stroke="#6e7681" stroke-width="1"/>
+<g fill="#898781" font-size="13" text-anchor="end">
+ <text x="92" y="325">+10k</text><text x="92" y="370">+1k</text><text x="92" y="415">+100</text><text x="92" y="458">+10</text>
+ <text x="92" y="505">0</text><text x="92" y="552">−10</text><text x="92" y="595">−100</text><text x="92" y="640">−1k</text>
+</g>
+<line x1="872" y1="285" x2="872" y2="647" stroke="#30363d" stroke-width="1"/>
+<text x="1025" y="272" text-anchor="middle" fill="#c3c2b7" font-size="14" font-weight="700">120 s full-run averages</text>
+
+<!-- Hold region (real phase, part of the result) -->
+<g class="a r-stop">
+ <rect x="154" y="285" width="214" height="360" fill="#ffffff" fill-opacity=".04"/>
+ <text x="261" y="338" text-anchor="middle" fill="#c3c2b7" font-size="13.5">≈60 s hold (QPC-timed)</text>
+ <text x="261" y="358" text-anchor="middle" fill="#898781" font-size="13">(no rate measurement)</text>
+</g>
+<!-- Window opens -->
+<g class="a r-pre">
+ <line x1="368" y1="285" x2="368" y2="647" stroke="#f0f6fc" stroke-width="1" opacity=".55"/>
+ <text x="373" y="272" fill="#c3c2b7" font-size="13">measurement window opens (t = 0)</text>
+</g>
+
+<!-- Sampling-in-progress washes (illustrative; hidden in the static view) -->
+<rect class="a s1" x="370" y="285" width="103" height="360" fill="#3987e5" fill-opacity=".10" opacity="0"/>
+<rect class="a s2" x="477" y="285" width="103" height="360" fill="#3987e5" fill-opacity=".10" opacity="0"/>
+<rect class="a s3" x="584" y="285" width="103" height="360" fill="#3987e5" fill-opacity=".10" opacity="0"/>
+<rect class="a s4" x="691" y="285" width="103" height="360" fill="#3987e5" fill-opacity=".10" opacity="0"/>
+
+<!-- Measured 30 s window enclosures, MONOTONIC/QPC (x = window extent, y = published interval) -->
+<g class="a r-w1">
+ <rect x="370" y="300" width="103" height="4" rx="2" fill="#3987e5"/>
+ <text x="482" y="307" fill="#f0f6fc" font-size="16" font-weight="700">+26,665.299 to +26,724.999 ppm</text>
+ <path d="M488 316 l6 11 h-12 z" fill="#d03b3b"/>
+ <text x="500" y="326" fill="#c3c2b7" font-size="13.5">outside the ±1000 ppm screen</text>
+ <text x="372" y="378" fill="#c3c2b7" font-size="13.5">≈ +0.80 s gained vs QPC in 30 s</text>
+ <text x="372" y="396" fill="#898781" font-size="13">(derived: rate × 30 s)</text>
+</g>
+<rect class="a r-w2" x="477" y="433.6" width="103" height="132.7" rx="3" fill="#3987e5" fill-opacity=".45" stroke="#3987e5" stroke-width="2"/>
+<rect class="a r-w3" x="584" y="437.3" width="103" height="132.4" rx="3" fill="#3987e5" fill-opacity=".45" stroke="#3987e5" stroke-width="2"/>
+<rect class="a r-w4" x="691" y="432.6" width="103" height="133.6" rx="3" fill="#3987e5" fill-opacity=".45" stroke="#3987e5" stroke-width="2"/>
+<g class="a r-w4">
+ <path d="M477 429 v-6 h317 v6" fill="none" stroke="#898781" stroke-width="1"/>
+ <path d="M484 420 l4 -6 h-8 z" fill="#0ca30c"/>
+ <text x="494" y="415" fill="#c3c2b7" font-size="13">windows 2–4: within ±33 ppm, each contains 0</text>
+</g>
+
+<!-- 120 s averages on the same scale -->
+<g class="a r-avg">
+ <rect x="945" y="327" width="40" height="4" rx="2" fill="#3987e5" fill-opacity=".25" stroke="#3987e5" stroke-width="2"/>
+ <text x="965" y="319" text-anchor="middle" fill="#f0f6fc" font-size="13.5" font-weight="700">+6,662 to +6,676 ppm</text>
+ <rect x="1065" y="457.7" width="40" height="82.2" rx="3" fill="#d95926" fill-opacity=".18" stroke="#d95926" stroke-width="2"/>
+ <text x="1085" y="450" text-anchor="middle" fill="#f0f6fc" font-size="13.5" font-weight="700">−6.3 to +8.2 ppm</text>
+ <text x="965" y="667" text-anchor="middle" fill="#c3c2b7" font-size="13">MONOTONIC/QPC</text>
+ <text x="1085" y="667" text-anchor="middle" fill="#c3c2b7" font-size="13">RAW/QPC</text>
+ <text x="1025" y="688" text-anchor="middle" fill="#898781" font-size="13">the average hides the early shape</text>
+</g>
+
+<!-- X axis -->
+<line x1="100" y1="647" x2="850" y2="647" stroke="#30363d" stroke-width="1"/>
+<line x1="890" y1="647" x2="1160" y2="647" stroke="#30363d" stroke-width="1"/>
+<g fill="#898781" font-size="13" text-anchor="middle">
+ <text x="154" y="667">−60</text><text x="368" y="667">0</text><text x="475" y="667">30</text><text x="582" y="667">60</text><text x="689" y="667">90</text><text x="796" y="667">120</text>
+</g>
+<text x="475" y="688" text-anchor="middle" fill="#898781" font-size="13">seconds of Windows QPC time, relative to the moment the measurement window opened</text>
+
+<!-- Playback cursor (illustrative; hidden when animation does not run) -->
+<g class="a cur" opacity="0">
+ <line x1="100" y1="165" x2="100" y2="647" stroke="#f0f6fc" stroke-width="1.5"/>
+ <path d="M100 161 l-5 -8 h10 z" fill="#f0f6fc"/>
+</g>
+
+<!-- Legend -->
+<g font-size="13.5" fill="#c3c2b7">
+ <rect x="100" y="712" width="14" height="14" rx="2" fill="#3987e5" fill-opacity=".45" stroke="#3987e5" stroke-width="2"/><text x="122" y="724">30 s window, MONOTONIC/QPC (measured enclosure)</text>
+ <rect x="520" y="712" width="14" height="14" rx="2" fill="#3987e5" fill-opacity=".25" stroke="#3987e5" stroke-width="2"/><text x="542" y="724">120 s average, MONOTONIC/QPC</text>
+ <rect x="790" y="712" width="14" height="14" rx="2" fill="#d95926" fill-opacity=".18" stroke="#d95926" stroke-width="2"/><text x="812" y="724">120 s average, RAW/QPC</text>
+ <rect x="100" y="738" width="14" height="14" rx="2" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".25"/><text x="122" y="750">±1000 ppm historical screen</text>
+ <path d="M360 738 l7 7 -7 7 -7 -7 z" fill="#f0f6fc"/><text x="376" y="750">adjtimex kernel snapshot</text>
+ <line x1="592" y1="738" x2="592" y2="752" stroke="#f0f6fc" stroke-width="1.5"/><text x="604" y="750">playback cursor (illustrative)</text>
+ <rect x="866" y="738" width="14" height="14" rx="2" fill="#3987e5" fill-opacity=".18"/><text x="888" y="750">sampling in progress (illustrative)</text>
+</g>
+
+<!-- Evidence notes -->
+<g font-size="13.5" fill="#c3c2b7">
+ <text x="100" y="786"><tspan font-weight="700" fill="#f0f6fc">Measured.</tspan> Every box is a published interval enclosure from the preserved D4R2 outputs; nothing is interpolated inside a window.</text>
+ <text x="100" y="808"><tspan font-weight="700" fill="#f0f6fc">Derived.</tspan> Over window 1, CLOCK_MONOTONIC gained ≈ +0.80 s relative to QPC (rate × 30 s).</text>
+ <text x="100" y="830"><tspan font-weight="700" fill="#f0f6fc">Inference.</tspan> RAW/QPC staying inside the screen localizes the anomaly to the disciplined clock, not the hardware rate.</text>
+ <text x="100" y="852"><tspan font-weight="700" fill="#f0f6fc">Not established.</tspan> Who set tick=10833, what reset it to 10000, or that systemd-timesyncd was the sole writer (C1: INCONCLUSIVE).</text>
+ <text x="100" y="874"><tspan font-weight="700" fill="#f0f6fc">Motion.</tspan> Playback only (10× real time); boxes appear as each window closes. With animation off, the complete result is shown.</text>
+ <text x="100" y="898" fill="#898781" font-size="12.5">Source: docs/timesyncd-investigation.md (D4R2 table) and docs/upstream-time-sync-status.md.</text>
+</g>
+</svg>

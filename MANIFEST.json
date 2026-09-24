@@ -1,5 +1,5 @@
 {
-  "version": "public-v0.2.0",
+  "version": "public-v0.3.0",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
@@ -14,11 +14,9 @@
     "docs/v0.2-guest-core.md"
   ],
   "public_assets": [
-    "docs/assets/architecture-flow.svg",
-    "docs/assets/architecture-wsl-time-sync.svg",
-    "docs/assets/upstream-timeline.svg",
-    "docs/assets/unique-contribution.svg",
-    "docs/assets/d4r2-settling.svg"
+    "docs/assets/d4r2-settling-animated.svg",
+    "docs/assets/architecture-host-vm-guest.svg",
+    "docs/assets/upstream-timeline.svg"
   ],
   "cross_document_checks": {
     "causal limitation present": true,
@@ -31,6 +29,8 @@
     "Python advice is workload-specific": true,
     "guest-vs-host distinction present": true,
     "fixed-wait lesson present": true,
-    "visuals distinguish vendor facts from project observations": true
+    "visuals distinguish vendor facts from project observations": true,
+    "README opening labels evidence tiers (vendor fact / observation / inference / not established)": true,
+    "animated hero uses only published D4R2 values and has a complete static fallback": true
   }
 }
