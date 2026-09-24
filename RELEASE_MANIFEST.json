@@ -18,14 +18,14 @@
   "cli_behavior_change": true,
   "runtime_dependencies": "Python standard library only",
   "changes": [
-    "Stable read-only WSL2 diagnostic CLI with environment diagnosis, RAW-bracketed probes, offline analysis, finite kernel-state observation, comparison, and Python environment checks.",
+    "Read-only WSL2 diagnostic CLI with environment diagnosis, RAW-bracketed probes, offline analysis, finite kernel-state observation, comparison, and Python environment checks.",
     "RAW-origin acquisition scheduling with finite guard behavior and fail-closed schema-v2 completion verification.",
     "Uncertainty-aware fixed-window rate analysis, adjacent signed REALTIME events, cumulative fixed-window REALTIME-minus-RAW evidence, and legacy v0.1 input support.",
     "Read-only adjtimex(modes=0) observation with explicit Linux x86-64 LP64 ABI validation and structured unsupported/error states.",
     "Method-aware comparison that preserves anomaly classifications and refuses numeric differences for incompatible or insufficient context.",
     "Primary-source Microsoft/Canonical time-sync research with fresh-install versus upgrade caveats and no unsupported 24.04 backport claim.",
     "Evidence-tiered README, D4R2 animated viewer, WSL host/kernel/guest architecture diagram, and dated upstream timeline.",
-    "Stable documentation naming, v1 security/support policy, and repository/package branding cleanup.",
+    "Release-neutral documentation naming, preview security/support policy, and repository/package branding cleanup.",
     "v0.4.0 preview: publish the current diagnostic core and reviewed presentation baseline to main without declaring the stable v1.0.0 contract final."
   ],
   "validation": {
