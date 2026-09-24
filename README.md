@@ -140,9 +140,7 @@ This repository does not make a categorical "Python 3.14 is better than Python 3
 
 ## Proposed diagnostic workflow
 
-The following commands describe a proposed interface. This draft set does not include an implementation or installation instructions; these are not a runnable quick start.
-
-Timing diagnostics should inspect the current state without changing time services. A package-installation check is separate: it should use an isolated environment and will write files there.
+The repository includes a small first implementation of these commands. Timing diagnostics inspect the current state without changing time services. A package-installation check is separate: it should use an isolated environment and will write files there.
 
 ```text
 wsl-time-sync diagnose
