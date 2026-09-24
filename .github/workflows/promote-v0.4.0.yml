@@ -1,0 +1,65 @@
+name: Promote v0.4.0 to full release
+
+on:
+  push:
+    branches:
+      - release/promote-v0.4.0
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark v0.4.0 as normal release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/body.md" <<'EOF'
+          ## WSL2 Time Sync Diagnostics v0.4.0 — Public Release
+
+          v0.4.0 is the first substantial public release of the diagnostic core and evidence-backed WSL2 timing investigation on the path toward the eventual stable v1.0.0 contract.
+
+          ### Highlights
+          - Read-only WSL2 timing diagnostic CLI with no runtime dependencies beyond the Python standard library.
+          - RAW-bracketed sampling and fail-closed schema-v2 completion verification.
+          - Fixed-window uncertainty-aware analysis with WITHIN, OUTSIDE, and INDETERMINATE classifications.
+          - Read-only adjtimex(modes=0) observation with explicit ABI validation.
+          - Method-aware run comparison and synthetic adversarial regression coverage.
+          - Primary-source Microsoft and Canonical research on WSL / Ubuntu time synchronization.
+          - Animated D4R2 visualization showing the key lesson:
+            **service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready**.
+          - Fresh Ubuntu 24.04 / 26.04 environment guidance with Python 3.12 / 3.14 kept as a separate engineering decision.
+
+          ### Validation
+          The exact release commit passed:
+          - 271 tests on Python 3.12
+          - 271 tests on Python 3.14
+          - normal wheel build/install as wsl2-time-sync-diagnostics==0.4.0
+          - import/package version verification
+          - strict JSON checks
+          - RAW completion/coverage checks
+          - cumulative REALTIME evidence checks
+          - method-aware comparison smoke tests
+
+          ### Important limits
+          v0.4.0 is a normal GitHub Release, but the project remains semantically pre-1.0; the stable v1.0.0 public contract is still intentionally deferred.
+
+          The project does **not** claim that:
+          - Ubuntu 26.04 universally fixes WSL timing;
+          - Ubuntu 24.04 is broken for every user;
+          - systemd-timesyncd was proven to be the sole writer/root cause;
+          - Python version fixes WSL clock behavior;
+          - passing CI proves host-referenced benchmark readiness.
+          EOF
+
+          BODY=$(cat "$RUNNER_TEMP/body.md")
+          gh api --method PATCH "repos/$GITHUB_REPOSITORY/releases/395906279" \
+            -f name='v0.4.0 — Public Release' \
+            -F prerelease=false \
+            -f body="$BODY"
+
+          gh release view v0.4.0 --repo "$GITHUB_REPOSITORY" --json name,isPrerelease,isDraft,url,targetCommitish
