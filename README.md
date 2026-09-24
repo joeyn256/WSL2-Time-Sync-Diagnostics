@@ -15,7 +15,7 @@ The two main questions are:
 
 The answer depends on your workload, dependency compatibility, and how sensitive you are to timing behavior.
 
-This public draft set contains narrative summaries, not the original measurement logs or a probe implementation. The findings below describe historical observations; they do not validate a reader's current machine.
+This repository contains narrative summaries and a small read-only diagnostic CLI, but not the original historical measurement logs. The findings below describe historical observations; they do not validate a reader's current machine.
 
 Read more: [Ubuntu 24.04 findings](docs/findings-ubuntu-24.04.md), [Ubuntu 26.04 findings](docs/findings-ubuntu-26.04.md), and [the time-service investigation](docs/timesyncd-investigation.md).
 
