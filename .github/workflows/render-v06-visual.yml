@@ -21,38 +21,55 @@ jobs:
           command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser
           (google-chrome --version || google-chrome-stable --version || chromium --version || chromium-browser --version)
 
-      - name: Render animation checkpoints
+      - name: Render real-time animation checkpoints
         shell: bash
         run: |
           set -euo pipefail
+          python -m pip install --quiet selenium
           mkdir -p visual-audit
-          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
-          SVG="file://$PWD/docs/assets/three-model-timing-comparison.svg"
+          cat > "$RUNNER_TEMP/capture.py" <<'PY'
+          import time
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
 
-          render() {
-            local name="$1"
-            local ms="$2"
-            "$CHROME" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
-              --window-size=1000,846 \
-              --virtual-time-budget="$ms" \
-              --run-all-compositor-stages-before-draw \
-              --screenshot="$PWD/visual-audit/$name.png" \
-              "$SVG"
-          }
+          out = Path("visual-audit").resolve()
+          svg = Path("docs/assets/three-model-timing-comparison.svg").resolve().as_uri()
 
-          render frame-00s 150
-          render frame-30s 3250
-          render frame-60s 6250
-          render frame-90s 9250
-          render frame-120s 12250
+          opts = Options()
+          opts.add_argument("--headless=new")
+          opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-gpu")
+          opts.add_argument("--hide-scrollbars")
+          opts.add_argument("--window-size=1000,846")
 
-          "$CHROME" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
-            --window-size=1000,846 \
-            --force-prefers-reduced-motion \
-            --run-all-compositor-stages-before-draw \
-            --screenshot="$PWD/visual-audit/frame-reduced-motion.png" \
-            "$SVG"
+          driver = webdriver.Chrome(options=opts)
+          try:
+              driver.get(svg)
+              start = time.monotonic()
+              schedule = [
+                  (0.15, "frame-00s.png"),
+                  (3.30, "frame-30s.png"),
+                  (6.30, "frame-60s.png"),
+                  (9.30, "frame-90s.png"),
+                  (12.30, "frame-120s.png"),
+              ]
+              for target, name in schedule:
+                  remaining = target - (time.monotonic() - start)
+                  if remaining > 0:
+                      time.sleep(remaining)
+                  driver.save_screenshot(str(out / name))
 
+              driver.execute_cdp_cmd("Emulation.setEmulatedMedia", {
+                  "features": [{"name": "prefers-reduced-motion", "value": "reduce"}]
+              })
+              driver.get(svg)
+              time.sleep(0.25)
+              driver.save_screenshot(str(out / "frame-reduced-motion.png"))
+          finally:
+              driver.quit()
+          PY
+          python "$RUNNER_TEMP/capture.py"
           file visual-audit/*.png
 
       - uses: actions/upload-artifact@v4
