@@ -13,7 +13,7 @@
     "first_visual_pass": "6f529bd15cda2dc91af223fb51f8aaacc626317c",
     "reviewed_presentation": "162e78001819842266fa984d66ad940aa6e15a46",
     "final_v0_3_1_viewer": "4e7a64a5c08e4c893602e1a44e3804f4f67de419",
-    "v0_4_0_preview_on_main": "94574ba4f8ee0b6749be68cba4d7f457e5e38e64",
+    "v0_4_0_public_release_on_main": "94574ba4f8ee0b6749be68cba4d7f457e5e38e64",
     "v0_5_0_visual_storytelling": "f36795859e16097d08cd6adcd7a83280683d42b6"
   },
   "versioning_note": "v0.4.0 is a normal public GitHub Release. v0.5.0 was an unpublished visual-storytelling development branch. v0.6.0 is the next normal public release, incorporating the measured same-host comparison and refined visual model. The stable v1.0.0 contract remains deferred.",
@@ -28,7 +28,7 @@
     "Primary-source Microsoft/Canonical time-sync research with fresh-install versus upgrade caveats and no unsupported 24.04 backport claim.",
     "Evidence-tiered README, D4R2 animated viewer, WSL host/kernel/guest architecture diagram, and dated upstream timeline.",
     "Release-neutral documentation naming, preview security/support policy, and repository/package branding cleanup.",
-    "v0.4.0 preview: publish the current diagnostic core and reviewed presentation baseline to main without declaring the stable v1.0.0 contract final.",
+    "v0.4.0: publish the diagnostic core and reviewed presentation baseline to main while keeping the stable v1.0.0 contract deferred.",
     "v0.5.0: docs/assets/clock-steering-story.svg (three architecture-state cards over a synchronized D4R2 replay) and docs/assets/three-model-timing-comparison.svg (three panels on one 0-120 s axis); README opening reordered with a 'How to read the figure' note; the step-by-step D4R2 replay moved next to the full table in docs/timesyncd-investigation.md.",
     "v0.6.0: the three-model comparison's outer panels are now measured. Two read-only guest-side screens were taken on one Windows host on 2026-09-24 from fresh WSL boots with the project CLI: Ubuntu 24.04 with systemd-timesyncd active (about 4.8 % slow with +1.6 s REALTIME jumps every 34 s, tick 10000 -> 9437) and Ubuntu 26.04 fresh default (within +/-0.73 ppm, tick 10000). Raw probe/analysis/settle JSON, redacted environment snapshots, logs, hashes and the verbatim protocol are committed under evidence/2026-09-24-same-host-screens/ and described in docs/same-host-screens-2026-09-24.md."
   ],
