@@ -8,7 +8,7 @@ Before publishing a stable release:
 - [ ] Render each public SVG at normal size and verify the reduced-motion/static state is coherent.
 - [ ] Confirm no private paths, usernames, boot IDs, tokens, credentials, or unrelated project data remain.
 - [ ] Run the complete test suite.
-- [ ] Install the candidate in a clean virtual environment and run `wsl-time-sync --help`.
+- [ ] Build a normal wheel, install it, and verify the distribution name/version plus `wsl_time_sync.__version__` before running `wsl-time-sync --help`.
 - [ ] Run the semantic CLI smoke used by CI.
 - [ ] Run `wsl-time-sync diagnose` inside WSL2 and inspect the output before sharing it.
 - [ ] Confirm example JSON remains synthetic.
