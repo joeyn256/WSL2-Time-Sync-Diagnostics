@@ -1,0 +1,68 @@
+name: Publish v0.6.1
+
+on:
+  push:
+    branches:
+      - release/publish-v0.6.1
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create v0.6.1 GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_SHA: 7054ffbea89c86c3ee2703b8085ed3c0d4a4b78c
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if gh release view v0.6.1 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "v0.6.1 already exists; leaving it unchanged."
+            exit 0
+          fi
+
+          cat > "$RUNNER_TEMP/release-notes.md" <<'EOF'
+          ## WSL2 Time Sync Diagnostics v0.6.1 — README & Engineering Story Polish
+
+          v0.6.1 is a presentation/documentation patch on top of v0.6.0. Runtime behavior and schema-v2 semantics are unchanged.
+
+          ### What changed
+          - Promoted the measured three-model timing comparison to the README front door, immediately after the badges/tagline.
+          - Rewrote the opening so a new visitor can understand the timing problem, measured contrast, and evidence boundaries in the first screen.
+          - Added an **Engineering depth at a glance** section covering systems debugging, measurement design, software design, CI/testing, reproducibility, and technical communication.
+          - Added a dedicated **For Windows / Ubuntu engineers** path with direct links to the read-only diagnostic workflow, upstream control-path research, exact reproduction protocol, raw evidence, implementation, and tests.
+          - Added a release badge that tracks the latest GitHub release automatically.
+          - Added a README regression test so CI catches future edits that bury the measured comparison or remove key engineering/reproduction entry points.
+
+          ### Validation
+          The exact release commit passed on both Python 3.12 and Python 3.14:
+          - **276 tests per interpreter**;
+          - normal wheel build/install as `wsl2-time-sync-diagnostics==0.6.1`;
+          - distribution/import version verification;
+          - strict JSON checks;
+          - RAW completion/coverage checks;
+          - cumulative REALTIME evidence checks;
+          - method-aware comparison smoke checks.
+
+          ### Why this patch matters
+          The repository now presents the strongest evidence first while still preserving the project’s scientific boundaries:
+          - outer comparison panels are guest-side measurements, not host-referenced accuracy claims;
+          - the historical D4R2 middle panel remains Windows-QPC-referenced;
+          - C1 remains INCONCLUSIVE;
+          - the unidentified kernel `tick` writer remains not established;
+          - Ubuntu 26.04 is not presented as a universal fix or a controlled distro ranking.
+
+          The stable v1.0.0 contract remains deferred.
+          EOF
+
+          gh release create v0.6.1 \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$TARGET_SHA" \
+            --title "v0.6.1 — README & Engineering Story Polish" \
+            --notes-file "$RUNNER_TEMP/release-notes.md"
+
+          gh release view v0.6.1 --repo "$GITHUB_REPOSITORY"
