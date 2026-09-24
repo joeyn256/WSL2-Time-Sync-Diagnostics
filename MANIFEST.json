@@ -1,5 +1,5 @@
 {
-  "version": "public-v1.0.0",
+  "version": "public-v0.4.0",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
@@ -35,6 +35,7 @@
     "animated hero uses only published D4R2 values and has a coherent static/reduced-motion fallback": true,
     "animated hero distinguishes the stopped user-space write path from persistent kernel state": true,
     "stable CLI/schema reference uses release-neutral naming": true,
-    "package and publication metadata target v1.0.0": true
+    "package and publication metadata target v0.4.0 preview": true,
+    "v1.0.0 stable contract remains explicitly deferred": true
   }
 }

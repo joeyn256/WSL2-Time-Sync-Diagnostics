@@ -2,13 +2,14 @@
 
 ## Supported versions
 
-v1.0.0 is the first stable public release line for WSL2 Time Sync Diagnostics.
+v0.4.0 is the current public preview line for WSL2 Time Sync Diagnostics. The
+stable v1.0.0 contract has not been declared final yet.
 
 | Version | Security fixes |
 |---|---|
-| Latest `1.x` release | Supported |
-| `main` between releases | Best effort |
-| Pre-1.0 releases and development snapshots | Not supported |
+| Latest `0.4.x` preview | Best effort |
+| `main` | Best effort |
+| Older pre-0.4 snapshots | Not supported |
 
 ## Reporting a vulnerability
 

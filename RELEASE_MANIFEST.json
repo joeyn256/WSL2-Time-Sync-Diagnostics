@@ -1,7 +1,7 @@
 {
-  "release": "1.0.0",
-  "status": "release-candidate",
-  "branch": "release/v1.0.0",
+  "release": "0.4.0",
+  "status": "public-preview-candidate",
+  "branch": "release/v0.4.0-preview",
   "base_release": "v0.1.1",
   "base_commit": "830a142d57e8f785016ef07952a5340b4eb94ab3",
   "repository": "https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics",
@@ -14,26 +14,9 @@
     "reviewed_presentation": "162e78001819842266fa984d66ad940aa6e15a46",
     "final_v0_3_1_viewer": "4e7a64a5c08e4c893602e1a44e3804f4f67de419"
   },
-  "versioning_note": "0.2.0, 0.3.0, and 0.3.1 were development-branch identifiers and were not tagged public releases. v1.0.0 is intended to be the first stable public release after v0.1.1.",
+  "versioning_note": "0.2.0, 0.3.0, and 0.3.1 were development-branch identifiers and were not tagged public releases. v0.4.0 is the public pre-1.0 preview pushed to main while the final visual model and remaining presentation work are refined. v1.0.0 remains deferred.",
   "cli_behavior_change": true,
   "runtime_dependencies": "Python standard library only",
-  "stable_public_contract": {
-    "cli": "wsl-time-sync",
-    "python_import": "wsl_time_sync",
-    "probe_schema": 2,
-    "analysis_method": "fixed_window_interval_v2",
-    "read_only_default": true,
-    "classifications": [
-      "WITHIN",
-      "OUTSIDE",
-      "INDETERMINATE"
-    ],
-    "settling_outcomes": [
-      "WITHIN_CONFIGURED_BAND",
-      "ANOMALY_OBSERVED",
-      "INDETERMINATE"
-    ]
-  },
   "changes": [
     "Stable read-only WSL2 diagnostic CLI with environment diagnosis, RAW-bracketed probes, offline analysis, finite kernel-state observation, comparison, and Python environment checks.",
     "RAW-origin acquisition scheduling with finite guard behavior and fail-closed schema-v2 completion verification.",
@@ -42,7 +25,8 @@
     "Method-aware comparison that preserves anomaly classifications and refuses numeric differences for incompatible or insufficient context.",
     "Primary-source Microsoft/Canonical time-sync research with fresh-install versus upgrade caveats and no unsupported 24.04 backport claim.",
     "Evidence-tiered README, D4R2 animated viewer, WSL host/kernel/guest architecture diagram, and dated upstream timeline.",
-    "Stable documentation naming, v1 security/support policy, and repository/package branding cleanup."
+    "Stable documentation naming, v1 security/support policy, and repository/package branding cleanup.",
+    "v0.4.0 preview: publish the current diagnostic core and reviewed presentation baseline to main without declaring the stable v1.0.0 contract final."
   ],
   "validation": {
     "durable_github_ci": {
@@ -67,7 +51,7 @@
         "tests_passed_per_interpreter": 271,
         "semantic_smoke": "Passed in both jobs: strict JSON, RAW completion/coverage, two complete windows, zero partial windows, cumulative REALTIME evidence, and method-aware comparison."
       },
-      "release_candidate": "Exact-head CI on release/v1.0.0 must be green before tagging."
+      "preview_candidate": "Exact-head CI on release/v0.4.0-preview must be green before main is advanced."
     },
     "local_wsl_review": {
       "ubuntu_24_04_python_3_12_3": "271-test final-core review passed; software validation only.",
@@ -82,5 +66,23 @@
     "upstream-timeline.svg": "Vendor and project events are separate lanes; WSL 2.1.1 is identified as a prerelease and later Microsoft reports are not equated with #10006."
   },
   "provenance": "Fresh implementations of bounded acquisition/math ideas and public Linux interfaces. No historical private raw evidence or unrelated project data is copied into the repository.",
-  "note": "No v1.0.0 tag or merge is authorized by this release-candidate manifest. Host-reference qualification and a Windows QPC companion remain outside the v1.0.0 CLI."
+  "note": "v0.4.0 is a pre-1.0 public preview intended for main. The official v1.0.0 tag/release remains deferred while the visual comparison model and additional presentation work are completed. Host-reference qualification and a Windows QPC companion remain outside the current CLI.",
+  "preview_public_contract": {
+    "cli": "wsl-time-sync",
+    "python_import": "wsl_time_sync",
+    "probe_schema": 2,
+    "analysis_method": "fixed_window_interval_v2",
+    "read_only_default": true,
+    "classifications": [
+      "WITHIN",
+      "OUTSIDE",
+      "INDETERMINATE"
+    ],
+    "settling_outcomes": [
+      "WITHIN_CONFIGURED_BAND",
+      "ANOMALY_OBSERVED",
+      "INDETERMINATE"
+    ],
+    "stability_note": "Preview contract only; v1.0.0 may still refine presentation/public interface details before the stable tag."
+  }
 }

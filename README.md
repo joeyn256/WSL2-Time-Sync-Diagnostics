@@ -176,7 +176,7 @@ Read more: [Python 3.12 vs Python 3.14](docs/python-3.12-vs-3.14.md).
 
 ## The read-only diagnostic core
 
-The CLI is standard-library-only at runtime and does **not** modify time services, firewall state, WSL configuration, or system Python. **v1.0.0 establishes this read-only CLI, schema-v2 report format, and documented fail-closed analysis behavior as the first stable public baseline.**
+The CLI is standard-library-only at runtime and does **not** modify time services, firewall state, WSL configuration, or system Python. **v0.4.0 is a public preview of the read-only CLI, schema-v2 report format, and documented fail-closed analysis behavior planned for the future stable v1 line.**
 
 ### Install
 
@@ -285,13 +285,13 @@ A result in one category is not automatically evidence for another.
 
 ### Current software-validation status
 
-The stable v1 release gate requires every candidate to pass all of the following on **both Python 3.12 and Python 3.14**:
+The v0.4.0 preview uses the same strict software-quality gate planned for the future stable v1 release on **both Python 3.12 and Python 3.14**:
 
 - the complete **271-test** suite;
 - construction and installation of the normal `wsl2-time-sync-diagnostics` wheel, with distribution and import version checks;
 - the semantic CLI smoke: strict JSON, verified RAW acquisition completion and requested-duration coverage, two complete fixed windows with zero partial windows, cumulative REALTIME evidence, and method-aware comparison.
 
-The current `release/v1.0.0` candidate has passed these gates. The tag is created only from an exact candidate whose GitHub Actions checks are green; use the CI badge and the checks attached to the tagged/current commit for live status. Historical implementation and adversarial-review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
+The current `release/v0.4.0-preview` candidate has passed these gates. v0.4.0 is intentionally pre-1.0: the visual model and a few presentation details are still being refined before the stable v1.0.0 release. Use the CI badge and the checks attached to the current commit for live status. Historical implementation and adversarial-review runs are retained in [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json).
 
 Local WSL software checks were also performed during review on Ubuntu 24.04 / Python 3.12.3 and Ubuntu 26.04 / Python 3.14.4. Those checks are software-validation evidence only; they are not host-referenced timing qualification, which remains unavailable.
 

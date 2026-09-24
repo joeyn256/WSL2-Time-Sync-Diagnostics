@@ -1,6 +1,6 @@
 # Release Checklist
 
-Before publishing a stable release:
+Before publishing a preview or stable release:
 
 - [ ] Confirm `pyproject.toml`, `src/wsl_time_sync/__init__.py`, `MANIFEST.json`, and `RELEASE_MANIFEST.json` agree on the intended release version.
 - [ ] Confirm the README title, CI badge, repository links, issue links, and clone/path examples use the current repository identity.
@@ -21,5 +21,4 @@ Before publishing a stable release:
 - [ ] Create the release tag only after the exact candidate passes CI.
 - [ ] Close the implementation issue only after the stable content is merged.
 
-For v1.0.0 specifically, pre-1.0 branch labels (`0.2.0`, `0.3.0`, and
-`0.3.1`) are development lineage, not public release tags.
+For v0.4.0, the earlier `0.2.0`, `0.3.0`, and `0.3.1` labels are development lineage, not public release tags. v0.4.0 is intentionally the public preview on main; the official v1.0.0 release remains deferred.
