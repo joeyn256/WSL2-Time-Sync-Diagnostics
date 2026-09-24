@@ -84,7 +84,7 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
  <rect class="a ringB" x="336" y="96" width="280" height="240" rx="14" fill="none" stroke="#f0f6fc" stroke-width="2" opacity="0"/>
  <text x="350" y="118" fill="#f0f6fc" font-size="14" font-weight="700">24.04 after systemctl stop</text>
  <circle cx="354" cy="132" r="4" fill="#a371f7"/>
- <text x="364" y="136" fill="#d2a8ff" font-size="12" font-weight="700">MEASURED · D4R2 · host-referenced</text>
+ <text x="364" y="136" fill="#d2a8ff" font-size="12" font-weight="700">MEASURED · D4R2 · adjtimex, QPC</text>
  <rect x="344" y="160" width="88" height="34" rx="8" fill="#0f1a2b" stroke="#58a6ff" stroke-width="1.5"/>
  <text x="388" y="174" text-anchor="middle" fill="#f0f6fc" font-size="12">Windows</text>
  <text x="388" y="188" text-anchor="middle" fill="#f0f6fc" font-size="12">Hyper-V</text>
