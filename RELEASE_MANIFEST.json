@@ -1,28 +1,27 @@
 {
-  "release_candidate": "0.1.0-rc1",
-  "purpose": "Release-candidate inventory. Git commit identity is the authoritative integrity reference.",
+  "release_candidate": "0.1.0",
+  "status": "pre-release-validation-complete-pending-tag",
+  "tested_code_revision": "07397a9b471f2f66c5d1fd443f8243294fa4c780",
   "validation": {
-    "local_pytest": "9/9 passed before publication",
-    "local_compileall": "passed before publication",
-    "local_cli_help_smoke": "passed before publication",
-    "broken_local_links": [],
-    "privacy_secret_scan_hits": {},
-    "github_actions": "Python 3.12 and 3.14 matrix required to pass before stable release",
-    "real_wsl2_smoke": "pending"
+    "local_pytest": "PASS (9/9)",
+    "local_compileall": "PASS",
+    "local_cli_help": "PASS",
+    "github_actions_python_3_12": "PASS",
+    "github_actions_python_3_14": "PASS",
+    "real_wsl2_cli_smoke_test": "PASS",
+    "real_wsl2_environment": {
+      "ubuntu": "Ubuntu 26.04.1 LTS",
+      "python": "3.14.4",
+      "kernel": "6.18.33.2-microsoft-standard-WSL2",
+      "clocksource": "tsc"
+    },
+    "smoke_summary": {
+      "sample_count": 31,
+      "monotonic_vs_raw_ppm": -2.737266971197805,
+      "realtime_backward_events": 0,
+      "large_realtime_minus_raw_changes": 0
+    },
+    "privacy_note": "Raw diagnose/probe/analysis JSON remains private because diagnostics can contain machine-specific identifiers."
   },
-  "included_paths": [
-    ".github/workflows/ci.yml",
-    ".gitignore",
-    "CONTRIBUTING.md",
-    "LICENSE",
-    "MANIFEST.json",
-    "README.md",
-    "RELEASE_CHECKLIST.md",
-    "SECURITY.md",
-    "docs/",
-    "examples/",
-    "pyproject.toml",
-    "src/wsl_time_sync/",
-    "tests/"
-  ]
+  "note": "Repository documentation may advance after the tested code revision without changing the CLI implementation. Git history is authoritative for exact content."
 }
