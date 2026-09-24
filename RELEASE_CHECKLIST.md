@@ -22,4 +22,4 @@ Before publishing a preview or stable release:
 - [ ] Create the release tag only after the exact candidate passes CI.
 - [ ] Close the implementation issue only after the stable content is merged.
 
-For v0.6.0, v0.4.0 is the prior normal public release; `0.2.0`, `0.3.0`, `0.3.1`, and `0.5.0` are development-lineage labels rather than public tags. The official stable v1.0.0 release remains deferred.
+For v0.6.1, v0.6.0 is the prior normal public release; `0.2.0`, `0.3.0`, `0.3.1`, and `0.5.0` remain development-lineage labels rather than public tags. v0.6.1 is a documentation/presentation patch with no runtime/schema change. The official stable v1.0.0 release remains deferred.
