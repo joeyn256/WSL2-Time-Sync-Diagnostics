@@ -1,6 +1,5 @@
 {
-  "release_candidate": "0.1.1",
-  "status": "documentation-correction-candidate",
+  "status": "release-ready",
   "base_release": "v0.1.0",
   "cli_behavior_change": false,
   "corrections": [
@@ -14,5 +13,6 @@
     "github_actions_python_3_14": "PASS on v0.1.0",
     "real_wsl2_cli_smoke_test": "PASS on v0.1.0 CLI"
   },
-  "note": "v0.1.1 is a factual/documentation correction release plus package-version bump. New timing algorithms and diagnostics are deferred to v0.2.0."
+  "note": "v0.1.1 is a factual/documentation correction release plus package-version bump. New timing algorithms and diagnostics are deferred to v0.2.0.",
+  "release": "0.1.1"
 }
