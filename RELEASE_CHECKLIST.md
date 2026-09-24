@@ -12,6 +12,7 @@ Before publishing a preview or stable release:
 - [ ] Run the semantic CLI smoke used by CI.
 - [ ] Run `wsl-time-sync diagnose` inside WSL2 and inspect the output before sharing it.
 - [ ] Confirm example JSON remains synthetic.
+- [ ] Run `tests/test_public_evidence.py` and confirm the hero values, redactions, and same-host evidence still agree.
 - [ ] Confirm no mutating command was added to a default CLI path.
 - [ ] Confirm current GitHub Actions is green on both supported Python matrix entries at the exact release-candidate commit.
 - [ ] Confirm schema/method version labels are not being confused with the package release number.

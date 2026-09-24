@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="846" viewBox="0 0 1000 846" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,'Segoe UI',Ubuntu,'DejaVu Sans',Arial,sans-serif">
 <title id="title">Who writes the clock matters: three WSL2 situations from t = 0</title>
-<desc id="desc">Three side-by-side panels share one 0 to 120 second axis and one symmetric-log ppm scale from minus 100,000 to plus 100,000 ppm with the historical plus or minus 1000 ppm screen. Left, Ubuntu 24.04 with systemd-timesyncd enabled, measured on this host on 2026-09-24 against the guest's own raw clock: every 30 second window was outside the screen, between minus 55,089 and minus 49,693 ppm (rounded outward), about 5 percent slow, with forward CLOCK_REALTIME jumps of about +1.6 s at 31, 65 and 99 seconds; the 300 second run was minus 48,010.756 to minus 48,010.740 ppm and the kernel tick moved from 10000 to 9437. The Windows host clock was about 1.06 s behind NTP with the Windows Time service stopped. Middle, Ubuntu 24.04 after the timesyncd stop, the historical D4R2 series against Windows QPC: t = 0 is the window opening about 60 s after the confirmed stop with the unit still enabled; window 1 measured +26,665.299 to +26,724.999 ppm, outside the screen; windows 2 to 4 were within about plus or minus 33 ppm; the 120 second run was +6,661.607 to +6,676.217 ppm, still outside; tick 10833 before and 10000 later. Right, Ubuntu 26.04 fresh default with chrony running with -x, measured on the same host the same day: all ten 30 second windows inside the screen between minus 0.73 and minus 0.27 ppm (rounded outward), the 300 second run minus 0.535 to minus 0.511 ppm, no jumps, tick 10000 throughout. Who changes tick is not established. Summaries pop up as each 30 second window closes; motion is playback at ten times real time; with animation off the complete result is shown.</desc>
+<desc id="desc">Three side-by-side panels share one 0 to 120 second axis and one symmetric-log ppm scale from minus 100,000 to plus 100,000 ppm with the historical plus or minus 1000 ppm screen. Left, Ubuntu 24.04 with systemd-timesyncd enabled, measured on this host on 2026-09-24 against the guest's own raw clock: every 30 second window was outside the screen, the first four 30 second windows spanning minus 55,089 to minus 49,693 ppm (rounded outward), about 5 percent slow, with forward CLOCK_REALTIME jumps of about +1.6 s at 31, 65 and 99 seconds; the 300 second run was minus 48,010.756 to minus 48,010.740 ppm and the kernel tick moved from 10000 to 9437. The Windows host clock was about 1.06 s behind NTP with the Windows Time service stopped. Middle, Ubuntu 24.04 after the timesyncd stop, the historical D4R2 series against Windows QPC: t = 0 is the window opening about 60 s after the confirmed stop with the unit still enabled; window 1 measured +26,665.299 to +26,724.999 ppm, outside the screen; windows 2 to 4 were within about plus or minus 33 ppm; the 120 second run was +6,661.607 to +6,676.217 ppm, still outside; tick 10833 before and 10000 later. Right, Ubuntu 26.04 fresh default with chrony running with -x, measured on the same host the same day: all ten 30 second windows inside the screen, with window enclosures spanning minus 0.73 to minus 0.27 ppm (rounded outward), the 300 second run minus 0.535 to minus 0.511 ppm, mean 0–60 s ≈ −0.48 ppm*. Who changes tick is not established. Summaries pop up as each 30 second window closes; motion is playback at ten times real time; with animation off the complete result is shown.</desc>
 <defs>
  <marker id="mBlue" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#58a6ff"/></marker>
  <marker id="mAmber" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#d29922"/></marker>
@@ -11,14 +11,15 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
 .a{animation-duration:18s;animation-timing-function:linear;animation-iteration-count:infinite;animation-fill-mode:both}
 .cur{animation-name:cur}
 @keyframes cur{0%{transform:translateX(0);opacity:.9}66.67%{transform:translateX(238px);opacity:.9}67.6%{transform:translateX(238px);opacity:0}100%{transform:translateX(238px);opacity:0}}
-.k30{animation-name:k30}@keyframes k30{0%,16.67%{opacity:0}17.8%,100%{opacity:1}}
-.k60{animation-name:k60}@keyframes k60{0%,33.33%{opacity:0}34.4%,100%{opacity:1}}
-.k90{animation-name:k90}@keyframes k90{0%,50%{opacity:0}51.1%,100%{opacity:1}}
-.k120{animation-name:k120}@keyframes k120{0%,66.67%{opacity:0}67.8%,100%{opacity:1}}
-.j1{animation-name:j1}@keyframes j1{0%,17.2%{opacity:0}18%,100%{opacity:1}}
-.j2{animation-name:j2}@keyframes j2{0%,36.1%{opacity:0}36.9%,100%{opacity:1}}
-.j3{animation-name:j3}@keyframes j3{0%,55%{opacity:0}55.8%,100%{opacity:1}}
+.k30{animation-name:k30}@keyframes k30{0%,16.64%{opacity:0}16.67%,100%{opacity:1}}
+.k60{animation-name:k60}@keyframes k60{0%,33.30%{opacity:0}33.33%,100%{opacity:1}}
+.k90{animation-name:k90}@keyframes k90{0%,49.97%{opacity:0}50%,100%{opacity:1}}
+.k120{animation-name:k120}@keyframes k120{0%,66.64%{opacity:0}66.67%,100%{opacity:1}}
+.j1{animation-name:j1}@keyframes j1{0%,17.19%{opacity:0}17.22%,100%{opacity:1}}
+.j2{animation-name:j2}@keyframes j2{0%,36.08%{opacity:0}36.11%,100%{opacity:1}}
+.j3{animation-name:j3}@keyframes j3{0%,54.97%{opacity:0}55%,100%{opacity:1}}
 .avg{animation-name:avg}@keyframes avg{0%,66.9%{stroke-dasharray:238;stroke-dashoffset:238}69.5%,100%{stroke-dasharray:238;stroke-dashoffset:0}}
+.collect{animation-name:collect}@keyframes collect{0%,16.64%{opacity:1}16.67%,100%{opacity:0}}
 .s1{animation-name:s1}@keyframes s1{0%{opacity:0}0.6%{opacity:1}16.2%{opacity:1}16.67%,100%{opacity:0}}
 .s2{animation-name:s2}@keyframes s2{0%,16.67%{opacity:0}17.3%{opacity:1}32.9%{opacity:1}33.33%,100%{opacity:0}}
 .s3{animation-name:s3}@keyframes s3{0%,33.33%{opacity:0}33.9%{opacity:1}49.5%{opacity:1}50%,100%{opacity:0}}
@@ -49,7 +50,7 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
  <text x="280" y="178" text-anchor="middle" fill="#f0f6fc" font-size="12">systemd-</text>
  <text x="280" y="191" text-anchor="middle" fill="#f0f6fc" font-size="12">timesyncd</text>
  <line x1="242" y1="181" x2="200" y2="181" stroke="#d29922" stroke-width="2.2" marker-end="url(#mAmber)"/>
- <text x="185" y="212" text-anchor="middle" fill="#c3c2b7" font-size="12">two default control paths (documented)</text>
+ <text x="185" y="212" text-anchor="middle" fill="#c3c2b7" font-size="12">two documented control paths</text>
  <text x="185" y="226" text-anchor="middle" fill="#898781" font-size="12">environment: host ≈1.06 s behind NTP</text>
  <!-- plot frame -->
  <rect x="80" y="272" width="238" height="120" fill="#ffffff" fill-opacity=".05"/>
@@ -57,7 +58,7 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
  <line x1="80" y1="392" x2="318" y2="392" stroke="#ffffff" stroke-opacity=".22"/>
  <line x1="80" y1="332" x2="318" y2="332" stroke="#6e7681"/>
  <g fill="#898781" font-size="12" text-anchor="end">
-  <text x="76" y="256">+10k</text><text x="76" y="276">+1k</text><text x="76" y="296">+100</text><text x="76" y="336">0</text><text x="76" y="376">−100</text><text x="76" y="396">−1k</text><text x="76" y="416">−10k</text>
+  <text x="76" y="236">+100k</text><text x="76" y="256">+10k</text><text x="76" y="276">+1k</text><text x="76" y="296">+100</text><text x="76" y="336">0</text><text x="76" y="376">−100</text><text x="76" y="396">−1k</text><text x="76" y="416">−10k</text><text x="76" y="430">−100k</text>
  </g>
  <text x="316" y="285" text-anchor="end" fill="#898781" font-size="12">±1000 ppm screen</text>
  <rect class="a s1" x="82" y="232" width="55" height="200" fill="#39d0d8" fill-opacity=".10" opacity="0"/>
@@ -71,7 +72,7 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
  <g class="a k120"><rect x="260.5" y="332" width="55" height="92" fill="#39d0d8" fill-opacity=".16"/><rect x="260.5" y="424" width="55" height="4" rx="2" fill="#39d0d8"/></g>
  <g class="a k30">
   <text x="199" y="306" text-anchor="middle" fill="#f0f6fc" font-size="16" font-weight="700">≈ 5 % slow · outside</text>
-  <text x="199" y="322" text-anchor="middle" fill="#c3c2b7" font-size="12">0–120 s: −55,089 to −49,693 ppm</text>
+  <text x="199" y="322" text-anchor="middle" fill="#c3c2b7" font-size="12">first 4 windows: −55,089 to −49,693 ppm</text>
  </g>
  <!-- REALTIME jumps (measured adjacent-sample events) -->
  <g class="a j1"><path d="M141.5 434 l5 8 h-10 z" fill="#f85149"/></g>
@@ -83,6 +84,7 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
  </g>
  <g class="a cur" opacity="0"><line x1="80" y1="232" x2="80" y2="432" stroke="#f0f6fc" stroke-width="1.5"/><path d="M80 228 l-5 -8 h10 z" fill="#f0f6fc"/></g>
  <!-- chips -->
+ <text class="a collect" opacity="0" x="185" y="494" text-anchor="middle" fill="#898781" font-size="12">collecting first 30 s window…</text>
  <g class="a k30">
   <rect x="52" y="466" width="266" height="54" rx="9" fill="#11161d" stroke="#f85149" stroke-opacity=".7"/>
   <text x="62" y="483" fill="#f0f6fc" font-size="12" font-weight="700">30 s · window 1 · <tspan fill="#f85149">OUTSIDE</tspan></text>
@@ -93,21 +95,21 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
   <rect x="52" y="524" width="266" height="54" rx="9" fill="#11161d" stroke="#f85149" stroke-opacity=".7"/>
   <text x="62" y="541" fill="#f0f6fc" font-size="12" font-weight="700">60 s · window 2 · <tspan fill="#f85149">OUTSIDE</tspan></text>
   <text x="62" y="557" fill="#c3c2b7" font-size="12">−54,399.438 to −54,399.233 ppm</text>
-  <text x="62" y="572" fill="#898781" font-size="12">REALTIME jumped +1.64 s at 31 s</text>
+  <text x="62" y="572" fill="#898781" font-size="12">mean 0–60 s ≈ −54.7k ppm*</text>
  </g>
  <g class="a k90">
   <rect x="52" y="582" width="266" height="54" rx="9" fill="#11161d" stroke="#f85149" stroke-opacity=".7"/>
   <text x="62" y="599" fill="#f0f6fc" font-size="12" font-weight="700">90 s · window 3 · <tspan fill="#f85149">OUTSIDE</tspan></text>
   <text x="62" y="615" fill="#c3c2b7" font-size="12">−49,693.799 to −49,693.640 ppm</text>
-  <text x="62" y="630" fill="#898781" font-size="12">REALTIME jumped +1.69 s at 65 s</text>
+  <text x="62" y="630" fill="#898781" font-size="12">mean 0–90 s ≈ −53.1k ppm*</text>
  </g>
  <g class="a k120">
   <rect x="52" y="640" width="266" height="54" rx="9" fill="#11161d" stroke="#39d0d8" stroke-opacity=".8"/>
   <text x="62" y="657" fill="#f0f6fc" font-size="12" font-weight="700">120 s · window 4 · <tspan fill="#f85149">OUTSIDE</tspan></text>
   <text x="62" y="673" fill="#c3c2b7" font-size="12">−52,680.920 to −52,680.778 ppm</text>
-  <text x="62" y="688" fill="#c3c2b7" font-size="12"><tspan fill="#f85149">▲</tspan> 300 s: −48,010.756 to −48,010.740</text>
+  <text x="62" y="688" fill="#c3c2b7" font-size="12">mean 0–120 s ≈ −53.0k ppm*</text>
  </g>
- <text x="185" y="706" text-anchor="middle" fill="#7ee0e6" font-size="12" font-weight="700">→ 5 % slow with +1.6 s jumps</text>
+ <text x="185" y="706" text-anchor="middle" fill="#7ee0e6" font-size="12" font-weight="700">→ 300 s avg ≈ −48,011 ppm · +1.6 s jumps</text>
 </g>
 
 <!-- ================= Panel 2: 24.04 · after timesyncd stop, D4R2 (x 355..645) ================= -->
@@ -134,7 +136,7 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
  <line x1="395" y1="392" x2="633" y2="392" stroke="#ffffff" stroke-opacity=".22"/>
  <line x1="395" y1="332" x2="633" y2="332" stroke="#6e7681"/>
  <g fill="#898781" font-size="12" text-anchor="end">
-  <text x="391" y="256">+10k</text><text x="391" y="276">+1k</text><text x="391" y="296">+100</text><text x="391" y="336">0</text><text x="391" y="376">−100</text><text x="391" y="396">−1k</text><text x="391" y="416">−10k</text>
+  <text x="391" y="236">+100k</text><text x="391" y="256">+10k</text><text x="391" y="276">+1k</text><text x="391" y="296">+100</text><text x="391" y="336">0</text><text x="391" y="376">−100</text><text x="391" y="396">−1k</text><text x="391" y="416">−10k</text><text x="391" y="430">−100k</text>
  </g>
  <rect class="a s1" x="397" y="232" width="55" height="200" fill="#a371f7" fill-opacity=".10" opacity="0"/>
  <rect class="a s2" x="456.5" y="232" width="55" height="200" fill="#a371f7" fill-opacity=".10" opacity="0"/>
@@ -162,6 +164,7 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
   <text x="395" y="454">0</text><text x="454.5" y="454">30</text><text x="514" y="454">60</text><text x="573.5" y="454">90</text><text x="633" y="454">120 s</text>
  </g>
  <g class="a cur" opacity="0"><line x1="395" y1="232" x2="395" y2="432" stroke="#f0f6fc" stroke-width="1.5"/><path d="M395 228 l-5 -8 h10 z" fill="#f0f6fc"/></g>
+ <text class="a collect" opacity="0" x="500" y="494" text-anchor="middle" fill="#898781" font-size="12">collecting first 30 s window…</text>
  <g class="a k30">
   <rect x="367" y="466" width="266" height="54" rx="9" fill="#11161d" stroke="#f85149" stroke-opacity=".7"/>
   <text x="377" y="483" fill="#f0f6fc" font-size="12" font-weight="700">30 s · window 1 · <tspan fill="#f85149">OUTSIDE</tspan></text>
@@ -215,7 +218,7 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
  <line x1="710" y1="392" x2="948" y2="392" stroke="#ffffff" stroke-opacity=".22"/>
  <line x1="710" y1="332" x2="948" y2="332" stroke="#6e7681"/>
  <g fill="#898781" font-size="12" text-anchor="end">
-  <text x="706" y="256">+10k</text><text x="706" y="276">+1k</text><text x="706" y="296">+100</text><text x="706" y="336">0</text><text x="706" y="376">−100</text><text x="706" y="396">−1k</text><text x="706" y="416">−10k</text>
+  <text x="706" y="236">+100k</text><text x="706" y="256">+10k</text><text x="706" y="276">+1k</text><text x="706" y="296">+100</text><text x="706" y="336">0</text><text x="706" y="376">−100</text><text x="706" y="396">−1k</text><text x="706" y="416">−10k</text><text x="706" y="430">−100k</text>
  </g>
  <text x="946" y="285" text-anchor="end" fill="#898781" font-size="12">±1000 ppm screen</text>
  <rect class="a s1" x="712" y="232" width="55" height="200" fill="#39d0d8" fill-opacity=".10" opacity="0"/>
@@ -228,13 +231,14 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
  <rect class="a k120" x="890.5" y="334" width="55" height="4" rx="2" fill="#39d0d8"/>
  <g class="a k30">
   <text x="829" y="306" text-anchor="middle" fill="#f0f6fc" font-size="16" font-weight="700">≈ 0 ppm · inside</text>
-  <text x="829" y="322" text-anchor="middle" fill="#c3c2b7" font-size="12">0–300 s: −0.73 to −0.27 ppm</text>
+  <text x="829" y="322" text-anchor="middle" fill="#c3c2b7" font-size="12">10 windows: −0.73 to −0.27 ppm</text>
  </g>
  <line x1="710" y1="432" x2="948" y2="432" stroke="#30363d"/>
  <g fill="#898781" font-size="12" text-anchor="middle">
   <text x="710" y="454">0</text><text x="769.5" y="454">30</text><text x="829" y="454">60</text><text x="888.5" y="454">90</text><text x="948" y="454">120 s</text>
  </g>
  <g class="a cur" opacity="0"><line x1="710" y1="232" x2="710" y2="432" stroke="#f0f6fc" stroke-width="1.5"/><path d="M710 228 l-5 -8 h10 z" fill="#f0f6fc"/></g>
+ <text class="a collect" opacity="0" x="815" y="494" text-anchor="middle" fill="#898781" font-size="12">collecting first 30 s window…</text>
  <g class="a k30">
   <rect x="682" y="466" width="266" height="54" rx="9" fill="#11161d" stroke="#30363d"/>
   <text x="692" y="483" fill="#f0f6fc" font-size="12" font-weight="700">30 s · window 1 · inside</text>
@@ -251,15 +255,15 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Ubuntu,"DejaVu Sans",Arial,s
   <rect x="682" y="582" width="266" height="54" rx="9" fill="#11161d" stroke="#30363d"/>
   <text x="692" y="599" fill="#f0f6fc" font-size="12" font-weight="700">90 s · window 3 · inside</text>
   <text x="692" y="615" fill="#c3c2b7" font-size="12">−0.667 to −0.491 ppm</text>
-  <text x="692" y="630" fill="#898781" font-size="12">guest-side MONOTONIC vs RAW</text>
+  <text x="692" y="630" fill="#898781" font-size="12">mean 0–90 s ≈ −0.51 ppm*</text>
  </g>
  <g class="a k120">
   <rect x="682" y="640" width="266" height="54" rx="9" fill="#11161d" stroke="#39d0d8" stroke-opacity=".8"/>
   <text x="692" y="657" fill="#f0f6fc" font-size="12" font-weight="700">120 s · window 4 · inside</text>
   <text x="692" y="673" fill="#c3c2b7" font-size="12">−0.464 to −0.270 ppm</text>
-  <text x="692" y="688" fill="#c3c2b7" font-size="12">300 s run −0.535 to −0.511 ppm</text>
+  <text x="692" y="688" fill="#c3c2b7" font-size="12">mean 0–120 s ≈ −0.48 ppm*</text>
  </g>
- <text x="815" y="706" text-anchor="middle" fill="#7ee0e6" font-size="12" font-weight="700">→ promising screen, not a guarantee</text>
+ <text x="815" y="706" text-anchor="middle" fill="#7ee0e6" font-size="12" font-weight="700">→ 300 s avg ≈ −0.52 ppm · no jumps</text>
 </g>
 
 <!-- Legend -->

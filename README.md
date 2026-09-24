@@ -297,7 +297,7 @@ A result in one category is not automatically evidence for another.
 
 The v0.6.0 release uses the same strict software-quality gate planned for the future stable v1 release on **both Python 3.12 and Python 3.14**:
 
-- the complete **271-test** suite;
+- the complete **275-test** suite, including four public-evidence/visual integrity checks;
 - construction and installation of the normal `wsl2-time-sync-diagnostics` wheel, with distribution and import version checks;
 - the semantic CLI smoke: strict JSON, verified RAW acquisition completion and requested-duration coverage, two complete fixed windows with zero partial windows, cumulative REALTIME evidence, and method-aware comparison.
 

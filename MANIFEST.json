@@ -51,6 +51,7 @@
     "stable CLI/schema reference uses release-neutral naming": true,
     "v1.0.0 stable contract remains explicitly deferred": true,
     "package and publication metadata target v0.6.0 public release": true,
-    "hero architecture labels say control paths, not proven writer count": true
+    "hero architecture labels say control paths, not proven writer count": true,
+    "same-host evidence and hero values are regression-checked by tests/test_public_evidence.py": true
   }
 }
