@@ -1,0 +1,68 @@
+name: Render deterministic v0.6 visual states
+
+on:
+  push:
+    branches:
+      - audit/v0.6-final-visual
+
+permissions:
+  contents: write
+
+jobs:
+  render-offsets:
+    if: ${{ !contains(github.event.head_commit.message, '[skip deterministic-audit]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Locate Chromium
+        id: chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          BIN="$(command -v google-chrome || command -v chromium-browser || command -v chromium || true)"
+          test -n "$BIN"
+          echo "bin=$BIN" >> "$GITHUB_OUTPUT"
+      - name: Render forced animation offsets
+        shell: bash
+        env:
+          CHROME: ${{ steps.chrome.outputs.bin }}
+        run: |
+          set -euo pipefail
+          mkdir -p audit/v0.6-deterministic-frames
+          SRC="docs/assets/three-model-timing-comparison.svg"
+          render_offset() {
+            name="$1"
+            offset="$2"
+            python - "$SRC" "$RUNNER_TEMP/state.svg" "$offset" <<'PY'
+          import pathlib, sys
+          src = pathlib.Path(sys.argv[1]).read_text()
+          out = pathlib.Path(sys.argv[2])
+          off = sys.argv[3]
+          src = src.replace(
+              "animation-duration:18s;animation-timing-function:linear",
+              f"animation-duration:18s;animation-delay:-{off}s;animation-timing-function:linear",
+              1,
+          )
+          out.write_text(src)
+          PY
+            "$CHROME" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+              --window-size=1000,846 --virtual-time-budget=250 \
+              --run-all-compositor-stages-before-draw \
+              --screenshot="$GITHUB_WORKSPACE/audit/v0.6-deterministic-frames/$name.png" \
+              "file://$RUNNER_TEMP/state.svg"
+          }
+          render_offset state_00 0
+          render_offset state_30 3.1
+          render_offset state_60 6.1
+          render_offset state_90 9.1
+          render_offset state_120 12.1
+          render_offset state_final 13.2
+      - name: Commit deterministic frames
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit/v0.6-deterministic-frames
+          git commit -m "Render deterministic v0.6 visual states [skip deterministic-audit] [skip ci]" || exit 0
+          git push
