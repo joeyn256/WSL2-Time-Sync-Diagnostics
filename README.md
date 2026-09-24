@@ -365,6 +365,7 @@ before interpreting timing results.
 - [Python 3.12 vs Python 3.14](docs/python-3.12-vs-3.14.md)
 - [Methodology](docs/methodology.md)
 - [Limitations](docs/limitations.md)
+- [Real Ubuntu 26.04 WSL2 CLI smoke test](docs/real-wsl-smoke-test.md)
 
 ---
 
