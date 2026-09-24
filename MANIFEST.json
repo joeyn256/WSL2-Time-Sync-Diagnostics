@@ -1,6 +1,16 @@
 {
-  "version": "public-draft-r3-editorial-corrected-plus-cli",
-  "purpose": "Human-readable publication manifest. File-integrity verification is delegated to Git commit identity rather than duplicated per-file hashes.",
+  "version": "public-v0.1.0-pre-release",
+  "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
+  "public_documents": [
+    "README.md",
+    "docs/findings-ubuntu-24.04.md",
+    "docs/findings-ubuntu-26.04.md",
+    "docs/timesyncd-investigation.md",
+    "docs/python-3.12-vs-3.14.md",
+    "docs/methodology.md",
+    "docs/limitations.md",
+    "docs/real-wsl-smoke-test.md"
+  ],
   "cross_document_checks": {
     "causal limitation present": true,
     "26.04 universal-fix disclaimer present": true,
@@ -9,15 +19,8 @@
     "TP1R5 qualification unavailable": true,
     "finite historical evidence retained": true,
     "guest-vs-host distinction present": true,
-    "fixed-wait lesson present": true
-  },
-  "public_docs": [
-    "README.md",
-    "docs/findings-ubuntu-24.04.md",
-    "docs/findings-ubuntu-26.04.md",
-    "docs/timesyncd-investigation.md",
-    "docs/python-3.12-vs-3.14.md",
-    "docs/methodology.md",
-    "docs/limitations.md"
-  ]
+    "fixed-wait lesson present": true,
+    "real WSL2 CLI smoke test documented": true,
+    "Microsoft WSL filesystem placement guidance linked": true
+  }
 }
