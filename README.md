@@ -286,6 +286,26 @@ Current high-level status:
 
 ---
 
+## Where to keep the repository in WSL
+
+If you are working primarily from the Linux command line, keep the repository in the Linux filesystem, for example:
+
+```bash
+~/Projects/wsl2-time-sync-guide
+```
+
+rather than under a mounted Windows path such as:
+
+```text
+/mnt/c/Users/<you>/...
+```
+
+Microsoft recommends storing files in the WSL filesystem for the best performance when working from Linux, and storing files in the Windows filesystem when working primarily from Windows tools.
+
+See Microsoft's guidance: https://learn.microsoft.com/windows/wsl/filesystems#file-storage-and-performance-across-file-systems
+
+---
+
 ## Try the read-only CLI
 
 The repository includes a small standard-library-only diagnostic CLI.
