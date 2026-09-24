@@ -1,5 +1,5 @@
 {
-  "version": "public-v0.3.0",
+  "version": "public-v0.3.1",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
@@ -31,6 +31,7 @@
     "fixed-wait lesson present": true,
     "visuals distinguish vendor facts from project observations": true,
     "README opening labels evidence tiers (vendor fact / observation / inference / not established)": true,
-    "animated hero uses only published D4R2 values and has a complete static fallback": true
+    "animated hero uses only published D4R2 values and has a complete static fallback": true,
+    "animated hero starts at the stop transition and distinguishes the stopped user-space write path from persistent kernel state": true
   }
 }

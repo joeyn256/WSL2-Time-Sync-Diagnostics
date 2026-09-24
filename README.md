@@ -18,7 +18,7 @@
 **What the evidence showed.**
 
 <p align="center">
-  <img src="docs/assets/d4r2-settling-animated.svg" alt="Animated D4R2 timeline on a Windows QPC axis: after systemd-timesyncd was confirmed stopped and a 60-second hold, the PRE adjtimex snapshot still showed tick 10833; the first 30-second window measured +26,665 to +26,725 ppm against QPC, outside the ±1000 ppm screen; windows 2 to 4 were within ±33 ppm; the 120-second MONOTONIC/QPC average was +6,662 to +6,676 ppm while RAW/QPC was −6.3 to +8.2 ppm; the POST snapshot showed tick 10000. Who set or reset tick is not established." width="1000">
+  <img src="docs/assets/d4r2-settling-animated.svg" alt="Animated D4R2 timeline beginning at the systemd-timesyncd stop transition, with an inset showing its write path stop while Hyper-V remains and kernel tick/freq state persists; after a 60-second hold, the PRE adjtimex snapshot still showed tick 10833; the first 30-second window measured +26,665 to +26,725 ppm against QPC, outside the ±1000 ppm screen; windows 2 to 4 were within ±33 ppm; the 120-second MONOTONIC/QPC average was +6,662 to +6,676 ppm while RAW/QPC was −6.3 to +8.2 ppm; the POST snapshot showed tick 10000. Who set or reset tick is not established." width="1000">
 </p>
 
 | Tier | Statement |
