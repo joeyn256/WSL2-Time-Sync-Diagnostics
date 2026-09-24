@@ -1,0 +1,36 @@
+name: Render final v0.6 chart
+
+on:
+  push:
+    branches:
+      - audit/v0.6.0-final-render
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render final static and reduced-motion states
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          mkdir -p visual-audit
+          SVG="file://$PWD/docs/assets/three-model-timing-comparison.svg"
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --window-size=1000,846 --virtual-time-budget=12500 \
+            --run-all-compositor-stages-before-draw \
+            --screenshot="$PWD/visual-audit/final-120s.png" "$SVG"
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --window-size=1000,846 --force-prefers-reduced-motion \
+            --run-all-compositor-stages-before-draw \
+            --screenshot="$PWD/visual-audit/final-reduced-motion.png" "$SVG"
+          file visual-audit/*.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v0.6-final-render
+          path: visual-audit/*.png
+          if-no-files-found: error
