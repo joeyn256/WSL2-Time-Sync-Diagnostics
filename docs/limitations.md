@@ -41,6 +41,8 @@ The Ubuntu 24.04 intervention produced materially different observations across 
 
 The controlled causal result therefore remained **inconclusive**.
 
+The examined interventions stopped and later started `systemd-timesyncd`; the unit remained enabled. D4R2 still reported a large correction state after the confirmed stop and an approximately 60-second QPC-measured wait. This does not establish the same behavior on every system or identify a sole initiating writer.
+
 The project does not prove:
 
 - `systemd-timesyncd` was the sole wall-clock writer;
@@ -73,6 +75,26 @@ Two guest clocks can agree closely while sharing an error relative to the host o
 The Ubuntu 26.04 screen therefore supports a bounded guest-relative conclusion.
 
 It does not prove absolute guest-to-host accuracy.
+
+The v0.2 RAW-before/RAW-after enclosure improves accounting for sequential read uncertainty. It still compares guest clocks. Common-mode errors can leave MONOTONIC-versus-RAW inside the configured band while every guest clock differs from a host or external reference. The synthetic common-mode fixture illustrates that blind spot; the CLI does not collect host-reference samples.
+
+## Finite observations cannot certify settling
+
+`settle-check` uses `WITHIN_CONFIGURED_BAND` when the complete scheduled snapshot series satisfies its configured tick/frequency policy and consecutive-reading requirement. `ANOMALY_OBSERVED` preserves a sampled policy anomaly even when later readings improve. `INDETERMINATE` covers unavailable/malformed observations, an incomplete capture, or insufficient consecutive readings. These labels concern kernel fields, not measured rate windows; the separate `analyze` command uses `WITHIN`, `OUTSIDE`, and `INDETERMINATE` for interval evidence.
+
+None of these labels is a universal benchmark-readiness predicate. A finite capture does not rule out future changes, events between samples, or opposing events that cancel within one window. Window length, cadence, rate band, and event threshold must accompany the interpretation.
+
+The `adjtimex(modes=0)` reader supports a checked Linux x86-64 LP64 ABI. Other ABIs return structured unavailability; the implementation does not guess their layout. Permission, platform, or interface failures remain unavailable observations, not nominal kernel state. A successful snapshot also does not prove that all pending corrections are absent. Error-estimate fields report kernel state; they are not an independently measured bound on guest-to-host accuracy.
+
+## Legacy precision and method comparisons
+
+v0.1 probe inputs remain accepted, but their unbracketed endpoint rate has no measured acquisition enclosure. Its uncertainty-aware classification is indeterminate. Missing samples, duplicate indices, reversed clocks, short final windows, or inadequate coverage must not become an apparent clean result.
+
+`COMPARABLE` means two reports have sufficient matching measurement context. It does not establish that the runs had matched workloads, host conditions, or experimental controls. `DIFFERENT_METHOD` and `INSUFFICIENT_CONTEXT` expose method mismatch or missing information rather than silently subtracting unlike rate estimates. The optional caller-supplied continuity label is acquisition context, not a boot identifier or proof of uninterrupted host continuity. The probe does not reconstruct boot identity.
+
+## Synthetic tests establish algorithm behavior
+
+The v0.2 regression fixtures are generated from explicit parameters. Their historical shape labels describe a kind of failure, not a replay of private measurements. Passing a synthetic early-slew, sawtooth, step, or boundary test demonstrates the expected behavior on that constructed input. It does not reproduce a historical experiment or establish current live WSL behavior.
 
 ## The 26.04 result is a screen, not a guarantee
 

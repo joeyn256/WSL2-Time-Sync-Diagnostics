@@ -22,6 +22,26 @@ It does **not** establish that an arbitrary Python project will install, build, 
 
 The historical 24.04/26.04 work did not perform a comprehensive ecosystem-wide package survey.
 
+## Compatibility of this CLI
+
+The v0.2 guest core uses only the Python standard library at runtime. Its CI matrix runs the complete test suite on Python 3.12 and Python 3.14, including bracketed sampling, exact interval boundaries, synthetic failure shapes, legacy v0.1 analysis, kernel-state error handling, finite settling observations, and method-aware comparison. `pytest` is a development dependency, not a runtime requirement.
+
+Interpreter compatibility is separate from operating-system and ABI support. Offline analysis and synthetic fixtures can run without Linux timing interfaces. Live RAW/BOOTTIME acquisition records unavailable clocks explicitly. The read-only `adjtimex` reader is restricted to the validated Linux x86-64 LP64 layout and reports unsupported environments as unavailable. Passing mocked layout/error tests on another platform does not qualify that platform's live kernel interface.
+
+From a clean checkout, run the same tests for each interpreter:
+
+```bash
+python3.12 -m venv .venv312
+.venv312/bin/python -m pip install -e '.[dev]'
+.venv312/bin/python -m pytest
+
+python3.14 -m venv .venv314
+.venv314/bin/python -m pip install -e '.[dev]'
+.venv314/bin/python -m pytest
+```
+
+These are Linux/WSL commands. A green run establishes the tested behavior of this repository under that interpreter and platform; it is not an ecosystem compatibility result or a clock-health certification.
+
 ## The compatibility question that matters
 
 For a real project, check your own dependencies.

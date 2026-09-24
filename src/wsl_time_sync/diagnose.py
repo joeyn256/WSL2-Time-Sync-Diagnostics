@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from .adjtimex import observe_adjtimex
 from .utils import read_text, run_readonly
 
 
@@ -81,6 +82,7 @@ def collect_diagnosis() -> dict[str, Any]:
             _service_state("chronyd.service"),
         ],
         "ptp": ptp_devices,
+        "adjtimex": observe_adjtimex(),
         "python_executable": sys.executable,
         "notes": [
             "Presence of a service or PTP device does not identify the active clock writer.",

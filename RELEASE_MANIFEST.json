@@ -1,18 +1,24 @@
 {
-  "status": "release-ready",
-  "base_release": "v0.1.0",
-  "cli_behavior_change": false,
-  "corrections": [
-    "Clarify that examined systemd-timesyncd interventions used stop/start while the unit remained enabled.",
-    "Replace broad association/suppression wording with the frozen C1 A-B-A outcome and INCONCLUSIVE formal result.",
-    "Publish bounded D4R2 PRE/window/POST values, including the exact first-window MONOTONIC/QPC enclosure.",
-    "Remove firewall/preflight-derived 156/40/22 counts from presentation as timing evidence."
+  "release": "0.2.0",
+  "status": "feature-branch-implementation",
+  "branch": "feature/v0.2-guest-core",
+  "base_release": "v0.1.1",
+  "base_commit": "830a142d57e8f785016ef07952a5340b4eb94ab3",
+  "scope_issue": "https://github.com/joeyn256/wsl2-time-sync-guide/issues/2",
+  "cli_behavior_change": true,
+  "runtime_dependencies": "Python standard library only",
+  "changes": [
+    "Schema-v2 RAW-bracketed guest sampling with explicit missing clocks and collection completeness.",
+    "Fixed-window interval analysis, three-way classification, and legacy probe input support.",
+    "Verified Linux x86-64 LP64 read-only adjtimex snapshots and finite non-certifying settling observation.",
+    "Method-aware comparison and parameterized synthetic failure-shape regressions."
   ],
-  "prior_validation": {
-    "github_actions_python_3_12": "PASS on v0.1.0",
-    "github_actions_python_3_14": "PASS on v0.1.0",
-    "real_wsl2_cli_smoke_test": "PASS on v0.1.0 CLI"
+  "validation": {
+    "python_3_12_3": "Complete pytest suite and installed CLI smoke passed on Ubuntu 24.04 WSL2.",
+    "python_3_14_4": "Complete pytest suite and installed CLI smoke passed on Ubuntu 26.04 WSL2.",
+    "ci": "Python 3.12/3.14 test and installed CLI smoke matrix; consult checks for the exact commit.",
+    "tests_per_interpreter": 193
   },
-  "note": "v0.1.1 is a factual/documentation correction release plus package-version bump. New timing algorithms and diagnostics are deferred to v0.2.0.",
-  "release": "0.1.1"
+  "provenance": "Fresh implementations of small acquisition/math ideas from the bounded issue and audit descriptions; kernel ABI from public Linux interface documentation. No historical source or private raw evidence copied.",
+  "note": "No merge, release tag, host-reference qualification, service intervention, or universal readiness claim. Optional per-probe adjtimex snapshots and the separately scoped Windows companion are not included."
 }

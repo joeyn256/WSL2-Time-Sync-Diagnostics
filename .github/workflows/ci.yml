@@ -11,6 +11,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.12", "3.14"]
 
@@ -22,6 +23,14 @@ jobs:
       - name: Install
         run: python -m pip install -e ".[dev]"
       - name: Test
-        run: pytest
-      - name: CLI smoke test
-        run: wsl-time-sync --help
+        run: python -m pytest
+      - name: Guest-core CLI smoke tests
+        shell: bash
+        run: |
+          wsl-time-sync --help
+          wsl-time-sync analyze examples/sample-probe.json --output "$RUNNER_TEMP/legacy-analysis.json"
+          wsl-time-sync probe --duration 0.1 --cadence 0.02 --output "$RUNNER_TEMP/probe.json"
+          wsl-time-sync analyze "$RUNNER_TEMP/probe.json" --window 0.05 --output "$RUNNER_TEMP/analysis.json"
+          wsl-time-sync compare "$RUNNER_TEMP/analysis.json" "$RUNNER_TEMP/analysis.json"
+          wsl-time-sync diagnose --output "$RUNNER_TEMP/diagnose.json"
+          wsl-time-sync settle-check --duration 0.02 --cadence 0.01 --output "$RUNNER_TEMP/settle.json"

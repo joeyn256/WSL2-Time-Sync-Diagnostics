@@ -1,5 +1,5 @@
 {
-  "version": "public-v0.1.1",
+  "version": "public-v0.2.0",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
@@ -9,7 +9,8 @@
     "docs/python-3.12-vs-3.14.md",
     "docs/methodology.md",
     "docs/limitations.md",
-    "docs/real-wsl-smoke-test.md"
+    "docs/real-wsl-smoke-test.md",
+    "docs/v0.2-guest-core.md"
   ],
   "cross_document_checks": {
     "causal limitation present": true,

@@ -49,6 +49,6 @@ def write_json(path: str | Path, payload: Any) -> None:
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(
-        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        json.dumps(payload, indent=2, sort_keys=True, allow_nan=False) + "\n",
         encoding="utf-8",
     )

@@ -128,7 +128,7 @@ stop service
 → benchmark
 ```
 
-The current public CLI does not yet provide a validated universal settling predicate. That is a candidate for future work, not an established rule.
+The v0.2 `settle-check` command provides a finite read-only observation of an explicitly configured example band. It does not provide a universal settling predicate or certify benchmark readiness.
 
 ## What this investigation supports
 

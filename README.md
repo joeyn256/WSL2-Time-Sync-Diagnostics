@@ -59,7 +59,7 @@ That means:
 
 > **service state is not the same thing as clock-settled state.**
 
-For timing-sensitive work, prefer a measured readiness check over "wait N seconds and hope the clock has settled."
+For timing-sensitive work, use finite observations with explicit bands and retain anomalies. A within-band observation does not certify benchmark readiness.
 
 ---
 
@@ -139,74 +139,22 @@ This repository does not make a categorical "Python 3.14 is better than Python 3
 
 ---
 
-## Proposed diagnostic workflow
+## Guest-side v0.2 workflow
 
-The repository includes a small first implementation of these commands. Timing diagnostics inspect the current state without changing time services. A package-installation check is separate: it should use an isolated environment and will write files there.
+The CLI is standard-library-only at runtime. Commands observe guest clocks and kernel state without privileges, clock writes, service changes, or a Windows companion.
 
-```text
-wsl-time-sync diagnose
-wsl-time-sync probe
-wsl-time-sync analyze
-wsl-time-sync compare
-wsl-time-sync python-check
-```
+- `diagnose` records Linux/WSL guest metadata, service inventory and an `adjtimex(modes=0)` snapshot. Unsupported ABI/layouts return structured unavailability.
+- `probe` writes schema v2: RAW before, REALTIME, MONOTONIC, optional BOOTTIME, RAW after. It preserves integer timestamps, bracket widths and explicit null/error fields. RAW is a guest reference, not Windows QPC.
+- `analyze` accepts v0.1 and v0.2 probe inputs. It reports fixed windows, uncertainty intervals, signed realtime events, and `WITHIN`, `OUTSIDE`, or `INDETERMINATE`. Early adverse windows remain visible when the full-run average improves. Legacy sequential samples have unknown acquisition uncertainty and cannot establish `WITHIN`.
+- `settle-check` makes a finite series of read-only kernel-state observations. Its explicitly named historical example policy checks `tick == 10000` and `abs(freq/65536) < 100 ppm`; these are configurable example settings. It reports `WITHIN_CONFIGURED_BAND`, `ANOMALY_OBSERVED`, or `INDETERMINATE`, with no universal readiness verdict.
+- `compare` checks schema, acquisition/reference, analysis settings, coverage and any supplied continuity label. It emits numeric differences only for `COMPARABLE` reports; other results are `DIFFERENT_METHOD` or `INSUFFICIENT_CONTEXT`.
+- `python-check` reports the current interpreter and whether named distributions are installed. It does not install packages or evaluate their behavior.
 
-### `diagnose`
+The default analysis examples are 10-second windows, a ±100 ppm rate band and a 500,000,000 ns realtime-minus-RAW change band. Declare suitable settings for your question; these defaults are not definitions of clock health.
 
-Capture:
-
-- Windows version;
-- WSL version;
-- distro/release;
-- kernel;
-- Python version;
-- systemd version;
-- active clocksource;
-- visible time services;
-- Hyper-V/PTP visibility;
-- boot ID;
-- relevant process state.
+See the [CLI and schema reference](docs/v0.2-guest-core.md), [methodology](docs/methodology.md), and [limitations](docs/limitations.md). Synthetic fixtures recreate historical failure *shapes* parametrically; no private raw measurements are distributed.
 
 Keep original measurements privately. Before sharing output, remove usernames, hostnames, personal paths, literal boot/machine identifiers, and sensitive process arguments from a separate copy; document redactions that affect interpretation.
-
-For a small check you can run now in an already-open Ubuntu shell with systemd, use:
-
-```sh
-cat /etc/os-release
-uname -r
-python3 --version
-systemctl is-active systemd-timesyncd.service
-systemctl is-enabled systemd-timesyncd.service
-```
-
-Record the output, including unavailable commands or units. These are inventory checks, not timing tests or proof of clock stability. The [time-service investigation](docs/timesyncd-investigation.md) explains the distinction.
-
-### `probe`
-
-Run a bounded timing observation without changing services.
-
-A good probe should:
-
-- identify the measured clocks and reference explicitly;
-- retain exact timestamps;
-- capture enough metadata to interpret the run later;
-- avoid automatic retries that erase the first failure;
-- define the observation duration, comparison windows, and tolerances before running;
-- clearly distinguish incomplete from passed.
-
-On Linux, `CLOCK_MONOTONIC` avoids wall-clock jumps but remains subject to frequency adjustments. `CLOCK_MONOTONIC_RAW` avoids those software adjustments; it is still not an independent Windows-host reference. Choose clocks for the question being tested, rather than treating "monotonic" as proof of an unaffected timebase. See the [Linux clock documentation](https://man7.org/linux/man-pages/man3/clock_gettime.3.html).
-
-### `analyze`
-
-Analyze a saved run offline, preserving its original samples.
-
-### `compare`
-
-Compare two recorded runs without modifying either. Check that their clock references, calculations, window lengths, and conditions are comparable before interpreting numerical differences.
-
-### `python-check`
-
-Evaluate interpreter and package compatibility in an isolated virtual environment without replacing the system Python. Installation tests can download packages and write files; they are not read-only diagnostics.
 
 ---
 
@@ -216,7 +164,7 @@ A later administrator-run engineering branch produced additional component tests
 
 Those counts are therefore not used as evidence for the clock conclusions in this guide.
 
-The useful timing-specific material from that branch is being treated separately: bracketed sampling, fixed-window interval analysis, read-only kernel-state observation, synthetic failure fixtures, and an optional Windows QPC reference are candidates for future releases.
+The v0.2 guest core implements bracketed sampling, fixed-window interval analysis, read-only kernel-state observation, and parametric synthetic failure fixtures. A Windows QPC companion remains outside this release. No historical controller, administrator flow, or governance apparatus has been transplanted.
 
 Complete live host/runtime qualification from the old administrator-run branch remains unavailable and is not inferred from component-test counts or file hashes.
 
@@ -274,7 +222,8 @@ Current high-level status:
 | Ubuntu 26.04 guest-side default observation | Promising 300-second screen; no D4R2-scale MONOTONIC-vs-RAW slew observed |
 | Ubuntu 24.04 vs 26.04 timing ranking | Not established |
 | Full host/runtime qualification | Unavailable |
-| Separate build/test qualification | Not completed |
+| v0.2 guest-core software checks | 193 tests passed on Python 3.12.3 and 3.14.4; installed CLI smoke passed on both WSL environments |
+| Historical administrator-branch runtime qualification | Not established by these guest-core software tests |
 | Python 3.14 universally preferable to 3.12 | Not claimed |
 
 ---
@@ -326,7 +275,13 @@ wsl-time-sync probe --duration 30 --cadence 1 --output probe.json
 Analyze that probe offline:
 
 ```bash
-wsl-time-sync analyze probe.json --output analysis.json
+wsl-time-sync analyze probe.json --window 10 --rate-band-ppm 100 --event-threshold-ns 500000000 --output analysis.json
+```
+
+Observe the finite historical example kernel-state policy:
+
+```bash
+wsl-time-sync settle-check --duration 30 --cadence 1 --required-consecutive 3 --output settle.json
 ```
 
 Compare two analysis reports descriptively:
@@ -356,6 +311,7 @@ before interpreting timing results.
 - [Ubuntu 26.04 findings](docs/findings-ubuntu-26.04.md)
 - [`systemd-timesyncd` investigation](docs/timesyncd-investigation.md)
 - [Python 3.12 vs Python 3.14](docs/python-3.12-vs-3.14.md)
+- [v0.2 CLI and schema reference](docs/v0.2-guest-core.md)
 - [Methodology](docs/methodology.md)
 - [Limitations](docs/limitations.md)
 - [Real Ubuntu 26.04 WSL2 CLI smoke test](docs/real-wsl-smoke-test.md)
