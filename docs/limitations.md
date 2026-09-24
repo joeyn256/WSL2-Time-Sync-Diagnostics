@@ -37,9 +37,9 @@ Reproduction on another system is useful new evidence, not confirmation that the
 
 ## Causality remains limited
 
-The Ubuntu 24.04 work found a strong association between `systemd-timesyncd` state and the recurring timing pathology.
+The Ubuntu 24.04 intervention produced materially different observations across active, stopped, and restored phases, but its predeclared A–B–A causal-success condition was not satisfied.
 
-The controlled causal result remained inconclusive.
+The controlled causal result therefore remained **inconclusive**.
 
 The project does not prove:
 
@@ -105,21 +105,7 @@ The guide therefore does not claim:
 - current host restoration;
 - success in the separate build/test qualification (LI2).
 
-The historical comparator, boot, and modeled-mode results remain useful within their recorded scopes.
-
-## Historical tests are finite
-
-Passing:
-
-- 156 comparator vectors;
-- 40 boot-classification vectors;
-- 22 modeled mode-harness cases;
-
-shows behavior for those exact tests and exact bound code.
-
-It does not prove exhaustive correctness.
-
-It also does not turn modeled provider behavior into live Windows provider evidence.
+A later reuse audit traced several previously quoted component-test counts mainly to firewall/preflight machinery rather than clock validation. They are not used here as timing evidence. Small continuity and test-effectiveness ideas may still be reusable in future tooling, but their original pass counts do not strengthen the scientific timing claims.
 
 ## Python compatibility is workload-specific
 
