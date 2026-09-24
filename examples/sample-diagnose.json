@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "mode": "read_only",
+  "wsl_detected": true,
+  "platform": {
+    "system": "Linux",
+    "release": "example-microsoft-standard-WSL2",
+    "machine": "x86_64",
+    "python": "3.14.x"
+  },
+  "ubuntu": {
+    "PRETTY_NAME": "Ubuntu Example LTS"
+  },
+  "boot_id": "00000000-0000-0000-0000-000000000000",
+  "clocksource": "tsc",
+  "services": [
+    {
+      "unit": "systemd-timesyncd.service",
+      "active": "inactive",
+      "enabled": "disabled"
+    },
+    {
+      "unit": "chrony.service",
+      "active": "active",
+      "enabled": "enabled"
+    }
+  ],
+  "ptp": [
+    {
+      "name": "ptp0",
+      "clock_name": "hyperv",
+      "dev_path": "/dev/ptp0"
+    }
+  ],
+  "notes": [
+    "Synthetic example only."
+  ]
+}
