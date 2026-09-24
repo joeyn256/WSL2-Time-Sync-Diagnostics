@@ -29,7 +29,7 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/dist"
           python -m pip wheel . --no-deps --wheel-dir "$RUNNER_TEMP/dist"
-          WHEEL="$(find "$RUNNER_TEMP/dist" -maxdepth 1 -type f -name 'wsl2_time_sync_diagnostics-0.6.0-*.whl' -print -quit)"
+          WHEEL="$(find "$RUNNER_TEMP/dist" -maxdepth 1 -type f -name 'wsl2_time_sync_diagnostics-0.6.1-*.whl' -print -quit)"
           test -n "$WHEEL"
           python -m pip uninstall -y wsl2-time-sync-diagnostics
           python -m pip install --no-deps "$WHEEL"
@@ -37,8 +37,8 @@ jobs:
           from importlib.metadata import version
           import wsl_time_sync
 
-          assert version("wsl2-time-sync-diagnostics") == "0.6.0"
-          assert wsl_time_sync.__version__ == "0.6.0"
+          assert version("wsl2-time-sync-diagnostics") == "0.6.1"
+          assert wsl_time_sync.__version__ == "0.6.1"
           print("Release wheel metadata and import version verified.")
           PY
       - name: Guest-core CLI smoke tests
