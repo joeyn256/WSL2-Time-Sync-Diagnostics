@@ -15,6 +15,7 @@
     "docs/v0.2-guest-core.md"
   ],
   "public_assets": [
+    "docs/assets/three-model-timing-comparison.svg",
     "docs/assets/clock-steering-story.svg",
     "docs/assets/architecture-host-vm-guest.svg",
     "docs/assets/upstream-timeline.svg",
@@ -37,6 +38,8 @@
     "hero encodes evidence strength per situation (documented default / measured / bounded screen) and marks unknowns with ?": true,
     "hero static and reduced-motion state is the complete result with no mutually exclusive states visible together": true,
     "D4R2 step-by-step replay lives with the full record in docs/timesyncd-investigation.md": true,
+    "three-model comparison starts at t = 0, shares one axis and scale, fabricates no trace for the 24.04-enabled or 26.04 panels, and labels derived running means": true,
+    "three-model comparison states that t = 0 is about 60 s after the confirmed stop and that the 26.04 summary is the 300 s guest-side run": true,
     "stable CLI/schema reference uses release-neutral naming": true,
     "package and publication metadata target the v0.5.0 visual-storytelling branch built on the v0.4.0 preview": true,
     "v1.0.0 stable contract remains explicitly deferred": true

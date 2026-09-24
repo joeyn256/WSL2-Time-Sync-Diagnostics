@@ -17,10 +17,10 @@
 
 **What the evidence showed.**
 
-*How to read the figure:* the top row shows **who can write the clock** in three situations. The outer cards are documented defaults; the middle card is the measured state of the historical experiment, with the kernel `tick` value as read by `adjtimex`. The chart below replays that experiment at 10× real time: each purple box is a published 30-second interval enclosure, the shaded band is the historical ±1000 ppm screen, and the line that appears at 120 s is the full-run average. Solid marks are measured, dashed paths do not write the clock, and every `?` is something the evidence does not establish. With animation off, the complete result is shown.
+*How to read the figure:* three situations, one shared 0–120 s axis, one ppm scale. Only the **middle panel is a measured time series**: the historical D4R2 run on Ubuntu 24.04 after `systemd-timesyncd` was stopped, with `t = 0` the moment the measurement window opened, about 60 s after the confirmed stop. Each purple box is a published 30-second interval enclosure against Windows QPC and a summary pops up as each window closes. The left panel is Ubuntu 24.04's documented default with two writers; it holds no measured trace, so it shows only an architecture-risk band. The right panel is Ubuntu 26.04's fresh default with one writer, plus the project's bounded 300 s guest-side screen. With animation off, the complete result is shown.
 
 <p align="center">
-  <img src="docs/assets/clock-steering-story.svg" alt="Who steers the WSL2 clock, and what happened when one hand let go. Top row: Ubuntu 24.04 default, where Hyper-V implicit sync and systemd-timesyncd can both write the kernel clock; Ubuntu 24.04 after systemctl stop, measured in experiment D4R2, where timesyncd is stopped but the unit stays enabled and the kernel tick was still 10833 sixty seconds later, then 10000 in a later snapshot, with who set or reset it not established; Ubuntu 26.04 fresh default, where chrony runs with -x and only reads, and a 300-second guest-side screen measured MONOTONIC against MONOTONIC_RAW at -0.50 to -0.46 ppm over the full run. Chart: after the stop and a 60-second hold, window 1 measured +26,665.299 to +26,724.999 ppm against Windows QPC, about 2.7 percent fast and outside the ±1000 ppm screen; windows 2 to 4 were within ±33 ppm; the 120-second average was +6,662 to +6,676 ppm, still outside; RAW against QPC was -6.3 to +8.2 ppm. Motion is playback only." width="1000">
+  <img src="docs/assets/three-model-timing-comparison.svg" alt="Three panels on one 0 to 120 second axis. Left, Ubuntu 24.04 with timesyncd enabled: two documented writers, no measured trace, an architecture-risk band, and the observation of four REALTIME steps of +0.59 to +0.63 seconds while the service was active. Middle, Ubuntu 24.04 after the timesyncd stop, measured in D4R2 against Windows QPC: t = 0 is about 60 seconds after the confirmed stop with the unit still enabled; the PRE snapshot showed tick 10833; window 1 measured +26,665.299 to +26,724.999 ppm, outside the ±1000 ppm screen and about +0.80 seconds ahead; windows 2 to 4 were within about ±33 ppm; the 120-second run was +6,661.607 to +6,676.217 ppm, still outside; the later POST snapshot showed tick 10000. Right, Ubuntu 26.04 fresh default: chrony runs with -x and reads only; the bounded 300-second guest-side screen had every 30-second window inside the screen and a full-run enclosure of -0.50 to -0.46 ppm. Who set or reset tick is not established. Motion is playback only." width="1000">
 </p>
 
 | Tier | Statement |
@@ -239,11 +239,17 @@ The historical Ubuntu 24.04 investigation established that:
 
 That does **not** prove `systemd-timesyncd` was the sole writer, and the source of the observed `tick=10833 → 10000` transition remains unresolved.
 
+The figure below puts the same record next to the question it answers: who can write the clock in each situation, and what the kernel's own `tick` state looked like before and after the measured run.
+
+<p align="center">
+  <img src="docs/assets/clock-steering-story.svg" alt="Who steers the WSL2 clock, and what happened when one hand let go. Top row: Ubuntu 24.04 default, where Hyper-V implicit sync and systemd-timesyncd can both write the kernel clock; Ubuntu 24.04 after systemctl stop, measured in experiment D4R2, where timesyncd is stopped but the unit stays enabled and the kernel tick was still 10833 sixty seconds later, then 10000 in a later snapshot, with who set or reset it not established; Ubuntu 26.04 fresh default, where chrony runs with -x and only reads, and a 300-second guest-side screen measured MONOTONIC against MONOTONIC_RAW at -0.50 to -0.46 ppm over the full run. Chart: after the stop and a 60-second hold, window 1 measured +26,665.299 to +26,724.999 ppm against Windows QPC, about 2.7 percent fast and outside the ±1000 ppm screen; windows 2 to 4 were within ±33 ppm; the 120-second average was +6,662 to +6,676 ppm, still outside; RAW against QPC was -6.3 to +8.2 ppm. Motion is playback only." width="1000">
+</p>
+
 What it does establish is operationally important:
 
 > **service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready**
 
-That is the flagship lesson of this repository. The figure at the top of this page shows the published record; a step-by-step replay of the same record accompanies the full table in [docs/timesyncd-investigation.md](docs/timesyncd-investigation.md).
+That is the flagship lesson of this repository. A step-by-step replay of the same record accompanies the full table in [docs/timesyncd-investigation.md](docs/timesyncd-investigation.md).
 
 ---
 
