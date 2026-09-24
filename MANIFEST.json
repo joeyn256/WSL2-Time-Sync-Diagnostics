@@ -1,5 +1,5 @@
 {
-  "version": "public-v0.1.0-pre-release",
+  "version": "public-v0.1.1-correction-candidate",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
@@ -13,14 +13,14 @@
   ],
   "cross_document_checks": {
     "causal limitation present": true,
+    "timesyncd stop-vs-disable wording corrected": true,
+    "C1 formal result identified as inconclusive": true,
+    "D4R2 exact first-window enclosure included": true,
+    "firewall/preflight component counts removed from timing evidence": true,
     "26.04 universal-fix disclaimer present": true,
     "no controlled distro ranking claimed": true,
     "Python advice is workload-specific": true,
-    "TP1R5 qualification unavailable": true,
-    "finite historical evidence retained": true,
     "guest-vs-host distinction present": true,
-    "fixed-wait lesson present": true,
-    "real WSL2 CLI smoke test documented": true,
-    "Microsoft WSL filesystem placement guidance linked": true
+    "fixed-wait lesson present": true
   }
 }

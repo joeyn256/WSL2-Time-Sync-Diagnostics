@@ -14,10 +14,10 @@ The guide separates evidence into four broad categories.
 
 Examples:
 
-- comparator vectors;
-- boot-classification vectors;
-- modeled mode-harness cases;
-- static source findings.
+- preserved historical timing analyses;
+- synthetic boundary and failure-shape fixtures;
+- static source findings;
+- focused continuity or uncertainty tests.
 
 These are useful for claims about the exact code and test cases that produced them.
 
@@ -218,10 +218,10 @@ Likewise:
 
 ```text
 Observed:
-Stopping timesyncd suppressed the recurring correction pattern in this environment.
+In C1, four qualifying events occurred in the initial active phase, none were counted in the stopped phase under the frozen detector, and two real but sub-threshold events appeared after restart.
 
 Not automatically established:
-timesyncd was the sole root cause.
+timesyncd was the sole root cause. The formal C1 causal result remained INCONCLUSIVE.
 ```
 
 ## Bottom line

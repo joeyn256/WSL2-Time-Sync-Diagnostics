@@ -1,181 +1,157 @@
 # Investigating `systemd-timesyncd` Under WSL2
 
-This page explains the most important timing lesson from the Ubuntu 24.04 investigation: why changing a time service and immediately benchmarking can produce a misleading result.
+This page documents the strongest historical lesson from the Ubuntu 24.04 investigation: **successfully stopping a time service did not mean the kernel clock was already settled or ready for a benchmark**.
 
-This public draft summarizes historical findings; it does not include the original measurement logs or a validated readiness-test implementation.
+The original private measurement logs are not published here. The numerical results below are a bounded reconstruction from the preserved experiment outputs.
 
-## The observed pattern
+## Exact intervention: stopped, not disabled
 
-In the investigated Ubuntu 24.04 environment, the broad pattern was:
-
-```text
-timesyncd active
-    ↓
-recurring large realtime corrections observed
-
-timesyncd stopped
-    ↓
-recurring correction pattern suppressed
-```
-
-That is strong evidence of association.
-
-It is **not** sufficient evidence to say:
+In the examined C1 and D4R2 interventions, the service transition was:
 
 ```text
-timesyncd = sole root cause
+systemctl stop systemd-timesyncd.service
+...
+systemctl start systemd-timesyncd.service
 ```
 
-WSL2 timing involves multiple layers, including Windows/Hyper-V, the WSL kernel, guest timekeeping, PTP (Precision Time Protocol) mechanisms, and user-space time services. The controlled causal result remains **inconclusive**.
-
-## Why the first stop-and-test approach was misleading
-
-A time service can request or trigger a clock adjustment that the kernel continues applying after the service state changes.
-
-So this sequence is unsafe as a scientific assumption:
+The unit remained **enabled** while stopped. The preserved state sequence for D4R2 was:
 
 ```text
-stop service
-wait fixed amount of time
-assume clock is stable
-run benchmark
+active/running/enabled
+→ inactive/dead/enabled
+→ active/running/enabled
 ```
 
-In the historical investigation, a 60-second wait measured by Windows QueryPerformanceCounter (QPC), the host's elapsed-time counter, did not establish timing readiness.
+No persistent `disable`, `mask`, service-file edit, or `timedatectl set-ntp` action is established by the examined interventions.
 
-The early anomaly and its later reduction were consistent with a residual slew: a gradual clock correction still in progress after the service stopped. This is an interpretation of the reported pattern, not proof of the component that initiated it.
+These historical commands are evidence about what the experiment did, not a recommendation to change a reader's system.
 
-## Service state vs clock state
+## C1: suggestive intervention, formally inconclusive
 
-These are different questions:
+C1 used an A–B–A design with a frozen event threshold of at least 0.500 seconds.
 
-### Service state
+The preserved result was:
 
-Examples:
+| Phase | Service state | Recorded result under the frozen detector |
+|---|---|---|
+| A0 | active | Four qualifying events, about +0.588 to +0.628 s |
+| B | stopped | No qualifying events under the frozen detector |
+| A1 | active again | Two journal-matched events, about +0.424 and +0.449 s, both below the 0.500 s threshold |
 
-Run these read-only checks in an already-open Ubuntu shell with systemd:
+Because A1 did not meet the predeclared requirement for qualifying events, the formal causal result remained **INCONCLUSIVE**.
 
-```sh
-systemctl is-active systemd-timesyncd
-systemctl is-enabled systemd-timesyncd
+The experiment therefore supports the narrower statement that the observed pattern changed during the temporary stop. It does **not** prove that `systemd-timesyncd` was the sole writer or sole root cause.
+
+## D4R2: the stop worked, but the clock was still correcting
+
+D4R2 asked a different operational question: after a confirmed stop, was a fixed 60-second wait enough before opening the benchmark window?
+
+It was not.
+
+The wait was measured using Windows QueryPerformanceCounter (QPC). PRE sampling occurred about 60 seconds after the confirmed service stop, and the measurement window opened about 60.06 QPC seconds after that stop.
+
+At that point the service was inactive, but the kernel still reported a large correction state.
+
+| Recorded point or interval | Observation | Bounded interpretation |
+|---|---|---|
+| After stop | inactive/dead, MainPID 0, UnitFileState enabled | Runtime stop established; persistent disable was not performed |
+| PRE after the 60-second hold | `tick=10833`, `freq=2157314`; historical baseline calculation about **+83,332.918 ppm** | Large correction state still present |
+| First 30 s | MONOTONIC/QPC **+26,665.299 to +26,724.999 ppm** | Early elapsed-time rate far outside the study's ±1000 ppm screen |
+| 30–60 s | MONOTONIC/QPC **−27.234 to +30.394 ppm** | Within the historical screen |
+| 60–90 s | MONOTONIC/QPC **−32.612 to +25.100 ppm** | Within the historical screen |
+| 90–120 s | MONOTONIC/QPC **−27.169 to +32.177 ppm** | Within the historical screen |
+| Full 120 s | MONOTONIC/QPC **+6,661.607 to +6,676.217 ppm** | Full run remained outside the historical screen |
+| RAW/QPC | Full interval **−6.323 to +8.190 ppm**; required intervals stayed within the screen | Differential evidence localized the anomaly to disciplined-vs-raw clock behavior; it did not identify the writer |
+| POST | `tick=10000`, `freq=-27187`; historical baseline calculation about **−0.415 ppm** | Near-nominal static baseline at the later snapshot |
+| Restoration | service started and confirmed active/running/enabled | Original service state restored |
+
+The historical static baseline calculation was:
+
+```text
+A_BASE_PPM = 100 × (tick_usec − 10000) + freq / 65536
 ```
 
-These report whether the unit is running and its enablement state. Preserve the exact output: inactive, disabled, and not found describe different states. An enabled unit need not be running.
+That calculation is specific to the historical environment's nominal-tick assumption. A static snapshot is supporting evidence; it is not the same thing as a measured rate over an entire window.
 
-### Clock state
+## The important sequence
 
-This asks whether the kernel clock is currently behaving as expected for the measurement you care about.
+D4R2 demonstrated this distinction:
 
-A stopped service does not automatically answer that question.
+```text
+service successfully stopped
+        ≠
+kernel correction already finished
+        ≠
+clock already settled
+        ≠
+benchmark ready
+```
 
-For timing-sensitive work, the clock-state question is usually more important. Name the clocks and reference used in that check. Linux `CLOCK_MONOTONIC` is still subject to frequency adjustments; its name alone does not guarantee a stable rate. See the [clock caveats](../README.md#proposed-diagnostic-workflow).
+The early anomaly and later return toward nominal behavior are consistent with a residual kernel slew continuing after the service transition. The experiment did not trace the initiating adjustment syscall and did not prove that every other possible clock writer was absent.
+
+## An instrumentation lesson
+
+One earlier D3 attempt also exposed a narrower measurement hazard: in that experiment, querying `timedatectl show-timesync` could activate the stopped service through its query path.
+
+That does **not** mean every `timedatectl` or `systemctl` read mutates service state. It means a supposedly observational command must itself be checked when designing a sensitive intervention.
+
+## A useful mechanism hypothesis, not a proven root cause
+
+The historical evidence is consistent with more than one clock-discipline component interacting with the same guest kernel clock.
+
+That is a useful mechanism hypothesis because:
+
+- the active/stopped phases showed different recorded behavior;
+- the PRE and POST kernel correction states differed substantially;
+- MONOTONIC/QPC showed the early anomaly while RAW/QPC remained near nominal.
+
+But the investigation did not authenticate a complete write trace identifying the sole clock writer. The formal causal conclusion therefore remains **INCONCLUSIVE**.
 
 ## Better experimental design
 
-A stronger design has three phases.
-
-### 1. Capture the baseline
-
-Before changing anything, record:
-
-- Windows version;
-- WSL version;
-- distro and kernel;
-- boot ID;
-- active clocksource;
-- visible time services;
-- PTP/Hyper-V devices;
-- relevant process state.
-
-Keep the original measurements privately. Before publishing a separate copy, remove usernames, hostnames, personal paths, literal boot/machine identifiers, and sensitive process arguments; document redactions that affect interpretation.
-
-### 2. Make the intervention explicit
-
-If you intentionally stop a service:
-
-- record the exact pre-state;
-- record the intervention time;
-- do not change multiple time components at once unless the experiment requires it;
-- have a restoration plan before making the change.
-
-### 3. Check readiness before starting the benchmark
-
-Instead of:
+For timing-sensitive work, prefer:
 
 ```text
-sleep 60
+capture baseline
+→ make one bounded intervention
+→ observe measured clock state
+→ open the benchmark only if the chosen observation criterion is satisfied
+→ restore and verify original state
 ```
 
-prefer:
+over:
 
 ```text
-observe
-→ evaluate settling criterion
-→ only benchmark if criterion passes
+stop service
+→ sleep N seconds
+→ assume settled
+→ benchmark
 ```
 
-Choose the clock comparison, window length, tolerance, and maximum waiting time before the experiment. Start the benchmark only if the measured criterion is met. If it is not met or cannot be evaluated, retain the observation and report that readiness was not established.
+The current public CLI does not yet provide a validated universal settling predicate. That is a candidate for future work, not an established rule.
 
-This guide does not supply a validated settling threshold. A readiness check supports the chosen measurement under the observed conditions; it cannot guarantee stability throughout a later workload.
-
-## Why not simply disable `systemd-timesyncd` permanently?
-
-Because the investigation did not prove that this service alone explains every timing path.
-
-A permanent change also creates new questions:
-
-- what now disciplines the clock;
-- what WSL/Hyper-V behavior remains;
-- whether another daemon is active;
-- whether the system behaves differently across boots;
-- whether the application depends on wall-clock correction.
-
-The public guide therefore treats service mutation as an advanced experiment, not a default fix.
-
-## Restoration matters
-
-Any mutating timing experiment should:
-
-1. capture the original service state;
-2. make one bounded change;
-3. record the resulting observation;
-4. restore the original state;
-5. verify restoration.
-
-A failed benchmark should not leave the machine in an unknown time-service configuration.
-
-## What the investigation supports
+## What this investigation supports
 
 Supported:
 
-- `systemd-timesyncd` state had a strong experimental association with the observed recurring correction pattern;
-- stopping it suppressed that recurring pattern in the investigated environment;
-- the residual anomaly was consistent with a kernel slew continuing after the service was stopped;
-- the fixed wait was insufficient to establish readiness in the historical experiment.
+- the service was temporarily **stopped and later started**, not persistently disabled, in the examined interventions;
+- the unit remained enabled during the D4R2 stop;
+- C1's A–B–A result was suggestive but formally **INCONCLUSIVE** under its frozen 0.500-second threshold;
+- D4R2 still showed a substantial kernel correction state after a 60-second QPC-measured wait;
+- D4R2's first 30-second MONOTONIC/QPC interval was about +26.7k ppm while RAW/QPC remained within the historical screen;
+- later D4R2 windows moved back near nominal;
+- service state alone did not establish benchmark readiness.
 
 Not supported:
 
 - `systemd-timesyncd` was the sole root cause;
-- disabling it is a universal WSL fix;
-- `chronyd` is universally superior;
-- service status alone proves timing readiness.
-
-## A useful diagnostic mindset
-
-When debugging time behavior, separate these layers:
-
-```text
-visible component
-    ≠
-component adjusting the clock
-    ≠
-cause of the observed error
-    ≠
-best remediation
-```
-
-That separation prevents a common debugging mistake: finding one correlated component and promoting it directly to root cause.
+- stopping or disabling it is a universal WSL repair;
+- a non-nominal `tick` identifies the writer by itself;
+- every Ubuntu 24.04 WSL2 environment reproduces the same behavior;
+- this experiment establishes a Ubuntu 24.04 versus 26.04 ranking.
 
 ## Practical lesson
 
-After changing a time service, use measured readiness criteria before benchmarking. Service status and elapsed waiting time alone do not establish timing readiness.
+The memorable result is not simply that `systemd-timesyncd` was involved.
+
+It is that **the daemon could be successfully stopped while the kernel was still correcting time strongly enough to invalidate the next benchmark window**.

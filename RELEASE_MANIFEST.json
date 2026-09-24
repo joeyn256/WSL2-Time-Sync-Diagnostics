@@ -1,27 +1,18 @@
 {
-  "release_candidate": "0.1.0",
-  "status": "pre-release-validation-complete-pending-tag",
-  "tested_code_revision": "07397a9b471f2f66c5d1fd443f8243294fa4c780",
-  "validation": {
-    "local_pytest": "PASS (9/9)",
-    "local_compileall": "PASS",
-    "local_cli_help": "PASS",
-    "github_actions_python_3_12": "PASS",
-    "github_actions_python_3_14": "PASS",
-    "real_wsl2_cli_smoke_test": "PASS",
-    "real_wsl2_environment": {
-      "ubuntu": "Ubuntu 26.04.1 LTS",
-      "python": "3.14.4",
-      "kernel": "6.18.33.2-microsoft-standard-WSL2",
-      "clocksource": "tsc"
-    },
-    "smoke_summary": {
-      "sample_count": 31,
-      "monotonic_vs_raw_ppm": -2.737266971197805,
-      "realtime_backward_events": 0,
-      "large_realtime_minus_raw_changes": 0
-    },
-    "privacy_note": "Raw diagnose/probe/analysis JSON remains private because diagnostics can contain machine-specific identifiers."
+  "release_candidate": "0.1.1",
+  "status": "documentation-correction-candidate",
+  "base_release": "v0.1.0",
+  "cli_behavior_change": false,
+  "corrections": [
+    "Clarify that examined systemd-timesyncd interventions used stop/start while the unit remained enabled.",
+    "Replace broad association/suppression wording with the frozen C1 A-B-A outcome and INCONCLUSIVE formal result.",
+    "Publish bounded D4R2 PRE/window/POST values, including the exact first-window MONOTONIC/QPC enclosure.",
+    "Remove firewall/preflight-derived 156/40/22 counts from presentation as timing evidence."
+  ],
+  "prior_validation": {
+    "github_actions_python_3_12": "PASS on v0.1.0",
+    "github_actions_python_3_14": "PASS on v0.1.0",
+    "real_wsl2_cli_smoke_test": "PASS on v0.1.0 CLI"
   },
-  "note": "Repository documentation may advance after the tested code revision without changing the CLI implementation. Git history is authoritative for exact content."
+  "note": "v0.1.1 is a factual/documentation correction release plus package-version bump. New timing algorithms and diagnostics are deferred to v0.2.0."
 }

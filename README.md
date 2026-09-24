@@ -33,7 +33,7 @@ The reported 300-second Ubuntu 26.04 guest-side screen showed no large anomaly i
 
 Ubuntu 24.04 remains a reasonable environment, but timing-sensitive workloads should validate their time behavior before committing to a long run.
 
-The historical 24.04 investigation observed recurring large realtime corrections and found a strong experimental association with `systemd-timesyncd` state. That does **not** prove `systemd-timesyncd` was the sole root cause.
+The historical 24.04 investigation observed recurring large realtime corrections. In its A–B–A intervention, the active phase had four qualifying events, the stopped phase had none under the frozen detector, and the restored active phase had two real but sub-threshold events. The formal causal result therefore remained **inconclusive**.
 
 ### If you already have a working 24.04 environment
 
@@ -53,7 +53,7 @@ Instead:
 
 A fixed wait after changing a time service is **not** a reliable readiness test.
 
-One historical experiment stopped the relevant service and then waited 60 seconds measured by Windows QueryPerformanceCounter (QPC), the host's elapsed-time counter. The run still failed its timing criteria. Its early anomaly and later reduction were consistent with a residual kernel slew after the service had stopped; the fixed wait had not established readiness.
+One historical experiment confirmed `systemd-timesyncd` stopped while the unit remained enabled, then waited about 60 seconds measured by Windows QueryPerformanceCounter (QPC). PRE still showed a large kernel correction state (`tick=10833`, historical baseline calculation about +83,332.918 ppm), and the first 30-second MONOTONIC/QPC window was +26,665.299 to +26,724.999 ppm. Later windows returned near nominal. The stop succeeded; the fixed wait still had not established readiness.
 
 That means:
 
@@ -68,10 +68,11 @@ For timing-sensitive work, prefer a measured readiness check over "wait N second
 The historical Ubuntu 24.04 evidence supports these bounded conclusions:
 
 - recurring large realtime correction events were observed in the investigated environment;
-- those events showed a strong association with `systemd-timesyncd` state;
-- stopping the service suppressed the recurring correction pattern that had been observed;
-- an already-commanded kernel slew could persist after the service was stopped;
-- therefore an immediate benchmark, or even a simple fixed-delay benchmark, can still capture a transient inherited from the earlier correction.
+- the examined intervention **stopped** `systemd-timesyncd` and later started it again; the unit remained enabled;
+- C1 changed materially across the active/stopped/restored phases but did not satisfy its frozen causal-success rule;
+- D4R2 still showed a large kernel correction state after a 60-second QPC-measured wait following the confirmed stop;
+- the first D4R2 30-second MONOTONIC/QPC window was +26,665.299 to +26,724.999 ppm while RAW/QPC stayed within the historical screen;
+- later D4R2 windows returned near nominal, consistent with a residual correction decaying after the service transition.
 
 What it **does not** support:
 
@@ -209,20 +210,15 @@ Evaluate interpreter and package compatibility in an isolated virtual environmen
 
 ---
 
-## Historical component tests and remaining limits
+## Historical engineering work and remaining limits
 
-A later Windows-host investigation reported useful component-test evidence:
+A later administrator-run engineering branch produced additional component tests and failure findings, but a reuse audit found that several previously quoted counts belonged mainly to **firewall/preflight machinery rather than timing validation**.
 
-- comparator test vectors: `156/156`;
-- boot-classification test vectors: `40/40`;
-- modeled mode-harness cases: `22/22`;
-- two PowerShell variable-name collisions, including one that made part of a preliminary check ineffective.
+Those counts are therefore not used as evidence for the clock conclusions in this guide.
 
-These are historical component/model results. They do not establish real host-provider behavior or complete live host/runtime qualification.
+The useful timing-specific material from that branch is being treated separately: bracketed sampling, fixed-window interval analysis, read-only kernel-state observation, synthetic failure fixtures, and an optional Windows QPC reference are candidates for future releases.
 
-The summarized evidence does **not** establish successful host setup and verification, production qualification, private Python/.NET provisioning, a fresh successful corrected preflight, current boot continuity, current host restoration, or the separate build/test qualification.
-
-Those outcomes remain unavailable or not completed, as applicable. They are not inferred from historical test counts or file hashes.
+Complete live host/runtime qualification from the old administrator-run branch remains unavailable and is not inferred from component-test counts or file hashes.
 
 ---
 
@@ -273,13 +269,10 @@ Current high-level status:
 | Topic | Status |
 |---|---|
 | Ubuntu 24.04 historical timing failure | Observed |
-| `systemd-timesyncd` association | Strong association, not sole-cause proof |
+| `systemd-timesyncd` intervention | Active/stopped/restored phases differed; formal C1 causal result remained inconclusive |
 | Controlled causal proof | Inconclusive |
 | Ubuntu 26.04 guest-side default observation | Promising 300-second screen; no D4R2-scale MONOTONIC-vs-RAW slew observed |
 | Ubuntu 24.04 vs 26.04 timing ranking | Not established |
-| Comparator historical vectors | 156/156 |
-| Boot-classifier historical vectors | 40/40 |
-| Mode-harness historical cases | 22/22 |
 | Full host/runtime qualification | Unavailable |
 | Separate build/test qualification | Not completed |
 | Python 3.14 universally preferable to 3.12 | Not claimed |
