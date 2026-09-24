@@ -1,0 +1,91 @@
+name: Publish v0.6.0
+
+on:
+  push:
+    branches:
+      - release/publish-v0.6.0
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create normal v0.6.0 GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_SHA: a91a0903f6fbcc1c4dceecc9dd1b9e0c54a94a1d
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if gh release view v0.6.0 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "v0.6.0 release already exists; leaving it unchanged."
+            exit 0
+          fi
+
+          cat > "$RUNNER_TEMP/release-notes.md" <<'EOF'
+          ## WSL2 Time Sync Diagnostics v0.6.0 — Measured Comparison Release
+
+          v0.6.0 advances the public pre-1.0 line with a measured three-model timing comparison and committed, reproducible evidence from fresh Ubuntu 24.04 and Ubuntu 26.04 WSL boots on the same Windows host.
+
+          ### What changed
+          - The README hero now compares three situations on one synchronized 0–120 s axis and one symmetric-log ppm scale:
+            1. Ubuntu 24.04 with systemd-timesyncd active — measured guest-side on the same host;
+            2. Ubuntu 24.04 after the historical timesyncd stop — D4R2 against Windows QPC;
+            3. Ubuntu 26.04 fresh default with chrony -x — measured guest-side on the same host.
+          - Checkpoint cards appear at 30, 60, 90, and 120 seconds; the reduced-motion/static view shows the complete result.
+          - Raw/redacted evidence, strict JSON outputs, hashes, and the verbatim read-only protocol are committed under evidence/2026-09-24-same-host-screens/.
+          - The human-readable record is in docs/same-host-screens-2026-09-24.md.
+
+          ### Same-host project observation
+          On this host and on this day:
+          - Ubuntu 24.04 with systemd-timesyncd active: every 30 s window was outside the ±1000 ppm screen; the 300 s run measured -48,010.756 to -48,010.740 ppm (about 4.8% slow), with eight forward REALTIME jumps of +1.47 to +1.69 s and tick moving from 10000 to 9437.
+          - Ubuntu 26.04 fresh default: every 30 s window remained within the screen; the 300 s run measured -0.535 to -0.511 ppm, with no jumps and tick 10000 throughout.
+          - The host clock was about 1.06 s behind NTP with W32Time stopped. These are guest-side observations, not host-referenced accuracy or a controlled distro ranking.
+
+          ### Historical D4R2 panel
+          The middle panel remains the historical host-referenced result:
+          - first 30 s MONOTONIC/QPC enclosure: +26,665.299 to +26,724.999 ppm;
+          - later 30 s windows near nominal;
+          - full 120 s MONOTONIC/QPC enclosure: +6,661.607 to +6,676.217 ppm;
+          - PRE tick 10833, later POST tick 10000.
+
+          The core lesson remains:
+
+          **service stopped ≠ correction finished ≠ clock settled ≠ benchmark ready**
+
+          ### Validation
+          The exact release commit passed:
+          - 271 tests on Python 3.12;
+          - 271 tests on Python 3.14;
+          - normal wheel build/install as wsl2-time-sync-diagnostics==0.6.0;
+          - package/import version verification;
+          - strict JSON checks;
+          - RAW completion/coverage checks;
+          - cumulative REALTIME evidence checks;
+          - method-aware comparison smoke checks.
+
+          The release diagram was also reviewed at real-time 0/30/60/90/120 s checkpoints and in reduced-motion/static mode.
+
+          ### Evidence limits
+          This release does **not** establish:
+          - that every Ubuntu 24.04 installation behaves like the measured host;
+          - that Ubuntu 26.04 universally fixes WSL timing;
+          - which process or driver changed tick;
+          - that systemd-timesyncd was the sole writer/root cause;
+          - that the newer same-host episode and D4R2 share one cause;
+          - host-referenced accuracy for the same-host outer panels;
+          - a controlled 24.04-vs-26.04 ranking.
+
+          C1 remains INCONCLUSIVE. The project remains semantically pre-1.0; the stable v1.0.0 contract is still deferred.
+          EOF
+
+          gh release create v0.6.0 \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$TARGET_SHA" \
+            --title "v0.6.0 — Measured Comparison Release" \
+            --notes-file "$RUNNER_TEMP/release-notes.md"
+
+          gh release view v0.6.0 --repo "$GITHUB_REPOSITORY" --json name,isPrerelease,isDraft,url,targetCommitish
