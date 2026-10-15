@@ -1,6 +1,6 @@
 # CLI and schema reference
 
-This is the maintained v0.6.1 reference for the read-only guest acquisition, offline interval analysis, kernel-state observation, and method-aware comparison introduced through [issue #2](https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/issues/2). Runtime dependencies remain standard-library-only. Package-release numbers and schema/method version numbers are independent: `schema_version: 2` and `fixed_window_interval_v2` remain the public data/method identifiers while the package is still pre-1.0.
+This is the maintained **v1.0.0 stable reference** for the read-only guest acquisition, offline interval analysis, kernel-state observation, and method-aware comparison introduced through [issue #2](https://github.com/joeyn256/WSL2-Time-Sync-Diagnostics/issues/2). Runtime dependencies remain standard-library-only. Package-release numbers and schema/method version numbers are independent: `schema_version: 2`, `raw_bracket_v1`, and `fixed_window_interval_v2` are the stable 1.x data/method identifiers. See the [stable public contract](stable-contract-v1.0.md).
 
 ## Commands and defaults
 
