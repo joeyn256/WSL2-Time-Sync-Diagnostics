@@ -2,6 +2,7 @@
   "version": "public-v1.0.0",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
+    "SUPPORT.md",
     "README.md",
     "docs/findings-ubuntu-24.04.md",
     "docs/findings-ubuntu-26.04.md",
@@ -62,6 +63,7 @@
     "v1.0.0 stable contract is declared and linked": true,
     "reproducibility guide uses only public read-only workflow": true,
     "package and publication metadata target v1.0.0 stable release": true,
-    "stable release contract is regression-checked": true
+    "stable release contract is regression-checked": true,
+    "stable support policy links the v1.0 contract and reproducibility guide": true
   }
 }
