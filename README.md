@@ -25,6 +25,14 @@
 
 > **Evidence boundary:** the outer panels compare guest `CLOCK_MONOTONIC` with `CLOCK_MONOTONIC_RAW`; they do **not** establish host-referenced accuracy or a controlled distro ranking. The historical middle panel uses Windows QPC. The process/driver that changed `tick` is still not identified, and C1 remains **INCONCLUSIVE**.
 
+## v0.7.0 — synchronized-host rerun closure
+
+v0.7.0 closes the controlled **synchronized-Windows-host rerun effort**. The rerun infrastructure, host-admission gates, recovery logic, and evidence controls were exercised, but the six planned synchronized-host Ubuntu scientific measurements were **not launched** because the Windows host never reached the frozen host-admission state.
+
+The final two bounded Windows Time correction attempts both produced a logged clock step while the temporary direct-correction threshold was active, then returned an explicit W32Time **"no time data was available"** failure and reverted to an unsynchronized service state. Both attempts restored the original Windows Time configuration and independently verified restoration. The final formal host-admission observation remained unused, **Seq 2 was never opened, and scientific launches remained 0/8**.
+
+This is a negative/limited result, not a claim that the original Ubuntu 24.04 pathology was fixed or reproduced under a synchronized host. See **[v0.7 synchronized-host rerun closure](docs/v0.7-synchronized-host-rerun.md)** and the **[public v0.7 evidence index](evidence/2026-10-v07-synchronized-host-rerun/README.md)**.
+
 ## Why this project exists
 
 **The problem.** A long-running benchmark under WSL2 on Ubuntu 24.04 was invalidated by clock behaviour: `CLOCK_REALTIME` was being corrected in large steps, and after the suspected user-space time service was stopped, the kernel clock was *still* running fast enough to spoil the next measurement window.
