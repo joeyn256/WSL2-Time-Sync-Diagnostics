@@ -2,27 +2,21 @@
 
 ## Supported versions
 
-v0.6.1 is the current public pre-1.0 release line for WSL2 Time Sync Diagnostics. The
-stable v1.0.0 contract has not been declared final yet.
+v1.0.0 is the current stable release line for WSL2 Time Sync Diagnostics.
 
 | Version | Security fixes |
 |---|---|
-| Latest `0.6.x` release | Best effort |
-| `main` | Best effort |
-| Older pre-0.6 releases/snapshots | Not supported |
+| Latest `1.x` release | Supported |
+| `main` | Supported development line |
+| Pre-1.0 releases | Best effort only |
 
 ## Reporting a vulnerability
 
-Please use GitHub's **private vulnerability reporting** feature for this
-repository when it is available.
+Please use GitHub's **private vulnerability reporting** feature for this repository when it is available.
 
-If private vulnerability reporting is not available, open a public issue that
-contains only a request for a private contact channel. **Do not include exploit
-details, credentials, private paths, tokens, or sensitive logs in a public
-issue.**
+If private vulnerability reporting is not available, open a public issue that contains only a request for a private contact channel. **Do not include exploit details, credentials, private paths, tokens, or sensitive logs in a public issue.**
 
-For ordinary bugs that are not security-sensitive, use the normal issue
-tracker.
+For ordinary bugs that are not security-sensitive, use the normal issue tracker.
 
 ## Scope
 
@@ -33,12 +27,12 @@ Security reports are especially useful for problems involving:
 - accidental collection or disclosure of credentials or private data;
 - shell injection or argument-injection behavior;
 - unsafe assumptions about elevated privileges;
-- behavior that mutates time services, firewall state, WSL configuration, or
-  system Python despite the documented read-only/default-safe design.
+- behavior that mutates time services, firewall state, WSL configuration, or system Python despite the documented read-only/default-safe design.
+
+The v1.0 stable contract explicitly preserves read-only default behavior for the public CLI. See [docs/stable-contract-v1.0.md](docs/stable-contract-v1.0.md).
 
 ## Disclosure
 
-Please give maintainers a reasonable opportunity to investigate and publish a
-fix before disclosing security-sensitive details publicly.
+Please give maintainers a reasonable opportunity to investigate and publish a fix before disclosing security-sensitive details publicly.
 
 This project has no guaranteed response-time SLA.

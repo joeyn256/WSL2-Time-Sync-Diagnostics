@@ -92,3 +92,13 @@ def test_analyze_derived_numeric_overflow_is_usage_error(tmp_path, monkeypatch, 
     assert "finite" in captured.err
     assert "Traceback" not in captured.err
     assert not captured.out
+
+
+def test_global_version(monkeypatch, capsys):
+    from wsl_time_sync import __version__
+
+    monkeypatch.setattr("sys.argv", ["wsl-time-sync", "--version"])
+    with pytest.raises(SystemExit) as exc:
+        cli.main()
+    assert exc.value.code == 0
+    assert capsys.readouterr().out.strip() == f"wsl-time-sync {__version__}"

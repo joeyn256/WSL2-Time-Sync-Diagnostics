@@ -83,3 +83,15 @@ Do not add such behavior to a default command.
 
 A future mutating experiment should be clearly separated, opt-in, reversible,
 and documented with restoration steps.
+
+
+## Stable 1.x compatibility
+
+v1.0 establishes a public compatibility contract for command names, documented option meanings, schema/method identifiers, classification vocabulary, and read-only defaults.
+
+Before merging a change to the 1.x line:
+
+- check [docs/stable-contract-v1.0.md](docs/stable-contract-v1.0.md);
+- treat removal or incompatible reinterpretation of an existing stable field/command as a major-version change;
+- prefer additive optional fields and flags for backwards-compatible improvements;
+- update tests and the CLI/schema reference for any public-interface addition.

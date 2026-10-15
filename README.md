@@ -25,6 +25,14 @@
 
 > **Evidence boundary:** the outer panels compare guest `CLOCK_MONOTONIC` with `CLOCK_MONOTONIC_RAW`; they do **not** establish host-referenced accuracy or a controlled distro ranking. The historical middle panel uses Windows QPC. The process/driver that changed `tick` is still not identified, and C1 remains **INCONCLUSIVE**.
 
+## v1.0.0 — stable diagnostic contract
+
+v1.0.0 freezes the project's first stable **software interface** without broadening its scientific claims. The public CLI remains read-only, the established schema/method identifiers stay `schema_version: 2`, `raw_bracket_v1`, and `fixed_window_interval_v2`, and incompatible command/data changes now require a future major release.
+
+For a clean start, use the **[reproducibility guide](docs/reproducibility.md)**. For compatibility guarantees, see the **[stable v1.0 public contract](docs/stable-contract-v1.0.md)**.
+
+The v0.7 synchronized-host investigation remains closed as a bounded negative/limited result: the Windows host never satisfied the frozen admission state, so the planned synchronized-host Ubuntu guest campaign was not launched.
+
 ## v0.7.0 — synchronized-host rerun closure
 
 v0.7.0 closes the controlled **synchronized-Windows-host rerun effort**. The rerun infrastructure, host-admission gates, recovery logic, and evidence controls were exercised, but the six planned synchronized-host Ubuntu scientific measurements were **not launched** because the Windows host never reached the frozen host-admission state.

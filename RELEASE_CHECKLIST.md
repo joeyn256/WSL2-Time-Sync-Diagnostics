@@ -1,25 +1,28 @@
 # Release Checklist
 
-Before publishing a preview or stable release:
+Before publishing a stable 1.x release:
 
-- [ ] Confirm `pyproject.toml`, `src/wsl_time_sync/__init__.py`, `MANIFEST.json`, and `RELEASE_MANIFEST.json` agree on the intended release version.
+- [ ] Confirm `pyproject.toml`, installed distribution metadata, `MANIFEST.json`, and `RELEASE_MANIFEST.json` agree on the intended release version.
+- [ ] Confirm `wsl_time_sync.__version__` resolves to the installed distribution version and `wsl-time-sync --version` reports it.
 - [ ] Confirm the README title, CI badge, repository links, issue links, and clone/path examples use the current repository identity.
-- [ ] Read the public README and all docs once in rendered Markdown.
-- [ ] Render each public SVG at normal size and verify the reduced-motion/static state is coherent.
+- [ ] Read the public README and all changed docs once in rendered Markdown.
+- [ ] Render changed public SVGs at normal size and verify the reduced-motion/static state when visual assets changed.
 - [ ] Confirm no private paths, usernames, boot IDs, tokens, credentials, or unrelated project data remain.
 - [ ] Run the complete test suite.
-- [ ] Build a normal wheel, install it, and verify the distribution name/version plus `wsl_time_sync.__version__` before running `wsl-time-sync --help`.
+- [ ] Build a normal wheel, install it into a clean environment, and verify the distribution/import/CLI versions.
 - [ ] Run the semantic CLI smoke used by CI.
-- [ ] Run `wsl-time-sync diagnose` inside WSL2 and inspect the output before sharing it.
+- [ ] Run `wsl-time-sync diagnose` inside WSL2 and inspect the output before publishing environment evidence.
 - [ ] Confirm example JSON remains synthetic.
-- [ ] Run `tests/test_public_evidence.py` and confirm the hero values, redactions, and same-host evidence still agree.
+- [ ] Run `tests/test_public_evidence.py` and confirm hero values, redactions, and same-host evidence still agree.
+- [ ] Run the stable release-contract tests.
 - [ ] Confirm no mutating command was added to a default CLI path.
-- [ ] Confirm current GitHub Actions is green on both supported Python matrix entries at the exact release-candidate commit.
-- [ ] Confirm schema/method version labels are not being confused with the package release number.
+- [ ] Confirm schema/method identifiers remain compatible with [docs/stable-contract-v1.0.md](docs/stable-contract-v1.0.md).
+- [ ] Confirm GitHub Actions is green on all supported Python matrix entries at the exact release-candidate commit.
+- [ ] Confirm the tag matches `v<pyproject version>`.
+- [ ] Confirm the tag-driven release workflow builds and verifies wheel/sdist artifacts.
 - [ ] Enable GitHub secret scanning / push protection where available.
 - [ ] Enable Dependabot alerts.
 - [ ] Enable private vulnerability reporting if desired.
-- [ ] Create the release tag only after the exact candidate passes CI.
-- [ ] Close the implementation issue only after the stable content is merged.
+- [ ] Create the stable release tag only after the exact candidate passes CI.
 
-For v0.6.1, v0.6.0 is the prior normal public release; `0.2.0`, `0.3.0`, `0.3.1`, and `0.5.0` remain development-lineage labels rather than public tags. v0.6.1 is a documentation/presentation patch with no runtime/schema change. The official stable v1.0.0 release remains deferred.
+v1.0.0 freezes the first stable public contract. The v0.7.0 synchronized-host closure remains a bounded negative/limited scientific result and does not expand the stable software API.

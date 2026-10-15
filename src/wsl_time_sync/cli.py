@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 
+from . import __version__
 from .analyze import analyze_probe, load_json
 from .compare import compare_paths
 from .diagnose import collect_diagnosis
@@ -25,6 +26,7 @@ def build_parser() -> argparse.ArgumentParser:
         prog="wsl-time-sync",
         description="Read-only WSL2 timing diagnostics and offline analysis.",
     )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     sub = parser.add_subparsers(dest="command", required=True)
     diagnose = sub.add_parser("diagnose", help="Capture read-only environment and adjtimex metadata.")
     diagnose.add_argument("--output")

@@ -113,4 +113,6 @@ def test_readme_keeps_measured_comparison_as_front_door() -> None:
     assert "evidence/2026-09-24-same-host-screens/PROTOCOL.md" in readme
     assert "src/wsl_time_sync/" in readme
     assert "tests/" in readme
-    assert "v0.6.1" in readme
+    assert "## v1.0.0 — stable diagnostic contract" in readme
+    assert "docs/stable-contract-v1.0.md" in readme
+    assert "docs/reproducibility.md" in readme

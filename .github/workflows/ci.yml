@@ -27,20 +27,29 @@ jobs:
       - name: Build and install release wheel
         shell: bash
         run: |
+          VERSION="$(python - <<'PY'
+          import tomllib
+          with open("pyproject.toml", "rb") as handle:
+              print(tomllib.load(handle)["project"]["version"])
+          PY
+          )"
           mkdir -p "$RUNNER_TEMP/dist"
           python -m pip wheel . --no-deps --wheel-dir "$RUNNER_TEMP/dist"
-          WHEEL="$(find "$RUNNER_TEMP/dist" -maxdepth 1 -type f -name 'wsl2_time_sync_diagnostics-0.7.0-*.whl' -print -quit)"
+          WHEEL="$(find "$RUNNER_TEMP/dist" -maxdepth 1 -type f -name "wsl2_time_sync_diagnostics-${VERSION}-*.whl" -print -quit)"
           test -n "$WHEEL"
           python -m pip uninstall -y wsl2-time-sync-diagnostics
           python -m pip install --no-deps "$WHEEL"
-          python - <<'PY'
+          EXPECTED_VERSION="$VERSION" python - <<'PY'
+          import os
           from importlib.metadata import version
           import wsl_time_sync
 
-          assert version("wsl2-time-sync-diagnostics") == "0.7.0"
-          assert wsl_time_sync.__version__ == "0.7.0"
-          print("Release wheel metadata and import version verified.")
+          expected = os.environ["EXPECTED_VERSION"]
+          assert version("wsl2-time-sync-diagnostics") == expected
+          assert wsl_time_sync.__version__ == expected
+          print(f"Release wheel metadata and import version verified: {expected}")
           PY
+          test "$(wsl-time-sync --version)" = "wsl-time-sync $VERSION"
       - name: Guest-core CLI smoke tests
         shell: bash
         run: |
