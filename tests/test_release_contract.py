@@ -59,7 +59,8 @@ def test_stable_docs_and_release_workflow_are_present() -> None:
     assert "Latest `1.x` release" in security
     assert 'tags:' in workflow
     assert '"v*"' in workflow
-    assert "softprops/action-gh-release@v2" in workflow
+    assert "gh release create" in workflow
+    assert "gh release upload" in workflow
 
 
 def test_v07_closure_remains_a_non_launch_result() -> None:
