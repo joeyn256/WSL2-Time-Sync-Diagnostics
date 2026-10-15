@@ -1,5 +1,5 @@
 {
-  "version": "public-v0.6.1",
+  "version": "public-v1.0.0",
   "purpose": "Human-readable publication manifest. Git commit/blob identities are authoritative for repository content.",
   "public_documents": [
     "README.md",
@@ -13,7 +13,10 @@
     "docs/limitations.md",
     "docs/real-wsl-smoke-test.md",
     "docs/cli-schema.md",
-    "docs/v0.2-guest-core.md"
+    "docs/v0.2-guest-core.md",
+    "docs/v0.7-synchronized-host-rerun.md",
+    "docs/stable-contract-v1.0.md",
+    "docs/reproducibility.md"
   ],
   "public_assets": [
     "docs/assets/three-model-timing-comparison.svg",
@@ -26,7 +29,8 @@
     "evidence/2026-09-24-same-host-screens/PROTOCOL.md",
     "evidence/2026-09-24-same-host-screens/host-clock-offset.txt",
     "evidence/2026-09-24-same-host-screens/ubuntu-24.04-timesyncd-enabled/",
-    "evidence/2026-09-24-same-host-screens/ubuntu-26.04-fresh-default/"
+    "evidence/2026-09-24-same-host-screens/ubuntu-26.04-fresh-default/",
+    "evidence/2026-10-v07-synchronized-host-rerun/README.md"
   ],
   "cross_document_checks": {
     "causal limitation present": true,
@@ -49,11 +53,15 @@
     "tick writer is stated as not established; timesyncd excluded by its v255 source; chrony not running": true,
     "D4R2 step-by-step replay lives with the full record in docs/timesyncd-investigation.md": true,
     "stable CLI/schema reference uses release-neutral naming": true,
-    "v1.0.0 stable contract remains explicitly deferred": true,
     "hero architecture labels say control paths, not proven writer count": true,
     "same-host evidence and hero values are regression-checked by tests/test_public_evidence.py": true,
     "package and publication metadata target v0.6.1 public release": true,
     "README places the measured comparison before long-form explanation and exposes engineer/reviewer entry points": true,
-    "README front door is regression-checked by tests/test_public_evidence.py": true
+    "README front door is regression-checked by tests/test_public_evidence.py": true,
+    "v0.7 synchronized-host campaign is explicitly recorded as not launched": true,
+    "v1.0.0 stable contract is declared and linked": true,
+    "reproducibility guide uses only public read-only workflow": true,
+    "package and publication metadata target v1.0.0 stable release": true,
+    "stable release contract is regression-checked": true
   }
 }
