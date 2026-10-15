@@ -194,3 +194,24 @@ None of that is required for the current project to remain useful.
 The repository is strongest as a documented case study and diagnostic tool.
 
 Use it to decide what to measure on **your** WSL2 environment, not as a substitute for measuring your environment.
+
+## v0.7 synchronized-host rerun was not completed
+
+v0.7 attempted to answer a narrower follow-up question: whether the Ubuntu 24.04 timing pathology would reproduce when the Windows host itself satisfied a frozen synchronization admission gate.
+
+That controlled synchronized-host guest campaign was **not completed**.
+
+The host-admission work reached the Windows Time correction layer, but the final bounded correction attempts did not leave W32Time in the required synchronized state. The last attempt used exactly one plain `w32tm /resync`; it returned exit code 0 while explicitly reporting that the computer did not resync because no time data was available. During that command Windows logged valid time-data/synchronization events and a small clock step, but the service subsequently reported an unsynchronized state. The packet therefore failed closed.
+
+The original Windows Time registry setting was restored and independently verified. No synchronized-host Ubuntu scientific launch occurred: Seq 2 was never opened, launches remained 0/8, and the formal host-admission observation was not consumed.
+
+Accordingly, v0.7 does **not** establish:
+
+- whether the original Ubuntu 24.04 pathology reproduces under a host that passes the frozen external-time admission gate;
+- a matched synchronized-host Ubuntu 24.04 versus Ubuntu 26.04 comparison;
+- that the Windows update or WSL version fixed the pathology;
+- that the observed Windows Time clock steps were caused specifically by the temporary threshold setting;
+- that W32Time's explicit no-data result was caused by source rediscovery or by any one mechanism.
+
+The public release preserves the attempted protocol and terminal evidence summary so another suitable host can repeat the experiment without treating this host's inability to pass admission as a scientific guest result.
+
